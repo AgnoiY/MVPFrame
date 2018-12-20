@@ -5,8 +5,8 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.mvpframe.biz.BasePresenter;
-import com.mvpframe.biz.IMvpView;
+import com.mvpframe.biz.base.BasePresenter;
+import com.mvpframe.biz.base.IMvpView;
 import com.mvpframe.constant.Constants;
 
 /**

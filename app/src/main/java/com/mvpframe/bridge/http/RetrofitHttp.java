@@ -13,7 +13,6 @@ import com.mvpframe.capabilities.http.api.Api;
 import com.mvpframe.capabilities.http.cancel.RequestManagerImpl;
 import com.mvpframe.capabilities.http.observable.HttpObservable;
 import com.mvpframe.capabilities.http.observer.HttpObserver;
-import com.mvpframe.capabilities.http.observer.UploadObserver;
 import com.mvpframe.capabilities.http.upload.UploadRequestBody;
 import com.mvpframe.capabilities.http.utils.Method;
 import com.mvpframe.capabilities.http.utils.RequestUtils;

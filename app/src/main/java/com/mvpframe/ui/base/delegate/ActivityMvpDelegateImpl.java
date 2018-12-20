@@ -3,8 +3,8 @@ package com.mvpframe.ui.base.delegate;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.mvpframe.biz.IMvpView;
-import com.mvpframe.biz.Presenter;
+import com.mvpframe.biz.base.IMvpView;
+import com.mvpframe.biz.base.Presenter;
 import com.mvpframe.ui.base.interfaces.CreateInit;
 
 /**

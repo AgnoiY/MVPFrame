@@ -31,7 +31,7 @@ public class BaseResponseModel<T> implements Serializable {
      *
      * @return
      */
-    private boolean success = true;
+    private boolean success = false;
 
     public T getData() {
         return data;

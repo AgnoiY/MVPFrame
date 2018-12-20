@@ -9,8 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.mvpframe.R;
-import com.mvpframe.biz.BasePresenter;
-import com.mvpframe.biz.IMvpView;
+import com.mvpframe.biz.base.BasePresenter;
+import com.mvpframe.biz.base.IMvpView;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
 
 /**

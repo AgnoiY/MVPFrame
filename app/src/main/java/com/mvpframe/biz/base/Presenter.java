@@ -1,4 +1,4 @@
-package com.mvpframe.biz;
+package com.mvpframe.biz.base;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;

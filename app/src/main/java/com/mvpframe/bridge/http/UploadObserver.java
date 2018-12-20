@@ -1,9 +1,10 @@
-package com.mvpframe.capabilities.http.observer;
+package com.mvpframe.bridge.http;
 
 import android.content.Context;
 
 import com.mvpframe.app.MyApplication;
 import com.mvpframe.capabilities.http.interfaces.UploadProgressCallback;
+import com.mvpframe.capabilities.http.observer.HttpObserver;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.view.dialog.UITipDialog;
 

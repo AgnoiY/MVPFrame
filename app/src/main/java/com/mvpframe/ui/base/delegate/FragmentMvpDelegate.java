@@ -6,8 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.mvpframe.biz.IMvpView;
-import com.mvpframe.biz.Presenter;
+import com.mvpframe.biz.base.IMvpView;
+import com.mvpframe.biz.base.Presenter;
 
 /**
  * Fragment生命周期

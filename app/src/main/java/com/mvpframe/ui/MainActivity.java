@@ -1,12 +1,12 @@
-package com.mvpframe.ui.personcenter;
+package com.mvpframe.ui;
 
 import android.view.View;
 
 import com.mvpframe.R;
 import com.mvpframe.bean.home.LoginModel;
-import com.mvpframe.biz.BasePresenter;
-import com.mvpframe.biz.IMvpView;
-import com.mvpframe.biz.personcenter.LoginPresenter;
+import com.mvpframe.biz.base.BasePresenter;
+import com.mvpframe.biz.base.IMvpView;
+import com.mvpframe.biz.personcenter.account.LoginPresenter;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.bridge.sharePref.SharedPrefUser;
 import com.mvpframe.databinding.ActivityMainBinding;
@@ -45,7 +45,7 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
 
     @Override
     public void initData() {
-//        presenter.login("", "123456");
+        presenter.login("15713802736", "123456");
     }
 
     @Override

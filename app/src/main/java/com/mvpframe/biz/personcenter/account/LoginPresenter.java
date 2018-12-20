@@ -1,11 +1,11 @@
-package com.mvpframe.biz.personcenter;
+package com.mvpframe.biz.personcenter.account;
 
 import android.content.Context;
 
 import com.mvpframe.bean.home.LoginModel;
-import com.mvpframe.biz.BasePresenter;
-import com.mvpframe.biz.IMvpView;
-import com.mvpframe.capabilities.http.observer.BaseModelObserver;
+import com.mvpframe.biz.base.BasePresenter;
+import com.mvpframe.biz.base.IMvpView;
+import com.mvpframe.bridge.http.BaseModelObserver;
 import com.mvpframe.constant.UrlConstans;
 
 import java.util.HashMap;
