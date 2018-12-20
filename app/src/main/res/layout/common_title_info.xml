@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/fram_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/title_bg">
+
+        <TextView
+            android:id="@+id/tv_top_title_abs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/title_mid_tv"
+            android:textSize="@dimen/text_14"
+            tools:text="title" />
+
+        <FrameLayout
+            android:id="@+id/fram_img_back"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:paddingLeft="@dimen/title_left"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                tools:src="@mipmap/back_black" />
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/title_left_tv"
+                android:textSize="@dimen/text_14"
+                android:visibility="gone"
+                tools:text="@string/back" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fllayout_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/img_right"
+                android:layout_width="@dimen/title_img_right_width"
+                android:layout_height="@dimen/title_img_right_height"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/title_right"
+                android:visibility="gone"
+                tools:src="@mipmap/ic_launcher" />
+
+
+            <TextView
+                android:id="@+id/tv_top_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="@dimen/title_right"
+                android:gravity="center"
+                android:textColor="@color/title_right_tv"
+                android:textSize="@dimen/text_14"
+                android:visibility="gone"
+                tools:text="@string/sure" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</layout>

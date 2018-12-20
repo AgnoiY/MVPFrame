@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="distance_48">48dp</dimen>
+    <dimen name="distance_16">16dp</dimen>
+    <dimen name="distance_8">8dp</dimen>
+
+    <dimen name="text_10">10sp</dimen>
+    <dimen name="text_12">12sp</dimen>
+    <dimen name="text_14">14sp</dimen>
+    <dimen name="text_16">16sp</dimen>
+    <dimen name="text_18">18sp</dimen>
+    <dimen name="text_20">20sp</dimen>
+    <dimen name="text_22">22sp</dimen>
+
+    <!--dialog-->
+    <dimen name="dialog_tips_corner">16dp</dimen>
+
+    <!--标题栏-->
+    <dimen name="title_height">45dp</dimen>
+    <dimen name="title_img_right_width">20dp</dimen>
+    <dimen name="title_img_right_height">20dp</dimen>
+    <dimen name="title_left_img_widht">12dp</dimen>
+    <dimen name="title_left_img_height">15dp</dimen>
+    <dimen name="title_left">15dp</dimen>
+    <dimen name="title_right">15dp</dimen>
+    <dimen name="top">15dp</dimen>
+
+</resources>

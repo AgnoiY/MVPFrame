@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#ffffff</color>
+
+    <!--布局背景-->
+    <color name="bg_gray">#f0f0f0</color>
+
+    <!--透明度颜色-->
+    <color name="transparent">#00000000</color>
+    <color name="black_translucent">#B0000000</color>
+
+    <!--dialog-->
+    <color name="dialog_tips_content_txt">#444444</color>
+    <color name="dialog_tips_bg">#ffffff</color>
+    <color name="dialog_tips_title_txt">#030303</color>
+    <color name="dialog_tips_btn">#d6d6d6</color>
+    <color name="dialog_tips_line">#EAEAEA</color>
+    <color name="dialog_tips_negative_btn_txt">#0076ff</color>
+    <color name="dialog_tips_negative_btn_txt_red">#fe3824</color>
+    <color name="dialog_tips_positive_btn_txt">#0076ff</color>
+    <color name="dialog_tips_select_btn">#ffc602</color>
+
+    <!--字体-->
+    <color name="text_black_cd">#333333</color>
+    <!--分割线-->
+    <color name="line_gray_cd">#dedede</color>
+
+    <!--标题栏-->
+    <color name="title_bg">#ffffff</color>
+    <color name="title_left_tv">#333333</color>
+    <color name="title_right_tv">#ffffff</color>
+    <color name="title_mid_tv">#ffffff</color>
+
+    <!--tabLayout标签-->
+    <color name="tablayout_select">#007AFF</color>
+
+
+</resources>
