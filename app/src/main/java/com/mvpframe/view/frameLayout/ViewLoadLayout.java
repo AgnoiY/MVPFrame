@@ -112,7 +112,7 @@ public class ViewLoadLayout extends FrameLayout {
     public void addContentView(View contentView) {
         if (contentView != null) {
             mContentView = contentView;
-            addView(contentView, 1);
+            addView(contentView, 0);
         }
     }
 
