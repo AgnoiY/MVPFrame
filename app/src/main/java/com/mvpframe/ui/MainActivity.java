@@ -32,7 +32,7 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     }
 
     @Override
-    public void onSuccess(String action, LoginModel data) {
+    public void onSucceed(String action, LoginModel data) {
         mLoadBinding.text.setText(SharedPrefManager.getUser().getString(SharedPrefUser.USER_NAME, ""));
         mLoadBinding.text1.setText(data.getNickName());
         mLoadBinding.bt.setText(action);
@@ -56,5 +56,11 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     @Override
     public void onClick(View v) {
         super.onClick(v);
+    }
+
+    @Override
+    public void onEmptyClickListener() {
+        super.onEmptyClickListener();
+        presenter.login("15713802736", "123456");
     }
 }

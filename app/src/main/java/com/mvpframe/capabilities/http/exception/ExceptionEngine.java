@@ -50,7 +50,7 @@ public class ExceptionEngine {
             return ex;
         } else if (e instanceof ConnectException || e instanceof SSLHandshakeException || e instanceof UnknownHostException) {//连接网络错误
             ex = new ApiException(e, CONNECT_ERROR);
-            ex.setMsg("连接失败");
+            ex.setMsg("网络连接失败");
             return ex;
         } else if (e instanceof SocketTimeoutException) {//网络超时
             ex = new ApiException(e, TIME_OUT_ERROR);

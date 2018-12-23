@@ -27,7 +27,6 @@ public class ViewLoadLayout extends FrameLayout {
     private TextView mEmptyTextView;
     private ImageView mEmptyImageView;
     private FrameLayout mEmptyfra;
-
     private View mContentView;
 
     public ViewLoadLayout(@NonNull Context context) {
@@ -58,11 +57,14 @@ public class ViewLoadLayout extends FrameLayout {
         showEmptyFra(false);
         setShowText(null);
         setShowImage(0);
-        setShowLoadingView(false);
     }
 
     private void showEmptyFra(boolean isShow) {
         mEmptyfra.setVisibility(isShow ? VISIBLE : GONE);
+    }
+
+    public boolean isShowEmptyFra() {
+        return mEmptyfra.getVisibility() == VISIBLE;
     }
 
     public void hindAll() {
@@ -77,9 +79,16 @@ public class ViewLoadLayout extends FrameLayout {
     }
 
     public void setShowText(String text) {
+        setShowText(text, 0);
+    }
+
+    @SuppressLint("ResourceType")
+    public void setShowText(String text, @DrawableRes int bg) {
         showContent(text == null);
         showEmptyFra(text != null);
         mEmptyTextView.setText(text);
+        if (bg > 0)
+            mEmptyTextView.setBackgroundResource(bg);
         mEmptyTextView.setVisibility(text != null ? VISIBLE : GONE);
     }
 
@@ -95,15 +104,6 @@ public class ViewLoadLayout extends FrameLayout {
         }
     }
 
-    public void setShowLoadingView(boolean isSHow) {
-        showContent(!isSHow);
-        if (!isSHow) {
-            setShowText(null);
-            setShowImage(0);
-        }
-        showEmptyFra(isSHow);
-    }
-
     /**
      * 添加要显示的View
      *
@@ -116,4 +116,17 @@ public class ViewLoadLayout extends FrameLayout {
         }
     }
 
+    /**
+     * 加载显示错误布局，显示信息点击事件监听
+     */
+    public void setEmptyTextClickListener(OnClickListener listener) {
+        mEmptyTextView.setOnClickListener(listener);
+    }
+
+    /**
+     * 加载显示错误布局，全布局点击事件监听
+     */
+    public void setEmptyClickListener(OnClickListener listener) {
+        mEmptyfra.setOnClickListener(listener);
+    }
 }

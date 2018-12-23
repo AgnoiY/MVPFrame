@@ -122,19 +122,6 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     public abstract P[] getPresenterArray();
 
     /**
-     * 网络请求的错误信息，已在请求中处理提示Toast
-     * 如果有特殊处理需重写
-     *
-     * @param action 区分不同事件
-     * @param code   错误码
-     * @param msg    错误信息
-     */
-    @Override
-    public void onError(String action, int code, String msg) {
-
-    }
-
-    /**
      * 配合DataBinding点击事件监听
      * 添加防止重复点击
      * 有点击事件只需重写

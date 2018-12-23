@@ -9,9 +9,10 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.mvpframe.R;
+import com.mvpframe.capabilities.http.exception.ExceptionEngine;
+import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.databinding.ActivityBaseLoadBinding;
 
 /**
  * 带空页面，错误页面显示的BaseActivity 通过BaseActivity界面操作封装成View而来
@@ -52,10 +53,14 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
 
         if (canLoadTopTitleView()) {
             mBaseBinding.titleView.setLeftFraClickListener(this);
-
             mBaseBinding.titleView.setRightFraClickListener(this);
 
             setTitleBg();
+        }
+
+        if (mBaseBinding.contentView.isShowEmptyFra()) {
+            mBaseBinding.contentView.setEmptyClickListener(this);
+            mBaseBinding.contentView.setEmptyTextClickListener(this);
         }
     }
 
@@ -68,6 +73,12 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
                 break;
             case R.id.fllayout_right:
                 topTitleViewRightClick();
+                break;
+            case R.id.fra_empty:
+                onEmptyClickListener();
+                break;
+            case R.id.tv_empty:
+                onEmptyTextClickListener();
                 break;
         }
     }
@@ -103,10 +114,16 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
      */
     public abstract int getLayout();
 
+    /**
+     * 标题返回
+     */
     public void topTitleViewleftClick() {
         finish();
     }
 
+    /**
+     * 标题右侧点击事件
+     */
     public void topTitleViewRightClick() {
 
     }
@@ -132,5 +149,48 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
         mBaseBinding.titleView.setLeftImg(R.mipmap.back_black);
 //        mBaseBinding.titleView.setLeftTitle(getString(R.string.back));
     }
+
+    /**
+     * 网络请求的错误信息，已在请求中处理提示Toast
+     * 如果有特殊处理需重写
+     *
+     * @param action 区分不同事件
+     * @param code   错误码
+     * @param msg    错误信息
+     */
+    @Override
+    public void onError(String action, int code, String msg) {
+        if (code == ExceptionEngine.CONNECT_ERROR) {
+            mBaseBinding.contentView.setShowText(msg);
+            mBaseBinding.contentView.setShowImage(R.mipmap.ic_launcher);
+        }
+    }
+
+    @Override
+    public void onSuccess(String action, T data) {
+        mBaseBinding.contentView.hindEmptyAll();
+        onSucceed(action,data);
+    }
+
+    /**
+     * 加载成功
+     * @param action 区分不同事件
+     * @param data   数据
+     */
+    public abstract void onSucceed(String action, T data);
+
+    /**
+     * 加载显示错误布局，全布局点击事件监听
+     */
+    public void onEmptyClickListener (){
+    }
+
+    /**
+     * 加载显示错误布局，显示信息点击事件监听
+     */
+    public void onEmptyTextClickListener() {
+    }
+
+
 
 }
