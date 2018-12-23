@@ -4,9 +4,9 @@ import android.view.View;
 
 import com.mvpframe.R;
 import com.mvpframe.bean.home.LoginModel;
-import com.mvpframe.biz.base.BasePresenter;
-import com.mvpframe.biz.base.IMvpView;
-import com.mvpframe.biz.personcenter.account.LoginPresenter;
+import com.mvpframe.presenter.base.BasePresenter;
+import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.bridge.sharePref.SharedPrefUser;
 import com.mvpframe.databinding.ActivityMainBinding;

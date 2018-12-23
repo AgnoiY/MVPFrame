@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mvpframe.app.MyApplication;
-import com.mvpframe.biz.base.BasePresenter;
-import com.mvpframe.biz.base.IMvpView;
+import com.mvpframe.presenter.base.BasePresenter;
+import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.constant.Constants;
 import com.mvpframe.ui.base.PresentationLayerFuncHelper;
 import com.mvpframe.ui.base.delegate.ActivityMvpDelegate;

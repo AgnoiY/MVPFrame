@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mvpframe.app.MyApplication;
-import com.mvpframe.biz.base.BasePresenter;
-import com.mvpframe.biz.base.IMvpView;
+import com.mvpframe.presenter.base.BasePresenter;
+import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.PresentationLayerFuncHelper;
 import com.mvpframe.ui.base.delegate.FragmentMvpDelegate;
 import com.mvpframe.ui.base.delegate.FragmentMvpDelegateImpl;

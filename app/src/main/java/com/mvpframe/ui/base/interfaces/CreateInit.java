@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.mvpframe.biz.base.IMvpView;
-import com.mvpframe.biz.base.Presenter;
+import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.presenter.base.Presenter;
 
 /**
  * <公共方法抽象>

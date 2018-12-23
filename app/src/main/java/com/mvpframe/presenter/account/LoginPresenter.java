@@ -1,10 +1,10 @@
-package com.mvpframe.personcenter.account;
+package com.mvpframe.presenter.account;
 
 import android.content.Context;
 
 import com.mvpframe.bean.home.LoginModel;
-import com.mvpframe.personcenter.base.BasePresenter;
-import com.mvpframe.personcenter.base.IMvpView;
+import com.mvpframe.presenter.base.BasePresenter;
+import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.bridge.http.BaseModelObserver;
 import com.mvpframe.constant.UrlConstans;
 
