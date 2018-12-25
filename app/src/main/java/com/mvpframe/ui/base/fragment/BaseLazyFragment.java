@@ -30,7 +30,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
 
     private String key;
 
-    protected String KEY = "KEY";
+    protected String bundleKey = "bundleKey";
 
     /**
      * 传递的数据
@@ -79,7 +79,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
     public void initData() {
         if (getArguments() != null)
             bundle = getArguments();
-        key = this.getClass().getSimpleName() + bundle.get(KEY);
+        key = TAG + bundle.get(bundleKey);
         if (Constants.isStartFragmen) {
             Constants.isStartFragmen = false;
             mapStarted.put(key, true);
