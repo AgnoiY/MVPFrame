@@ -50,13 +50,13 @@ public class TopTitleLayout extends FrameLayout {
 
     private void init() {
         LayoutInflater.from(mContext).inflate(R.layout.common_title_info, this, true);
-        mTextTitle = (TextView) findViewById(R.id.tv_top_title_abs);
-        mLeftTv = (TextView) findViewById(R.id.tv_back);
-        mRightTv = (TextView) findViewById(R.id.tv_top_right);
-        mLeftFra = (FrameLayout) findViewById(R.id.fram_img_back);
-        mRightFra = (FrameLayout) findViewById(R.id.fllayout_right);
-        mLeftImg = (ImageView) findViewById(R.id.img_back);
-        mRightImg = (ImageView) findViewById(R.id.img_right);
+        mTextTitle = findViewById(R.id.tv_top_title_abs);
+        mLeftTv = findViewById(R.id.tv_back);
+        mRightTv = findViewById(R.id.tv_top_right);
+        mLeftFra = findViewById(R.id.fram_img_back);
+        mRightFra = findViewById(R.id.fllayout_right);
+        mLeftImg = findViewById(R.id.img_back);
+        mRightImg = findViewById(R.id.img_right);
     }
 
     public void setLeftTitle(String text) {
