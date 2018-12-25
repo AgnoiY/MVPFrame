@@ -77,11 +77,11 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
 
     @Override
     public void initData() {
+        if (getArguments() != null)
+            bundle = getArguments();
+        key = this.getClass().getSimpleName() + bundle.get(KEY);
         if (Constants.isStartFragmen) {
             Constants.isStartFragmen = false;
-            if (getArguments() != null)
-                bundle = getArguments();
-            key = this.getClass().getSimpleName() + bundle.get(KEY);
             mapStarted.put(key, true);
             lazyLoad();
         }
