@@ -37,6 +37,7 @@ public abstract class BaseTablayoutFragment<T> extends BaseLazyFragment<T, Activ
 
         tablayoutAdapter.addFrag(mFragments, mTitles);
 
+        mLazyBinding.viewpager.setOffscreenPageLimit(mFragments.size()-1);
         mLazyBinding.viewpager.setAdapter(tablayoutAdapter);
         mLazyBinding.tablayout.setupWithViewPager(mLazyBinding.viewpager);//viewpager和tablayout关联
         mLazyBinding.viewpager.setOffscreenPageLimit(tablayoutAdapter.getCount());
