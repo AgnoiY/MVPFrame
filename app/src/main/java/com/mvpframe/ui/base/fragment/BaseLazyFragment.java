@@ -2,12 +2,16 @@ package com.mvpframe.ui.base.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.mvpframe.constant.Constants;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.constant.Constants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Fragment 懒加载 防止fragment初始化时加载大量数据
@@ -17,13 +21,21 @@ import com.mvpframe.constant.Constants;
  */
 public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends BaseFragment<T, IMvpView<T>, BasePresenter<IMvpView<T>>> {
 
+    protected B mLazyBinding;
 
     /**
-     * 判断是否是初始化Fragment
+     * 全局控制Fragment第一次加载数据
      */
-    private boolean hasStarted = false;
+    private Map<Object, Boolean> mapStarted = new HashMap<>();
 
-    protected B mLazyBinding;
+    private String key;
+
+    protected String KEY = "KEY";
+
+    /**
+     * 传递的数据
+     */
+    protected Bundle bundle;
 
     @Override
     public View initView(LayoutInflater inflater) {
@@ -40,15 +52,14 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            hasStarted = true;
             if (!Constants.isStartFragmen) {
-                lazyLoad();
+                if (mapStarted.get(key) != null || !mapStarted.get(key)) {
+                    mapStarted.put(key, true);
+                    lazyLoad();
+                }
             }
         } else {
-            if (hasStarted) {
-                hasStarted = false;
-                onInvisible();
-            }
+            onInvisible();
         }
     }
 
@@ -68,6 +79,10 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
     public void initData() {
         if (Constants.isStartFragmen) {
             Constants.isStartFragmen = false;
+            if (getArguments() != null)
+                bundle = getArguments();
+            key = this.getClass().getSimpleName() + bundle.get(KEY);
+            mapStarted.put(key, true);
             lazyLoad();
         }
     }

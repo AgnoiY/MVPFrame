@@ -13,7 +13,7 @@ public class LogUtil {
 
     public static Boolean isDeBug = false;
 
-    private static final String TAG = "LOG_CD";
+    private static final String TAG = "LOG_YONG";
 
     public static void I(String msg) {
         if (isDeBug) {
