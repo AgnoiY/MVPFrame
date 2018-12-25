@@ -22,7 +22,7 @@ public class OnNoDoubleClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (isDoubleClick()) {
-            LogUtil.E(MyApplication.mApplication.getString(R.string.noDouble));
+            LogUtil.E("防止重复点击");
         } else {
             onNoDoubleClick.onNoDoubleClick(v);
         }

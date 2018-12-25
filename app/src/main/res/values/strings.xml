@@ -1,22 +1,4 @@
 <resources>
     <string name="app_name">MVPFrame</string>
 
-    <string name="net_error">网络加载异常</string>
-    <string name="net_service_time_out">服务器响应超时</string>
-    <string name="net_req_time_out">网络请求超时</string>
-    <string name="net_exception">网络异常</string>
-    <string name="error_unknown">未知错误</string>
-    <string name="net_data_is_null">数据获取为空</string>
-    <string name="no_net">暂无网络</string>
-    <string name="net_req_fail">网络请求失败</string>
-
-    <string name="prompt">提示</string>
-    <string name="sure">确定</string>
-    <string name="cancel">取消</string>
-    <string name="content">内容</string>
-    <string name="back">返回</string>
-
-    <string name="noDouble">防止重复点击</string>
-    <string name="noData">暂无数据</string>
-
 </resources>
