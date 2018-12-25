@@ -30,6 +30,9 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
 
     private String key;
 
+    /**
+     * fragment的标识
+     */
     protected String bundleKey = "bundleKey";
 
     /**
@@ -53,7 +56,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (!Constants.isStartFragmen) {
-                if (mapStarted.get(key) != null || !mapStarted.get(key)) {
+                if (mapStarted.size() == 0 || !mapStarted.get(key)) {
                     mapStarted.put(key, true);
                     lazyLoad();
                 }
