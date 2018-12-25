@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MVPFrame</string>
 
+    <string name="sure">确定</string>
+    <string name="back">返回</string>
+
+    <string name="noData">暂无数据</string>
+
 </resources>
