@@ -57,7 +57,6 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         presentationLayerFuncHelper = new PresentationLayerFuncHelper(this);
         setContentView(savedInstanceState);
         mContext = this;
-        Constants.isStartFragmen = false;
 
         initData();
         initListeners();
