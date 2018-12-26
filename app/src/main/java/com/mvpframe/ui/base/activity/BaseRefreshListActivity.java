@@ -1,15 +1,11 @@
 package com.mvpframe.ui.base.activity;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.mvpframe.R;
 import com.mvpframe.databinding.LayoutCommonRecyclerRefreshBinding;
-import com.mvpframe.view.recyclerView.BaseRefreshCallBack;
+import com.mvpframe.view.recyclerView.RecyclerInterface;
 import com.mvpframe.view.recyclerView.RefreshHelper;
-
-import java.util.List;
 
 /**
  * 公用刷新
@@ -18,7 +14,8 @@ import java.util.List;
  * @author yong
  */
 
-public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, LayoutCommonRecyclerRefreshBinding> {
+public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, LayoutCommonRecyclerRefreshBinding>
+        implements RecyclerInterface<T> {
 
     protected RefreshHelper mRefreshHelper;
 
@@ -31,41 +28,15 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
      * 初始化刷新相关
      */
     protected void initRefreshHelper(int limit) {
-        mRefreshHelper = new RefreshHelper(this, new BaseRefreshCallBack<T>(this) {
-            @Override
-            public View getRefreshLayout() {
-                return mLoadBinding.refreshLayout;
-            }
-
-            @Override
-            public RecyclerView getRecyclerView() {
-                return mLoadBinding.rv;
-            }
-
-            @Override
-            public RecyclerView.Adapter getAdapter(List<T> listData) {
-                return getListAdapter(listData);
-            }
-
-            @Override
-            public void getListDataRequest(int pageindex, int limit) {
-                getListRequest(pageindex, limit);
-            }
-        });
-        mRefreshHelper.init(limit);
-
+        mRefreshHelper = new RefreshHelper<>(this, mLoadBinding.refreshLayout, mLoadBinding.rv).init(limit);
+        mRefreshHelper.onDefaluteMRefresh();
     }
 
-
-    abstract public RecyclerView.Adapter getListAdapter(List<T> listData);
-
-    abstract public void getListRequest(int pageindex, int limit);
 
     @Override
     protected void initNotify(Context context) {
         super.initNotify(context);
         initRefreshHelper(setLimit());
-        mRefreshHelper.onDefaluteMRefresh();
     }
 
     /**

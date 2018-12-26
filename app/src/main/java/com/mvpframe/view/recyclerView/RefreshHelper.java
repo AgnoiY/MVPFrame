@@ -1,8 +1,11 @@
 package com.mvpframe.view.recyclerView;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -11,6 +14,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,9 +73,33 @@ public class RefreshHelper<T> {
     }
 
 
-    public RefreshHelper(Context context, RefreshInterface mRefreshInterface) {
-        this.mRefreshInterface = mRefreshInterface;
-        this.mContext = context;
+    public RefreshHelper(Object context, View refreshLayout, RecyclerView recyclerView) {
+
+        SoftReference<Object> mS = new SoftReference<>(context);
+        this.mContext = (Context) mS.get();
+        RecyclerInterface<T> recyclerInterface = (RecyclerInterface) mS.get();
+
+        this.mRefreshInterface = new BaseRefreshCallBack((Activity) mS.get()) {
+            @Override
+            public View getRefreshLayout() {
+                return refreshLayout;
+            }
+
+            @Override
+            public RecyclerView getRecyclerView() {
+                return recyclerView;
+            }
+
+            @Override
+            public RecyclerView.Adapter getAdapter(List listData) {
+                return recyclerInterface.getListAdapter(listData);
+            }
+
+            @Override
+            public void getListDataRequest(int pageindex, int limit) {
+                recyclerInterface.getDataRequest(pageindex, limit);
+            }
+        };
     }
 
     /**
@@ -79,7 +107,7 @@ public class RefreshHelper<T> {
      *
      * @param limit 分页个数
      */
-    public void init(int limit) {
+    public RefreshHelper init(int limit) {
 
         mPageIndex = 1;//分页从1开始
 
@@ -108,6 +136,7 @@ public class RefreshHelper<T> {
             mRecyclerView.setAdapter(mAdapter);
         }
         initRefreshLayout();
+        return this;
     }
 
 
@@ -146,21 +175,23 @@ public class RefreshHelper<T> {
     }
 
     //执行默认刷新 mPageIndex变为一
-    public void onDefaluteMRefresh() {
+    public RefreshHelper onDefaluteMRefresh() {
         mPageIndex = 1;
         if (mRefreshInterface != null) {
             mRefreshInterface.getListDataRequest(mPageIndex, mLimit);
         }
+        return this;
     }
 
     //执行默认刷新 mPageIndex++
-    public void onDefaluteMLoadMore() {
+    public RefreshHelper onDefaluteMLoadMore() {
         if (mDataList.size() > 0) {
             mPageIndex++;
         }
         if (mRefreshInterface != null) {
             mRefreshInterface.getListDataRequest(mPageIndex, mLimit);
         }
+        return this;
     }
 
     //刷新
@@ -228,6 +259,15 @@ public class RefreshHelper<T> {
 
     public void setData(List<T> datas, int noDataImg) {
         setData(datas, mContext.getString(R.string.noData), noDataImg);
+    }
+
+    /**
+     * 获取数据为空时不加载空页面
+     *
+     * @param datas
+     */
+    public void setData(List<T> datas) {
+        setData(datas, "", 0);
     }
 
     /**

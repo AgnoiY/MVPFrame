@@ -12,9 +12,6 @@ import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * <功能详细描述>
  * 泛型传入
@@ -49,12 +46,6 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     @Override
     public void initData() {
         presenter.login("15713802736", "123456");
-        List<LoginModel> list = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            LoginModel model = new LoginModel();
-            model.setName("qwe");
-            list.add(model);
-        }
     }
 
     @Override

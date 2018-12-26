@@ -6,6 +6,7 @@ import android.view.View;
 import com.mvpframe.R;
 import com.mvpframe.databinding.LayoutCommonRecyclerRefreshBinding;
 import com.mvpframe.view.recyclerView.BaseRefreshCallBack;
+import com.mvpframe.view.recyclerView.RecyclerInterface;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
 import java.util.List;
@@ -17,7 +18,8 @@ import java.util.List;
  * @author yong
  */
 
-public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, LayoutCommonRecyclerRefreshBinding> {
+public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, LayoutCommonRecyclerRefreshBinding>
+        implements RecyclerInterface<T> {
 
 
     protected RefreshHelper mRefreshHelper;
@@ -31,39 +33,14 @@ public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, Lay
      * 初始化刷新相关
      */
     protected void initRefreshHelper(int limit) {
-        mRefreshHelper = new RefreshHelper(mActivity, new BaseRefreshCallBack<T>(mActivity) {
-            @Override
-            public View getRefreshLayout() {
-                return mLazyBinding.refreshLayout;
-            }
-
-            @Override
-            public RecyclerView getRecyclerView() {
-                return mLazyBinding.rv;
-            }
-
-            @Override
-            public RecyclerView.Adapter getAdapter(List<T> listData) {
-                return getListAdapter(listData);
-            }
-
-            @Override
-            public void getListDataRequest(int pageindex, int limit) {
-                getListRequest(pageindex, limit);
-            }
-        });
-        mRefreshHelper.init(limit);
+        mRefreshHelper = new RefreshHelper<>(this, mLazyBinding.refreshLayout, mLazyBinding.rv).init(limit);
+        mRefreshHelper.onDefaluteMRefresh();
 
     }
-
-    abstract public RecyclerView.Adapter getListAdapter(List<T> listData);
-
-    abstract public void getListRequest(int pageindex, int limit);
 
     @Override
     protected void lazyLoad() {
         initRefreshHelper(setLimit());
-        mRefreshHelper.onDefaluteMRefresh();
     }
 
     /**
