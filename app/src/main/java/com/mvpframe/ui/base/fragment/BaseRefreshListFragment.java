@@ -1,7 +1,6 @@
 package com.mvpframe.ui.base.fragment;
 
 import com.mvpframe.R;
-import com.mvpframe.databinding.LayoutCommonRecyclerRefreshBinding;
 import com.mvpframe.databinding.LayoutRecyclerRefreshBinding;
 import com.mvpframe.view.recyclerView.RecyclerInterface;
 import com.mvpframe.view.recyclerView.RefreshHelper;
