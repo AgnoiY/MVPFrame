@@ -48,18 +48,30 @@ public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, Lay
             }
 
             @Override
-            public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
-                getListRequest(pageindex, limit, isShowDialog);
+            public void getListDataRequest(int pageindex, int limit) {
+                getListRequest(pageindex, limit);
             }
         });
         mRefreshHelper.init(limit);
 
     }
 
-
     abstract public RecyclerView.Adapter getListAdapter(List<T> listData);
 
-    abstract public void getListRequest(int pageindex, int limit, boolean isShowDialog);
+    abstract public void getListRequest(int pageindex, int limit);
+
+    @Override
+    protected void lazyLoad() {
+        initRefreshHelper(setLimit());
+        mRefreshHelper.onDefaluteMRefresh();
+    }
+
+    /**
+     * 设置一页的加载数据量，默认加载15个
+     *
+     * @return
+     */
+    public abstract int setLimit();
 
     @Override
     public void onDestroy() {

@@ -33,11 +33,11 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
     public void setContentView(Bundle savedInstanceState) {
         mBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_base_load);
 
-        initNotify(this);
-
         mBaseBinding.contentView.addContentView(addMainView());
 
         initTitleView();
+
+        initNotify(this);
     }
 
     protected void initNotify(Context context) {
@@ -160,7 +160,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
      */
     @Override
     public void onError(String action, int code, String msg) {
-        if (code == ExceptionEngine.CONNECT_ERROR) {
+        if (code == ExceptionEngine.CONNECT_ERROR) {//网络连接失败
             mBaseBinding.contentView.setShowText(msg);
             mBaseBinding.contentView.setShowImage(R.mipmap.ic_launcher);
         }

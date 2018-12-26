@@ -37,27 +37,6 @@ public abstract class BaseRefreshCallBack<T> implements RefreshInterface<T> {
 
     @SuppressLint("ResourceType")
     @Override
-    public void showErrorState(String errorMsg, int img) {
-        if (emptyViewBinding == null) {
-            return;
-        }
-        if (TextUtils.isEmpty(errorMsg) && img == 0) {
-            emptyViewBinding.getRoot().setVisibility(View.GONE);
-            return;
-        }
-        emptyViewBinding.getRoot().setVisibility(View.VISIBLE);
-        emptyViewBinding.tv.setText(errorMsg);
-        if (img <= 0) {
-            emptyViewBinding.img.setVisibility(View.GONE);
-        } else {
-            emptyViewBinding.img.setImageResource(img);
-            emptyViewBinding.img.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    @SuppressLint("ResourceType")
-    @Override
     public void showEmptyState(String errorMsg, int errorImg) {
         if (emptyViewBinding == null) {
             return;

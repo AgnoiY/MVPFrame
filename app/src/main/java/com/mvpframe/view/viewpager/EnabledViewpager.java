@@ -14,7 +14,7 @@ import android.view.MotionEvent;
  */
 public class EnabledViewpager extends ViewPager {
 
-    private boolean isPagingEnabled = false;
+    private boolean isPagingEnabled = true;//是否禁止左右滑动
 
     public EnabledViewpager(Context context) {
         super(context);

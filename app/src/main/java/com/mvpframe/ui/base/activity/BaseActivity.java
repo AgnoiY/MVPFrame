@@ -19,6 +19,7 @@ import com.mvpframe.ui.base.interfaces.CreateInit;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
 import com.mvpframe.util.LogUtil;
+import com.mvpframe.util.ToastUtil;
 import com.mvpframe.util.Tools;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -185,7 +186,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         MyApplication.mApplication.deleteActivity(this);
         EventBus.getDefault().unregister(this);
         Constants.isStartFragmen = true;
-
+        ToastUtil.destory();
         super.onDestroy();
     }
 

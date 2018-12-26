@@ -22,15 +22,13 @@ public interface RefreshInterface<T> {
 
     View getEmptyView();
 
-    void showErrorState(String errorMsg, @DrawableRes int errorImg);
-
     void showEmptyState(String errorMsg, @DrawableRes int errorImg);
 
     void onRefresh(int pageindex, int limit);
 
     void onLoadMore(int pageindex, int limit);
 
-    void getListDataRequest(int pageindex, int limit, boolean isShowDialog);
+    void getListDataRequest(int pageindex, int limit);
 
     void onDestroy();
 

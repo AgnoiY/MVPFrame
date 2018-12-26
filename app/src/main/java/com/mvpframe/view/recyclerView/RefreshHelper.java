@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.mvpframe.R;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
@@ -73,11 +74,6 @@ public class RefreshHelper<T> {
         this.mContext = context;
     }
 
-
-    public void setPageIndex(int mPageIndex) {
-        this.mPageIndex = mPageIndex;
-    }
-
     /**
      * 初始化
      *
@@ -87,9 +83,11 @@ public class RefreshHelper<T> {
 
         mPageIndex = 1;//分页从1开始
 
+        if (limit <= 0) limit = LIMITE;
+
         mLimit = limit;//分页数量
 
-        mDataList = new ArrayList<T>();
+        mDataList = new ArrayList<>();
 
         if (mRefreshInterface != null) {
             mRefreshLayout = (SmartRefreshLayout) mRefreshInterface.getRefreshLayout();
@@ -99,7 +97,7 @@ public class RefreshHelper<T> {
 
             mEmptyView = mRefreshInterface.getEmptyView();
             if (linearLayoutManager == null) {
-                linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+                linearLayoutManager = new LinearLayoutManager(mContext);
             }
             mRecyclerView.setLayoutManager(linearLayoutManager);
         }
@@ -127,7 +125,7 @@ public class RefreshHelper<T> {
         mRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) { //刷新
-                onMRefresh(1, mLimit, false);
+                onMRefresh(1, mLimit);
                 if (mRefreshInterface != null) {
                     mRefreshInterface.onRefresh(1, mLimit);
                 }
@@ -148,29 +146,29 @@ public class RefreshHelper<T> {
     }
 
     //执行默认刷新 mPageIndex变为一
-    public void onDefaluteMRefresh(boolean isShowDialog) {
+    public void onDefaluteMRefresh() {
         mPageIndex = 1;
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(mPageIndex, mLimit, isShowDialog);
+            mRefreshInterface.getListDataRequest(mPageIndex, mLimit);
         }
     }
 
     //执行默认刷新 mPageIndex++
-    public void onDefaluteMLoadMore(boolean isShowDialog) {
+    public void onDefaluteMLoadMore() {
         if (mDataList.size() > 0) {
             mPageIndex++;
         }
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(mPageIndex, mLimit, isShowDialog);
+            mRefreshInterface.getListDataRequest(mPageIndex, mLimit);
         }
     }
 
     //刷新
-    public void onMRefresh(int pageindex, int limit, boolean isShowDialog) {
+    public void onMRefresh(int pageindex, int limit) {
         mPageIndex = pageindex;
         mLimit = limit;
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(pageindex, limit, isShowDialog);
+            mRefreshInterface.getListDataRequest(pageindex, limit);
         }
 
     }
@@ -180,38 +178,16 @@ public class RefreshHelper<T> {
         mPageIndex = pageIndex;
         mLimit = limit;
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(pageIndex, limit, false);
+            mRefreshInterface.getListDataRequest(pageIndex, limit);
         }
     }
-
-
-    //加载错误布局
-    public void loadError(String str, int img) {
-
-        if (mRefreshLayout != null) {
-            if (mRefreshLayout.isRefreshing()) { //停止刷新
-                mRefreshLayout.finishRefresh();
-            }
-            if (mRefreshLayout.isLoading()) {//停止加载
-                mRefreshLayout.finishLoadmore();
-            }
-        }
-
-        if (mEmptyView != null && mDataList.isEmpty()) {
-            if (mRefreshInterface != null) {
-                mRefreshInterface.showErrorState(str, img);
-            }
-            if (mAdapter != null) mAdapter.setEmptyView(mEmptyView);
-        }
-    }
-
 
     /**
      * 设置加载数据 实现分页逻辑
      *
      * @param datas
      */
-    public void setData(List<T> datas, String emp, int img) {
+    public void setData(List<T> datas, String noData, int noDataImg) {
         if (mRefreshLayout != null) {
             if (mRefreshLayout.isRefreshing()) {
                 mRefreshLayout.finishRefresh();
@@ -244,10 +220,14 @@ public class RefreshHelper<T> {
 
         if (mEmptyView != null && mDataList.isEmpty()) {
             if (mRefreshInterface != null) {
-                mRefreshInterface.showEmptyState(emp, img);
+                mRefreshInterface.showEmptyState(noData, noDataImg);
             }
             if (mAdapter != null) mAdapter.setEmptyView(mEmptyView);
         }
+    }
+
+    public void setData(List<T> datas, int noDataImg) {
+        setData(datas, mContext.getString(R.string.noData), noDataImg);
     }
 
     /**

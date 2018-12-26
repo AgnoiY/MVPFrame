@@ -4,13 +4,16 @@ import android.view.View;
 
 import com.mvpframe.R;
 import com.mvpframe.bean.home.LoginModel;
-import com.mvpframe.presenter.base.BasePresenter;
-import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.bridge.sharePref.SharedPrefUser;
 import com.mvpframe.databinding.ActivityMainBinding;
+import com.mvpframe.presenter.account.LoginPresenter;
+import com.mvpframe.presenter.base.BasePresenter;
+import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <功能详细描述>
@@ -46,6 +49,12 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     @Override
     public void initData() {
         presenter.login("15713802736", "123456");
+        List<LoginModel> list = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            LoginModel model = new LoginModel();
+            model.setName("qwe");
+            list.add(model);
+        }
     }
 
     @Override

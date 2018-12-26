@@ -11,7 +11,7 @@
 
     <!--透明度颜色-->
     <color name="transparent">#00000000</color>
-    <color name="black_translucent">#B0000000</color>
+    <color name="black_translucent">#70000000</color>
 
     <!--dialog-->
     <color name="dialog_tips_content_txt">#444444</color>

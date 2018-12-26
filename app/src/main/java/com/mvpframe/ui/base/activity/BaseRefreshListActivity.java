@@ -1,5 +1,6 @@
 package com.mvpframe.ui.base.activity;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -47,8 +48,8 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
             }
 
             @Override
-            public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
-                getListRequest(pageindex, limit, isShowDialog);
+            public void getListDataRequest(int pageindex, int limit) {
+                getListRequest(pageindex, limit);
             }
         });
         mRefreshHelper.init(limit);
@@ -58,8 +59,21 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
 
     abstract public RecyclerView.Adapter getListAdapter(List<T> listData);
 
-    abstract public void getListRequest(int pageindex, int limit, boolean isShowDialog);
+    abstract public void getListRequest(int pageindex, int limit);
 
+    @Override
+    protected void initNotify(Context context) {
+        super.initNotify(context);
+        initRefreshHelper(setLimit());
+        mRefreshHelper.onDefaluteMRefresh();
+    }
+
+    /**
+     * 设置一页的加载数据量，默认加载15个
+     *
+     * @return
+     */
+    public abstract int setLimit();
 
     @Override
     protected void onDestroy() {
