@@ -39,27 +39,9 @@
             pv:border_inside_color="#50c0e9"
             pv:border_thickness="3dp" />
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.scwang.smartrefresh.layout.header.ClassicsHeader
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:overScrollMode="never" />
-
-            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <include
+            android:id="@+id/in"
+            layout="@layout/layout_recycler_refresh"/>
 
     </LinearLayout>
 

@@ -2,10 +2,8 @@ package com.mvpframe.view.recyclerView;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -47,6 +45,10 @@ public class RefreshHelper<T> {
     private Context mContext;
 
     private View mEmptyView;
+
+    private boolean isEnableRefresh = true;
+
+    private boolean isEnableLoadmore = true;
 
     public int getmPageIndex() {
         return mPageIndex;
@@ -139,7 +141,6 @@ public class RefreshHelper<T> {
         return this;
     }
 
-
     /**
      * 初始化刷新加载
      */
@@ -150,6 +151,10 @@ public class RefreshHelper<T> {
         mRefreshLayout.setEnableLoadmoreWhenContentNotFull(true);//不满一行启动上啦加载
 
         mRefreshLayout.setEnableAutoLoadmore(false);//禁用惯性
+
+        mRefreshLayout.setEnableRefresh(isEnableRefresh);//开启刷新
+
+        mRefreshLayout.setEnableLoadmore(isEnableLoadmore);//开启加载更多
 
         mRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
@@ -282,6 +287,22 @@ public class RefreshHelper<T> {
 
     public RefreshHelper setLinearLayoutManager(LinearLayoutManager linearLayoutManager) {
         this.linearLayoutManager = linearLayoutManager;
+        return this;
+    }
+
+    public RefreshHelper<T> setEnableRefresh(boolean isEnableRefresh) {
+        this.isEnableRefresh = isEnableRefresh;
+        return this;
+    }
+
+    public RefreshHelper<T> setEnableLoadmore(boolean isEnableLoadmore) {
+        this.isEnableLoadmore = isEnableLoadmore;
+        return this;
+    }
+
+    public RefreshHelper<T> setEnableRefreshLoadmore() {
+        this.isEnableRefresh = false;
+        this.isEnableLoadmore = false;
         return this;
     }
 }
