@@ -21,7 +21,7 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
 
     @Override
     public int getLayout() {
-        return R.layout.layout_common_recycler_refresh;
+        return R.layout.layout_recycler_refresh;
     }
 
     /**

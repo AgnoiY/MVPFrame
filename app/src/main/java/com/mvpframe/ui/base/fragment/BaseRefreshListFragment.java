@@ -1,15 +1,10 @@
 package com.mvpframe.ui.base.fragment;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
 import com.mvpframe.R;
 import com.mvpframe.databinding.LayoutCommonRecyclerRefreshBinding;
-import com.mvpframe.view.recyclerView.BaseRefreshCallBack;
+import com.mvpframe.databinding.LayoutRecyclerRefreshBinding;
 import com.mvpframe.view.recyclerView.RecyclerInterface;
 import com.mvpframe.view.recyclerView.RefreshHelper;
-
-import java.util.List;
 
 /**
  * 公用刷新
@@ -18,7 +13,7 @@ import java.util.List;
  * @author yong
  */
 
-public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, LayoutCommonRecyclerRefreshBinding>
+public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, LayoutRecyclerRefreshBinding>
         implements RecyclerInterface<T> {
 
 
@@ -26,7 +21,7 @@ public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, Lay
 
     @Override
     protected int getLayout() {
-        return R.layout.layout_common_recycler_refresh;
+        return R.layout.layout_recycler_refresh;
     }
 
     /**
