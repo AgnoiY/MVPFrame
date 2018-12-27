@@ -16,10 +16,4 @@ public class Constants {
      * 数据缓存时间
      */
     public static final String URL_TIME = "3600*24";
-    /**
-     * 全局控制Fragment第一次启动，懒加载无数据现象
-     */
-    public static boolean isStartFragmen = true;
-
-
 }

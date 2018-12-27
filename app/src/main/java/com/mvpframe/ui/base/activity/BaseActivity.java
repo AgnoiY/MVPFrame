@@ -11,7 +11,6 @@ import android.widget.EditText;
 import com.mvpframe.app.MyApplication;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.constant.Constants;
 import com.mvpframe.ui.base.PresentationLayerFuncHelper;
 import com.mvpframe.ui.base.delegate.ActivityMvpDelegate;
 import com.mvpframe.ui.base.delegate.ActivityMvpDelegateImpl;
@@ -185,7 +184,6 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         getMvpDelegate().onDestroy();
         MyApplication.mApplication.deleteActivity(this);
         EventBus.getDefault().unregister(this);
-        Constants.isStartFragmen = true;
         ToastUtil.destory();
         super.onDestroy();
     }

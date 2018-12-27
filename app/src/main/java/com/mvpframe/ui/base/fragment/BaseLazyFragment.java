@@ -2,16 +2,11 @@ package com.mvpframe.ui.base.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.mvpframe.constant.Constants;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Fragment 懒加载 防止fragment初始化时加载大量数据
@@ -24,21 +19,13 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
     protected B mLazyBinding;
 
     /**
-     * 全局控制Fragment第一次加载数据
+     * Fragment第一次加载
      */
-    private Map<Object, Boolean> mapStarted = new HashMap<>();
-
-    private String key;
-
+    private boolean isStartFragmen = false;
     /**
-     * fragment的标识
+     * Fragment第一次加载数据
      */
-    protected String bundleKey = "bundleKey";
-
-    /**
-     * 传递的数据
-     */
-    protected Bundle bundle;
+    private boolean isStartFragmenData = false;
 
     @Override
     public View initView(LayoutInflater inflater) {
@@ -55,13 +42,13 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            if (!Constants.isStartFragmen) {
-                if (mapStarted.size() == 0 || !mapStarted.get(key)) {
-                    mapStarted.put(key, true);
-                    lazyLoad();
-                }
+            isStartFragmen = true;
+            if (isStartFragmen && isStartFragmenData) {
+                isStartFragmenData = false;
+                lazyLoad();
             }
         } else {
+            isStartFragmen = false;
             onInvisible();
         }
     }
@@ -80,15 +67,17 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
 
     @Override
     public void initData() {
-        if (getArguments() != null)
-            bundle = getArguments();
-
-        key = TAG + (bundle != null ? bundle.get(bundleKey) : "");
-
-        if (Constants.isStartFragmen) {
-            Constants.isStartFragmen = false;
-            mapStarted.put(key, true);
+        isStartFragmenData = true;//多个Fragment复用时，加载数据
+        if (isStartFragmen) {
+            isStartFragmenData = false;
             lazyLoad();
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        isStartFragmen = false;
+        isStartFragmenData = false;
     }
 }
