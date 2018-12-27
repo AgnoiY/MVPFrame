@@ -105,6 +105,42 @@ public class RefreshHelper<T> {
     }
 
     /**
+     * 初始化 没有刷新和加载更多
+     *
+     * @param limit 分页个数
+     * @return
+     */
+    public RefreshHelper initEnable(int limit) {
+        this.isEnableRefresh = this.isEnableLoadmore = false;
+        init(limit);
+        return this;
+    }
+
+    /**
+     * 初始化 没有刷新
+     *
+     * @param limit 分页个数
+     * @return
+     */
+    public RefreshHelper initEnableRefresh(int limit) {
+        this.isEnableRefresh = false;
+        init(limit);
+        return this;
+    }
+
+    /**
+     * 初始化 没有加载更多
+     *
+     * @param limit 分页个数
+     * @return
+     */
+    public RefreshHelper initEnableRefreshLoadmore(int limit) {
+        this.isEnableLoadmore = false;
+        init(limit);
+        return this;
+    }
+
+    /**
      * 初始化
      *
      * @param limit 分页个数
@@ -287,22 +323,6 @@ public class RefreshHelper<T> {
 
     public RefreshHelper setLinearLayoutManager(LinearLayoutManager linearLayoutManager) {
         this.linearLayoutManager = linearLayoutManager;
-        return this;
-    }
-
-    public RefreshHelper<T> setEnableRefresh(boolean isEnableRefresh) {
-        this.isEnableRefresh = isEnableRefresh;
-        return this;
-    }
-
-    public RefreshHelper<T> setEnableLoadmore(boolean isEnableLoadmore) {
-        this.isEnableLoadmore = isEnableLoadmore;
-        return this;
-    }
-
-    public RefreshHelper<T> setEnableRefreshLoadmore() {
-        this.isEnableRefresh = false;
-        this.isEnableLoadmore = false;
         return this;
     }
 }
