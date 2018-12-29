@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="7dp">
+
+    <TextView
+        android:id="@+id/tv_goods_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥"
+        android:textColor="@color/dialog_tips_negative_btn_txt_red"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_goods_price" />
+
+    <TextView
+        android:id="@+id/tv_goods_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="68"
+        android:textColor="@color/dialog_tips_negative_btn_txt_red"
+        android:textSize="22sp"
+        app:layout_constraintLeft_toRightOf="@+id/tv_goods_y" />
+
+    <TextView
+        android:id="@+id/tv_goods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/件"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_goods_price"
+        app:layout_constraintLeft_toRightOf="@+id/tv_goods_price" />
+
+    <ImageView
+        android:id="@+id/iv_add_goods"
+        android:layout_width="18dip"
+        android:layout_height="18dip"
+        android:layout_marginRight="16dp"
+        android:background="@mipmap/ic_launcher_round"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_goods"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintLeft_toRightOf="@+id/tv_goods"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_goods" />
+
+    <LinearLayout
+        android:id="@+id/ll_add_goods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_goods"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintLeft_toRightOf="@+id/tv_goods"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_goods">
+
+        <ImageView
+            android:id="@+id/item_good_reduce"
+            android:layout_width="23dip"
+            android:layout_height="22dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="4dip"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/item_good_num"
+            android:layout_width="wrap_content"
+            android:layout_height="22dip"
+            android:background="#F2F2F2"
+            android:gravity="center"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
+            android:text="0"
+            android:textColor="#333333"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/item_good_add"
+            android:layout_width="23dip"
+            android:layout_height="22dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dip"
+            android:background="@mipmap/ic_launcher" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
+
