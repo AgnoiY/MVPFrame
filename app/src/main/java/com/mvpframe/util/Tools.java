@@ -31,14 +31,4 @@ public class Tools {
         lastClickTime = currentTime;
         return isDoubleClick;
     }
-
-    /**
-     * 判断是否为空
-     *
-     * @param s
-     * @return
-     */
-    public static boolean isNull(String s) {
-        return s.equals("") || s == null;
-    }
 }

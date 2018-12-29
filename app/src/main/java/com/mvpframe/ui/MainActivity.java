@@ -1,9 +1,13 @@
 package com.mvpframe.ui;
 
+import android.app.Activity;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mvpframe.R;
@@ -16,6 +20,9 @@ import com.mvpframe.ui.base.activity.BaseLoadActivity;
 import com.mvpframe.util.DensityUtil;
 
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
  * <功能详细描述>
@@ -52,11 +59,11 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     }
 
     int height;//商品价格：添加View高度累加
-    int heightRetain;//保留两个商品价格View高度
+//    int heightRetain;//保留两个商品价格View高度
 
     boolean isAdd = false;//是否点击下拉
     boolean isAddAllGoods = true;//展示全部商品价格
-    int lsDetailSize = 1;
+    int lsDetailSize = 2;
 
     @Override
     public void initData() {
@@ -91,11 +98,14 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
         super.onClick(v);
 
         if (isAddAllGoods) {
-            for (int i = 2; i < lsDetailSize; i++) {
+            height = 0;
+            for (int i = 0; i < 2; i++) {
+                sNextGeneratedId = new AtomicInteger(i);
+                layout.removeView(findViewById(generateViewId()));
+            }
+            for (int i = 0; i < lsDetailSize; i++) {
                 layout = addView(layout, lsDetailSize, i);
             }
-        } else {
-            height = heightRetain;
         }
 
         setAdd(setReply, lsDetailSize);
@@ -117,8 +127,8 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
      * @return
      */
     private ConstraintLayout addView(ConstraintLayout layout, int lsDetailSize, int subPosition) {
-        ConstraintSet set = new ConstraintSet();
 
+        ConstraintSet set = new ConstraintSet();
 
         sNextGeneratedId = new AtomicInteger(subPosition);
 
@@ -130,13 +140,25 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
                 (TextView) goodsPriceView.findViewById(R.id.tv_goods_price),
                 true, lsDetailSize, subPosition);
 
-        goodsPriceView.findViewById(R.id.iv_add_goods).setVisibility(lsDetailSize == 1 ? View.VISIBLE : View.GONE);
+        ImageView ivAddGoods = goodsPriceView.findViewById(R.id.iv_add_goods);
+        LinearLayout llAddGoods = goodsPriceView.findViewById(R.id.ll_add_goods);
+        ivAddGoods.setVisibility(lsDetailSize == 1 || (llAddGoods.getVisibility()==View.GONE&&isAdd )? View.VISIBLE : View.GONE);
+        llAddGoods.setVisibility(View.GONE);
+
+        ivAddGoods.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivAddGoods.setVisibility(View.GONE);
+                llAddGoods.setVisibility(View.VISIBLE);
+            }
+        });
 
         layout.addView(goodsPriceView);
 
-        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.AT_MOST);
+        cl.getLayoutParams().width = DensityUtil.getXScreenpx((Activity) mContext) - (isAdd ? DensityUtil.dip2px(24) : DensityUtil.dip2px(113));
+
         int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        cl.measure(w, h);
+        cl.measure(0, h);
 
         set.clone(layout);
 
@@ -147,16 +169,15 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
 
         height += cl.getMeasuredHeight();
 
-        if (subPosition == 1) {
-            setReply.clone(layout);
-            isAdd = true;
-            heightRetain = height;
-        }
-
-        if (subPosition == lsDetailSize - 1) {
+        if (subPosition == lsDetailSize - 1 && isAdd) {
             isAddAllGoods = false;
         }
 
+        if (subPosition == 1) {
+            setReply.clone(layout);
+            isAdd = true;
+//            heightRetain = height;
+        }
 
         return layout;
     }
@@ -174,23 +195,23 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
         setAdd.clone(layout);
 
         if (isAdd) {
-            for (int i = 0; i < 2; i++) {
-                sNextGeneratedId = new AtomicInteger(i);
-                int id = generateViewId();
-                setAdd.connect(id, ConstraintSet.LEFT, R.id.iv_goods_image, ConstraintSet.LEFT);
-                setAdd.connect(id, ConstraintSet.TOP, R.id.iv_goods_image, ConstraintSet.BOTTOM);
-            }
             setAdd.centerVertically(R.id.tv_goods_name, R.id.iv_goods_image);
             setAdd.centerVertically(R.id.iv_add, R.id.iv_goods_image);
             setAdd.setRotation(R.id.iv_add, 180);
             setAdd.setMargin(R.id.iv_goods_image, ConstraintSet.BOTTOM, DensityUtil.dip2px(7));
             setAdd.applyTo(layout);
         } else {
+            for (int i = 0; i < 2; i++) {
+                sNextGeneratedId = new AtomicInteger(i);
+                int id = generateViewId();
+                setReply.connect(id, ConstraintSet.LEFT, R.id.tv_goods_name, ConstraintSet.LEFT);
+                setReply.connect(id, ConstraintSet.TOP, R.id.tv_goods_name, ConstraintSet.BOTTOM);
+            }
             for (int i = 2; i < lsDetailSize; i++) {
                 sNextGeneratedId = new AtomicInteger(i);
                 layout.removeView(findViewById(generateViewId()));
-                isAddAllGoods = true;
             }
+            isAddAllGoods = true;
             setReply.applyTo(layout);
         }
         isAdd = !isAdd;

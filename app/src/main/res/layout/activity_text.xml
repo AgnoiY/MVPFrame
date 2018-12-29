@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="7dp">
+    android:paddingTop="7dp">
 
     <TextView
         android:id="@+id/tv_goods_y"
@@ -41,7 +41,7 @@
         android:id="@+id/iv_add_goods"
         android:layout_width="18dip"
         android:layout_height="18dip"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="20dp"
         android:background="@mipmap/ic_launcher_round"
         app:layout_constraintBottom_toBottomOf="@+id/tv_goods"
         app:layout_constraintHorizontal_bias="1"
