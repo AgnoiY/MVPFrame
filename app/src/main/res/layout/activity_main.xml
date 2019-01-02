@@ -1,90 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:pv="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.mvpframe.ui.MainActivity">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/clayout"
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="5"
+            android:text="Hello World!"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="5"
+            android:text="Hello World!1"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/bt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="17dp"
-            android:background="@color/tablayout_select">
+            android:text="按钮" />
 
-            <ImageView
-                android:id="@+id/iv_goods_image"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="20dp"
-                android:background="@mipmap/icon_no_wifi"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0" />
+        <com.mvpframe.view.imageview.RoundImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            pv:border_inside_color="#50c0e9"
+            pv:border_thickness="3dp" />
 
-            <TextView
-                android:id="@+id/tv_goods_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="和诚和诚和诚和诚老母鸡和诚和诚老母鸡老母鸡老母鸡老母鸡老母鸡"
-                android:textColor="#333333"
-                android:textSize="14sp"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toRightOf="@+id/iv_goods_image"
-                app:layout_constraintRight_toLeftOf="@+id/fl_delete"
-                app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/in"
+            layout="@layout/layout_recycler_refresh"/>
 
-            <FrameLayout
-                android:id="@+id/fl_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@mipmap/ic_launcher" />
-
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tv_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:textColor="#999999"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                tools:text="已售空" />
-
-            <ImageView
-                android:id="@+id/iv_add"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginRight="16dp"
-                android:background="@mipmap/ic_launcher"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-
-
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.constraint.ConstraintLayout>
-
+    </LinearLayout>
 
 </layout>
