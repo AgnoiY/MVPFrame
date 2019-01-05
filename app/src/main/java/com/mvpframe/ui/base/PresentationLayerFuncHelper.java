@@ -6,8 +6,15 @@ import android.os.IBinder;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.mvpframe.bean.event.BaseEventModel;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.lang.ref.SoftReference;
+import java.util.List;
 
 /**
  * <页面基础公共功能实现>
@@ -15,12 +22,17 @@ import com.mvpframe.util.ToastUtil;
  *
  * @author yong
  */
-public class PresentationLayerFuncHelper implements PresentationLayerFunc {
+public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T> {
 
     private Context context;
+    private Activity activity;
+    private String TAG;
 
-    public PresentationLayerFuncHelper(Context context) {
-        this.context = context;
+    public PresentationLayerFuncHelper(Object o) {
+        SoftReference sofr = new SoftReference(o);
+        this.context = (Context) sofr.get();
+        this.activity = (Activity) sofr.get();
+        this.TAG = sofr.get().getClass().getSimpleName();
     }
 
     /**
@@ -69,6 +81,48 @@ public class PresentationLayerFuncHelper implements PresentationLayerFunc {
             return;
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    /**
+     * 处理事件线
+     *
+     * @param eventModel
+     */
+    @Subscribe
+    @Override
+    public void onEventMainThread(BaseEventModel eventModel) {
+        if (eventModel.getList() != null)
+            for (int i = 0; i < eventModel.getList().size(); i++) {
+                if (TAG.equals(eventModel.getList().get(i)))
+                    activity.finish();
+            }
+    }
+    /**
+     * 发送EventBus事件线
+     *
+     * @param o
+     */
+    @Override
+    public void getEventBusPost(Object... o) {
+        EventBus eventBus = EventBus.getDefault();
+        BaseEventModel model = new BaseEventModel<T>();
+        boolean isBaseEventModel = false;
+        for (int i = 0; i < o.length; i++) {
+            if (o[i] instanceof BaseEventModel) {
+                model.setList(((BaseEventModel) o[i]).getList());
+                model.setModel(((BaseEventModel) o[i]).getModel());
+                isBaseEventModel = true;
+            } else if (o[i] instanceof Class) {
+                model.add((Class) o[i]);
+                isBaseEventModel = true;
+            } else if (o[i] instanceof List) {
+                model.setList((List<String>) o[i]);
+                isBaseEventModel = true;
+            } else
+                eventBus.post(o);
+        }
+        if (isBaseEventModel)
+            eventBus.post(model);
     }
 
     /**

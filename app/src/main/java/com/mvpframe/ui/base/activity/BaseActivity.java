@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mvpframe.app.MyApplication;
+import com.mvpframe.bean.event.BaseEventModel;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.PresentationLayerFuncHelper;
@@ -25,6 +26,8 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 /**
  * * 备注:
  * 1.XXActivity 继承 BaseActivity,当页面存在 Presenter 时，具体 Activity 需要调用 setPresenter(P... presenter)
@@ -36,7 +39,7 @@ import org.greenrobot.eventbus.Subscribe;
  * @author yong
  */
 public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresenter<V>> extends RxAppCompatActivity implements
-        CreateInit.CreateInitActivity<V, P>, PublishActivityCallBack, PresentationLayerFunc, IMvpView<T>, View.OnClickListener {
+        CreateInit.CreateInitActivity<V, P>, PublishActivityCallBack, PresentationLayerFunc<T>, IMvpView<T>, View.OnClickListener {
 
     protected ActivityMvpDelegate mvpDelegate;
 
@@ -52,6 +55,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getMvpDelegate().onCreate(savedInstanceState);
 
         presentationLayerFuncHelper = new PresentationLayerFuncHelper(this);
@@ -93,16 +97,6 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
             mvpDelegate = new ActivityMvpDelegateImpl(this, this);
         }
         return mvpDelegate;
-    }
-
-    /**
-     * 事件线
-     *
-     * @param eventModel
-     */
-    @Subscribe
-    public void onEventMainThread(T eventModel) {
-
     }
 
     /**
@@ -177,6 +171,27 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     @Override
     public void hideSoftKeyboard() {
         presentationLayerFuncHelper.hideSoftKeyboard();
+    }
+
+    /**
+     * 发送EventBus事件线
+     *
+     * @param o
+     */
+    @Override
+    public void getEventBusPost(Object... o) {
+        presentationLayerFuncHelper.getEventBusPost(o);
+    }
+
+    /**
+     * 处理事件线
+     *
+     * @param eventModel
+     */
+    @Subscribe
+    @Override
+    public void onEventMainThread(BaseEventModel<T> eventModel) {
+        presentationLayerFuncHelper.onEventMainThread(eventModel);
     }
 
     @Override

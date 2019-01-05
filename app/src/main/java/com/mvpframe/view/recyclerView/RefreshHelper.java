@@ -75,9 +75,9 @@ public class RefreshHelper<T> {
     }
 
 
-    public RefreshHelper(Object context, View refreshLayout, RecyclerView recyclerView) {
+    public RefreshHelper(Object o, View refreshLayout, RecyclerView recyclerView) {
 
-        SoftReference<Object> mS = new SoftReference<>(context);
+        SoftReference<Object> mS = new SoftReference<>(o);
         this.mContext = (Context) mS.get();
         RecyclerInterface<T> recyclerInterface = (RecyclerInterface) mS.get();
 

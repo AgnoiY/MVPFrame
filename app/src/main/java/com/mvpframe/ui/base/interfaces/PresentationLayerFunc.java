@@ -2,13 +2,17 @@ package com.mvpframe.ui.base.interfaces;
 
 import android.view.View;
 
+import com.mvpframe.bean.event.BaseEventModel;
+
+import org.greenrobot.eventbus.Subscribe;
+
 /**
  * <页面基础公共功能抽象>
  * Data：2018/12/18
  *
  * @author yong
  */
-public interface PresentationLayerFunc {
+public interface PresentationLayerFunc<T> {
     /**
      * 弹出消息
      *
@@ -27,4 +31,19 @@ public interface PresentationLayerFunc {
      * 隐藏软键盘
      */
     void hideSoftKeyboard();
+
+    /**
+     * 处理事件线
+     *
+     * @param eventModel
+     */
+    @Subscribe
+    void onEventMainThread(BaseEventModel<T> eventModel);
+
+    /**
+     * 发送EventBus事件线
+     *
+     * @param o
+     */
+    void getEventBusPost(Object... o);
 }

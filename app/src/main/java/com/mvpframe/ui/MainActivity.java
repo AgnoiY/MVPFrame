@@ -1,14 +1,6 @@
 package com.mvpframe.ui;
 
-import android.app.Activity;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.mvpframe.R;
 import com.mvpframe.bean.home.LoginModel;
@@ -19,12 +11,6 @@ import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.util.DensityUtil;
-
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
  * <功能详细描述>
@@ -72,7 +58,6 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     @Override
     public void onClick(View v) {
         super.onClick(v);
-
     }
 
     @Override
