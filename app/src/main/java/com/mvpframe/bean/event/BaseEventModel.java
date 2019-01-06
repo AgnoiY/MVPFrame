@@ -22,7 +22,10 @@ public class BaseEventModel<T> {
     }
 
     public BaseEventModel<T> setList(List<String> list) {
-        this.list = list;
+        if (list == null)
+            this.list = list;
+        else
+            this.list.addAll(list);
         return this;
     }
 
