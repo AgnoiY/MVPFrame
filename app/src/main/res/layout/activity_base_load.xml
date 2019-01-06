@@ -15,9 +15,7 @@
 
         <View
             android:id="@+id/view_v"
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/line_gray_cd"
+            style="@style/style_split_line"
             android:visibility="gone" />
 
         <com.mvpframe.view.frameLayout.ViewLoadLayout

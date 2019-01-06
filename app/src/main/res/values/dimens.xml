@@ -19,6 +19,11 @@
 
     <!--dialog-->
     <dimen name="dialog_tips_corner">16dp</dimen>
+    <dimen name="dialog_width">75dp</dimen>
+    <dimen name="dialog_height">65dp</dimen>
+
+    <!--分割线-->
+    <dimen name="line_distance_cd">1dp</dimen>
 
     <!--标题栏-->
     <dimen name="title_height">45dp</dimen>

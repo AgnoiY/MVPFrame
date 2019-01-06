@@ -8,12 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="@dimen/dialog_tips_corner"
+        android:layout_marginRight="@dimen/dialog_tips_corner"
         android:background="@drawable/load_bg"
         android:gravity="center"
         android:minHeight="56dp"
         android:minWidth="120dp"
         android:orientation="vertical"
-        android:padding="16dp" />
+        android:padding="@dimen/dialog_tips_corner" />
 </merge>
