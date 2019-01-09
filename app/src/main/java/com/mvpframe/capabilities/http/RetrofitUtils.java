@@ -142,7 +142,7 @@ public class RetrofitUtils {
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                LogUtil.E("okHttp:" + message);
+                LogUtil.e("okHttp:" + message);
             }
         });
         //must

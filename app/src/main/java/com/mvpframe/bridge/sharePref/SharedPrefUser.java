@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.mvpframe.capabilities.cache.BaseSharedPreference;
+import com.mvpframe.util.GeneralUtils;
 
 
 /**
@@ -17,6 +18,10 @@ public class SharedPrefUser extends BaseSharedPreference {
      * 用户ID
      */
     public static final String USER_ID = "user_id";
+    /**
+     * 用户token
+     */
+    public static final String USER_TOKEN = "token";
     /**
      * 用户名
      */
@@ -32,7 +37,7 @@ public class SharedPrefUser extends BaseSharedPreference {
      * @return
      */
     public boolean isLoginNoStart() {
-        return !TextUtils.isEmpty(this.getString(USER_ID, ""));
+        return GeneralUtils.isNullOrZeroLenght(this.getString(USER_TOKEN, ""));
     }
 
 }

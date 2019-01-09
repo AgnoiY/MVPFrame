@@ -329,6 +329,13 @@ public class RetrofitHttp {
             return this;
         }
 
+        /* 增加 Header 不断叠加 Header 包括基础 Header */
+        public RetrofitHttp.Configure addHeader(String key, Object header) {
+            this.header = new TreeMap<>();
+            this.header.put(key, header);
+            return this;
+        }
+
         public Map<String, Object> getBaseHeader() {
             return header;
         }
@@ -462,10 +469,10 @@ public class RetrofitHttp {
 
         /* 增加 Parameter 不断叠加参数 包括基础参数 */
         public RetrofitHttp.Builder addParameter(Map<String, Object> parameter) {
-            if (this.parameter == null) {
-                this.parameter = new TreeMap<>();
-            }
-            this.parameter.putAll(parameter);
+            if (this.parameter == null)
+                this.parameter = parameter;
+            else
+                this.parameter.putAll(parameter);
             return this;
         }
 
@@ -502,10 +509,10 @@ public class RetrofitHttp {
 
         /* 增加 Header 不断叠加 Header 包括基础 Header */
         public RetrofitHttp.Builder addHeader(Map<String, Object> header) {
-            if (this.header == null) {
-                this.header = new TreeMap<>();
-            }
-            this.header.putAll(header);
+            if (this.header == null)
+                this.header = header;
+            else
+                this.header.putAll(header);
             return this;
         }
 

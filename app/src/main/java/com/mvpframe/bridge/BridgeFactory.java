@@ -6,6 +6,7 @@ import com.mvpframe.bridge.http.RetrofitHttp;
 import com.mvpframe.bridge.localstorage.LocalFileStorageManager;
 import com.mvpframe.bridge.security.SecurityManager;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
+import com.mvpframe.bridge.sharePref.SharedPrefUser;
 import com.mvpframe.constant.UrlConstans;
 
 import java.util.HashMap;
@@ -62,7 +63,10 @@ public class BridgeFactory {
      * 网络请求管理类
      */
     private void initOkHttpManager(Application application) {
-        RetrofitHttp.Configure.get().baseUrl(UrlConstans.SERVER).init(application);
+        RetrofitHttp.Configure.get().baseUrl(UrlConstans.SERVER)
+                .addHeader(SharedPrefUser.USER_TOKEN, SharedPrefManager.getUser()
+                        .getString(SharedPrefUser.USER_TOKEN, ""))
+                .init(application);
         RetrofitHttp.Builder builder = new RetrofitHttp.Builder().getInstanc();
         model.mBridges.put(Bridges.HTTP, builder);
         BridgeLifeCycleSetKeeper.getInstance().trustBridgeLifeCycle(builder);

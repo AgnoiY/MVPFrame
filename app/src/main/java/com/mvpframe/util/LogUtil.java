@@ -15,19 +15,19 @@ public class LogUtil {
 
     private static final String TAG = "LOG_YONG";
 
-    public static void I(String msg) {
+    public static void i(String msg) {
         if (isDeBug) {
             Log.i(TAG, msg);
         }
     }
 
-    public static void E(String msg) {
+    public static void e(String msg) {
         if (isDeBug) {
             Log.e(TAG, msg);
         }
     }
 
-    public static void BIGLOG(String responseInfo) {
+    public static void biglog(String responseInfo) {
         if (!isDeBug) {
             return;
         }

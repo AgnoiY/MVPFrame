@@ -5,6 +5,8 @@ import android.support.annotation.UiThread;
 import com.mvpframe.bridge.BridgeFactory;
 import com.mvpframe.bridge.Bridges;
 import com.mvpframe.bridge.http.RetrofitHttp;
+import com.mvpframe.bridge.sharePref.SharedPrefManager;
+import com.mvpframe.bridge.sharePref.SharedPrefUser;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.lang.ref.WeakReference;
@@ -19,6 +21,8 @@ import java.lang.ref.WeakReference;
 public abstract class BasePresenter<V extends IMvpView> implements Presenter<V> {
 
     private WeakReference<V> viewRef;
+
+    private SharedPrefManager sharedPref;
 
     private SecurityManager securityManager;
 
@@ -87,6 +91,8 @@ public abstract class BasePresenter<V extends IMvpView> implements Presenter<V> 
             retrofitHttp = BridgeFactory.getBridge(Bridges.HTTP);
         retrofitHttp.clear();
         retrofitHttp.lifecycle((LifecycleProvider) getMvpView());
+        retrofitHttp.addHeader(SharedPrefUser.USER_TOKEN, SharedPrefManager.getUser()
+                .getString(SharedPrefUser.USER_TOKEN, ""));
         return retrofitHttp;
     }
 }
