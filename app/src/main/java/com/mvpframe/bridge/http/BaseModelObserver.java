@@ -86,7 +86,7 @@ public abstract class BaseModelObserver<T> extends HttpObserver<T> {
      * 如果有特殊处理需重写
      */
     public void onCancel() {
-        LogUtil.E("请求取消了");
+        LogUtil.e("请求取消了");
     }
 
     @Override

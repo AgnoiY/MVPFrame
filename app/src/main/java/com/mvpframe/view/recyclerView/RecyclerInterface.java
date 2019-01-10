@@ -3,6 +3,7 @@ package com.mvpframe.view.recyclerView;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
+
 /**
  * 公用刷新
  * Data：2018/12/18
@@ -11,8 +12,22 @@ import java.util.List;
  */
 public interface RecyclerInterface<T> {
 
-    RecyclerView.Adapter getListAdapter(List<T> listData);
+    /**
+     * 设置adapter
+     *
+     * @param tag      RecyclerView的ID+设置的Tag
+     * @param listData 数据
+     * @return
+     */
+    RecyclerView.Adapter getListAdapter(String tag, List<T> listData);
 
-    void getDataRequest(int pageindex, int limit);
+    /**
+     * 添加数据源
+     *
+     * @param tag       RecyclerView的ID+设置的Tag
+     * @param pageindex 页数
+     * @param limit     每页数量
+     */
+    void getDataRequest(String tag, int pageindex, int limit);
 
 }

@@ -26,6 +26,8 @@ public class RefreshHelper<T> {
 
     public static int LIMITE = 15;
 
+    private String tag;//mRecyclerView的ID+设置的Tag
+
     private RefreshInterface mRefreshInterface;//刷新接口
 
     private BaseQuickAdapter mAdapter;//数据适配器
@@ -81,6 +83,8 @@ public class RefreshHelper<T> {
         this.mContext = (Context) mS.get();
         RecyclerInterface<T> recyclerInterface = (RecyclerInterface) mS.get();
 
+        if (recyclerView == null) return;
+
         this.mRefreshInterface = new BaseRefreshCallBack((Activity) mS.get()) {
             @Override
             public View getRefreshLayout() {
@@ -93,13 +97,13 @@ public class RefreshHelper<T> {
             }
 
             @Override
-            public RecyclerView.Adapter getAdapter(List listData) {
-                return recyclerInterface.getListAdapter(listData);
+            public RecyclerView.Adapter getAdapter(String tag, List listData) {
+                return recyclerInterface.getListAdapter(tag, listData);
             }
 
             @Override
-            public void getListDataRequest(int pageindex, int limit) {
-                recyclerInterface.getDataRequest(pageindex, limit);
+            public void getListDataRequest(String tag, int pageindex, int limit) {
+                recyclerInterface.getDataRequest(tag, pageindex, limit);
             }
         };
     }
@@ -107,36 +111,30 @@ public class RefreshHelper<T> {
     /**
      * 初始化 没有刷新和加载更多
      *
-     * @param limit 分页个数
      * @return
      */
-    public RefreshHelper initEnable(int limit) {
+    public RefreshHelper initEnableRefreshLoadmore() {
         this.isEnableRefresh = this.isEnableLoadmore = false;
-        init(limit);
         return this;
     }
 
     /**
      * 初始化 没有刷新
      *
-     * @param limit 分页个数
      * @return
      */
-    public RefreshHelper initEnableRefresh(int limit) {
+    public RefreshHelper initEnableRefresh() {
         this.isEnableRefresh = false;
-        init(limit);
         return this;
     }
 
     /**
      * 初始化 没有加载更多
      *
-     * @param limit 分页个数
      * @return
      */
-    public RefreshHelper initEnableRefreshLoadmore(int limit) {
+    public RefreshHelper initEnableLoadmore() {
         this.isEnableLoadmore = false;
-        init(limit);
         return this;
     }
 
@@ -159,7 +157,9 @@ public class RefreshHelper<T> {
             mRefreshLayout = (SmartRefreshLayout) mRefreshInterface.getRefreshLayout();
             mRecyclerView = mRefreshInterface.getRecyclerView();
 
-            mAdapter = (BaseQuickAdapter) mRefreshInterface.getAdapter(mDataList);
+            tag = mRecyclerView.getTag() + "" + mRecyclerView.getId();
+
+            mAdapter = (BaseQuickAdapter) mRefreshInterface.getAdapter(tag, mDataList);
 
             mEmptyView = mRefreshInterface.getEmptyView();
             if (linearLayoutManager == null) {
@@ -219,7 +219,7 @@ public class RefreshHelper<T> {
     public RefreshHelper onDefaluteMRefresh() {
         mPageIndex = 1;
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(mPageIndex, mLimit);
+            mRefreshInterface.getListDataRequest(tag, mPageIndex, mLimit);
         }
         return this;
     }
@@ -230,7 +230,7 @@ public class RefreshHelper<T> {
             mPageIndex++;
         }
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(mPageIndex, mLimit);
+            mRefreshInterface.getListDataRequest(tag, mPageIndex, mLimit);
         }
         return this;
     }
@@ -240,7 +240,7 @@ public class RefreshHelper<T> {
         mPageIndex = pageindex;
         mLimit = limit;
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(pageindex, limit);
+            mRefreshInterface.getListDataRequest(tag, pageindex, limit);
         }
 
     }
@@ -250,7 +250,7 @@ public class RefreshHelper<T> {
         mPageIndex = pageIndex;
         mLimit = limit;
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(pageIndex, limit);
+            mRefreshInterface.getListDataRequest(tag, pageIndex, limit);
         }
     }
 
@@ -298,6 +298,11 @@ public class RefreshHelper<T> {
         }
     }
 
+    /**
+     * 获取数据为空时加载空页面
+     *
+     * @param datas
+     */
     public void setData(List<T> datas, int noDataImg) {
         setData(datas, mContext.getString(R.string.noData), noDataImg);
     }

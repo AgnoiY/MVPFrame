@@ -66,7 +66,7 @@ public abstract class UploadObserver<T> extends HttpObserver<T> implements Uploa
      * 取消回调
      */
     public void onCancel() {
-        LogUtil.E("请求取消了");
+        LogUtil.e("请求取消了");
     }
 
 }

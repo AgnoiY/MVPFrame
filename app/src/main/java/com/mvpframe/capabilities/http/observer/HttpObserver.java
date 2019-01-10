@@ -78,7 +78,7 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
         if (ptClass != null) {
             Type type = ptClass.getActualTypeArguments()[0];
             mClass = (Class<T>) type;
-            LogUtil.E("当前类泛型:" + mClass);
+            LogUtil.e("当前类泛型:" + mClass);
         }
         return mClass;
     }

@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.mvpframe.R;
@@ -13,6 +14,11 @@ import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.util.GeneralUtils;
+import com.mvpframe.view.recyclerView.RefreshHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 带空页面，错误页面显示的BaseActivity 通过BaseActivity界面操作封装成View而来
@@ -25,6 +31,8 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
     protected ActivityBaseLoadBinding mBaseBinding;
 
     protected B mLoadBinding;
+
+    protected List<RefreshHelper> listRefreshHelper;
 
     /**
      * 布局文件xml的resId,无需添加标题栏、加载、错误及空页面
@@ -169,11 +177,12 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
     @Override
     public void onSuccess(String action, T data) {
         mBaseBinding.contentView.hindEmptyAll();
-        onSucceed(action,data);
+        onSucceed(action, data);
     }
 
     /**
      * 加载成功
+     *
      * @param action 区分不同事件
      * @param data   数据
      */
@@ -182,7 +191,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
     /**
      * 加载显示错误布局，全布局点击事件监听
      */
-    public void onEmptyClickListener (){
+    public void onEmptyClickListener() {
     }
 
     /**
@@ -191,6 +200,40 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
     public void onEmptyTextClickListener() {
     }
 
+    /**
+     * 初始化刷新相关
+     *
+     * @param refreshLayout
+     * @param recyclerView
+     * @param limit         为0时默认是15条
+     * @return
+     */
+    protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {
+        RefreshHelper helper = new RefreshHelper<>(this, refreshLayout, recyclerView).init(limit);
+        if (GeneralUtils.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
+        listRefreshHelper.add(helper);
+        return helper;
+    }
 
+    /**
+     * 初始化刷新相关
+     *
+     * @param refreshLayout
+     * @param recyclerView
+     * @return
+     */
+    protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView) {
+        return initRefreshHelper(refreshLayout, recyclerView, 0);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (GeneralUtils.isNotNullOrZeroSize(listRefreshHelper)) {
+            for (RefreshHelper helper : listRefreshHelper) {
+                if (helper != null)
+                    helper.onDestroy();
+            }
+        }
+    }
 }

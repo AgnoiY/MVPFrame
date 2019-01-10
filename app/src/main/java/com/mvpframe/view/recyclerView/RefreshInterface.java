@@ -18,7 +18,7 @@ public interface RefreshInterface<T> {
 
     RecyclerView getRecyclerView();
 
-    RecyclerView.Adapter getAdapter(List<T> listData);
+    RecyclerView.Adapter getAdapter(String tag, List<T> listData);
 
     View getEmptyView();
 
@@ -28,7 +28,7 @@ public interface RefreshInterface<T> {
 
     void onLoadMore(int pageindex, int limit);
 
-    void getListDataRequest(int pageindex, int limit);
+    void getListDataRequest(String tag, int pageindex, int limit);
 
     void onDestroy();
 

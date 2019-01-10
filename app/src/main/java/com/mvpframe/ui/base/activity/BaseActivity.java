@@ -208,7 +208,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         try {
             presentationLayerFuncHelper.hideSoftKeyboard();
         } catch (Exception e) {
-            LogUtil.E("finish 输入法错误");
+            LogUtil.e("finish 输入法错误");
         }
         super.finish();
     }
@@ -224,7 +224,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
                 }
             }
         } catch (Exception e) {
-            LogUtil.E("dispatchTouchEvent 输入法错误");
+            LogUtil.e("dispatchTouchEvent 输入法错误");
         }
         return super.dispatchTouchEvent(ev);
     }

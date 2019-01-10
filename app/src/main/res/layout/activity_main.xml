@@ -43,6 +43,10 @@
             android:id="@+id/in"
             layout="@layout/layout_recycler_refresh"/>
 
+        <include
+            android:id="@+id/in1"
+            layout="@layout/layout_recycler_refresh"/>
+
     </LinearLayout>
 
 </layout>

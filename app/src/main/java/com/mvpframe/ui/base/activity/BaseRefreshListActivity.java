@@ -28,7 +28,7 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
      * 初始化刷新相关
      */
     protected void initRefreshHelper(int limit) {
-        mRefreshHelper = new RefreshHelper<>(this, mLoadBinding.refreshLayout, mLoadBinding.rv).init(limit);
+        mRefreshHelper = initRefreshHelper(mLoadBinding.refreshLayout, mLoadBinding.rv, limit);
         mRefreshHelper.onDefaluteMRefresh();
     }
 
@@ -40,17 +40,9 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
     }
 
     /**
-     * 设置一页的加载数据量，默认加载15个
+     * 设置一页的加载数据量，为0时默认加载15个
      *
      * @return
      */
     public abstract int setLimit();
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mRefreshHelper != null) {
-            mRefreshHelper.onDestroy();
-        }
-    }
 }
