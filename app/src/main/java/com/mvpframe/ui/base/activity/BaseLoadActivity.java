@@ -205,7 +205,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
      *
      * @param refreshLayout
      * @param recyclerView
-     * @param limit         为0时默认是15条
+     * @param limit         为0时默认是10条
      * @return
      */
     protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {

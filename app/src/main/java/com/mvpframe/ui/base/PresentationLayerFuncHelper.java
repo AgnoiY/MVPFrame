@@ -92,8 +92,8 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T> 
     @Override
     public void onEventMainThread(BaseEventModel eventModel) {
         if (eventModel.getList() != null)
-            for (int i = 0; i < eventModel.getList().size(); i++) {
-                if (TAG.equals(eventModel.getList().get(i)))
+            for (Object nameClass: eventModel.getList()) {
+                if (TAG.equals(nameClass))
                     activity.finish();
             }
     }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mvpframe.app.MyApplication;
+import com.mvpframe.bean.event.BaseEventModel;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.PresentationLayerFuncHelper;
@@ -39,7 +40,7 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresenter<V>> extends RxFragment
-        implements CreateInit.CreateInitFragment<V, P>, PublishActivityCallBack, PresentationLayerFunc,
+        implements CreateInit.CreateInitFragment<V, P>, PublishActivityCallBack, PresentationLayerFunc<T>,
         IMvpView<T>, View.OnClickListener {
 
     protected FragmentMvpDelegate mvpDelegate;
@@ -90,9 +91,8 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
 
         initListeners();
         initData();
-
-        MyApplication.mApplication.currentActivityName = this.getClass().getName();
     }
+
     /**
      * 链接Presenter
      *
@@ -102,6 +102,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     public P[] createPresenter() {
         return getPresenterArray();
     }
+
     /**
      * 注入View
      *
@@ -119,6 +120,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
         }
         return views;
     }
+
     /**
      * 关联Activity的生命周期
      *
@@ -131,15 +133,28 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
         }
         return mvpDelegate;
     }
+
     /**
-     * 事件线
+     * 发送EventBus事件线
+     *
+     * @param o
+     */
+    @Override
+    public void getEventBusPost(Object... o) {
+        presentationLayerFuncHelper.getEventBusPost(o);
+    }
+
+    /**
+     * 处理事件线
      *
      * @param eventModel
      */
     @Subscribe
-    public void onEventMainThread(T eventModel) {
-
+    @Override
+    public void onEventMainThread(BaseEventModel<T> eventModel) {
+        presentationLayerFuncHelper.onEventMainThread(eventModel);
     }
+
     /**
      * 网络请求的错误信息，已在请求中处理提示Toast
      * 如果有特殊处理需重写
@@ -152,6 +167,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     public void onError(String action, int code, String msg) {
 
     }
+
     /**
      * 配合DataBinding点击事件监听
      * 添加防止重复点击

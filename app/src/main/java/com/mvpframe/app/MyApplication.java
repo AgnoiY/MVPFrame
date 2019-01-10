@@ -26,7 +26,7 @@ public class MyApplication extends Application {
     /**
      * app实例
      */
-    public static MyApplication mApplication;
+    private static MyApplication mApplication;
     /**
      * app实例
      */
@@ -102,7 +102,17 @@ public class MyApplication extends Application {
         }
     }
 
+    /**
+     * finish全部Activity
+     */
+    public void clearAllAcitity() {
+    }
+
     public static Context getContext() {
         return context;
+    }
+
+    public static MyApplication getApplication() {
+        return mApplication;
     }
 }

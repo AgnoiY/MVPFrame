@@ -2,11 +2,17 @@ package com.mvpframe.ui.base.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.util.GeneralUtils;
+import com.mvpframe.view.recyclerView.RefreshHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Fragment 懒加载 防止fragment初始化时加载大量数据
@@ -17,6 +23,8 @@ import com.mvpframe.presenter.base.IMvpView;
 public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends BaseFragment<T, IMvpView<T>, BasePresenter<IMvpView<T>>> {
 
     protected B mLazyBinding;
+
+    protected List<RefreshHelper> listRefreshHelper;
 
     /**
      * Fragment第一次加载
@@ -74,10 +82,42 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
         }
     }
 
+    /**
+     * 初始化刷新相关
+     *
+     * @param refreshLayout
+     * @param recyclerView
+     * @param limit         为0时默认是10条
+     * @return
+     */
+    protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {
+        RefreshHelper helper = new RefreshHelper<>(this, refreshLayout, recyclerView).init(limit);
+        if (GeneralUtils.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
+        listRefreshHelper.add(helper);
+        return helper;
+    }
+
+    /**
+     * 初始化刷新相关
+     *
+     * @param refreshLayout
+     * @param recyclerView
+     * @return
+     */
+    protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView) {
+        return initRefreshHelper(refreshLayout, recyclerView, 0);
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
         isStartFragmen = false;
         isStartFragmenData = false;
+        if (GeneralUtils.isNotNullOrZeroSize(listRefreshHelper)) {
+            for (RefreshHelper helper : listRefreshHelper) {
+                if (helper != null)
+                    helper.onDestroy();
+            }
+        }
     }
 }

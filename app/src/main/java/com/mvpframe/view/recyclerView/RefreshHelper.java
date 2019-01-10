@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class RefreshHelper<T> {
 
-    public static int LIMITE = 15;
+    public static int LIMITE = 10;
 
     private String tag;//mRecyclerView的ID+设置的Tag
 
@@ -188,10 +188,6 @@ public class RefreshHelper<T> {
 
         mRefreshLayout.setEnableAutoLoadmore(false);//禁用惯性
 
-        mRefreshLayout.setEnableRefresh(isEnableRefresh);//开启刷新
-
-        mRefreshLayout.setEnableLoadmore(isEnableLoadmore);//开启加载更多
-
         mRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) { //刷新
@@ -217,7 +213,13 @@ public class RefreshHelper<T> {
 
     //执行默认刷新 mPageIndex变为一
     public RefreshHelper onDefaluteMRefresh() {
+
         mPageIndex = 1;
+
+        mRefreshLayout.setEnableRefresh(isEnableRefresh);//开启刷新
+
+        mRefreshLayout.setEnableLoadmore(isEnableLoadmore);//开启加载更多
+
         if (mRefreshInterface != null) {
             mRefreshInterface.getListDataRequest(tag, mPageIndex, mLimit);
         }
@@ -226,6 +228,11 @@ public class RefreshHelper<T> {
 
     //执行默认刷新 mPageIndex++
     public RefreshHelper onDefaluteMLoadMore() {
+
+        mRefreshLayout.setEnableRefresh(isEnableRefresh);//开启刷新
+
+        mRefreshLayout.setEnableLoadmore(isEnableLoadmore);//开启加载更多
+
         if (mDataList.size() > 0) {
             mPageIndex++;
         }
@@ -236,7 +243,7 @@ public class RefreshHelper<T> {
     }
 
     //刷新
-    public void onMRefresh(int pageindex, int limit) {
+    private void onMRefresh(int pageindex, int limit) {
         mPageIndex = pageindex;
         mLimit = limit;
         if (mRefreshInterface != null) {
@@ -246,7 +253,7 @@ public class RefreshHelper<T> {
     }
 
     //加载
-    public void onMLoadMore(int pageIndex, int limit) {
+    private void onMLoadMore(int pageIndex, int limit) {
         mPageIndex = pageIndex;
         mLimit = limit;
         if (mRefreshInterface != null) {

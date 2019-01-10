@@ -26,8 +26,6 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.List;
-
 /**
  * * 备注:
  * 1.XXActivity 继承 BaseActivity,当页面存在 Presenter 时，具体 Activity 需要调用 setPresenter(P... presenter)
@@ -64,7 +62,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
 
         initData();
         initListeners();
-        MyApplication.mApplication.addActivity(this);
+        MyApplication.getApplication().addActivity(this);
         EventBus.getDefault().register(this);
     }
 
@@ -128,7 +126,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
 
     @Override
     protected void onResume() {
-        MyApplication.mApplication.currentActivityName = this.getClass().getName();
+        MyApplication.getApplication().currentActivityName = this.getClass().getName();
         getMvpDelegate().onResume();
         super.onResume();
     }
@@ -197,7 +195,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     @Override
     protected void onDestroy() {
         getMvpDelegate().onDestroy();
-        MyApplication.mApplication.deleteActivity(this);
+        MyApplication.getApplication().deleteActivity(this);
         EventBus.getDefault().unregister(this);
         ToastUtil.destory();
         super.onDestroy();

@@ -40,7 +40,7 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
     }
 
     /**
-     * 设置一页的加载数据量，为0时默认加载15个
+     * 设置一页的加载数据量，为0时默认加载10个
      *
      * @return
      */

@@ -59,7 +59,7 @@ public abstract class UploadObserver<T> extends HttpObserver<T> implements Uploa
      * @param desc
      */
     public void onError(String action, int code, String desc) {
-        UITipDialog.showFall(MyApplication.mApplication, desc);
+        UITipDialog.showFall(MyApplication.getApplication(), desc);
     }
 
     /**

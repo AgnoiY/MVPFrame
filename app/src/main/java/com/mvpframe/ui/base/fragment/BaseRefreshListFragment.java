@@ -27,7 +27,7 @@ public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, Lay
      * 初始化刷新相关
      */
     protected void initRefreshHelper(int limit) {
-        mRefreshHelper = new RefreshHelper<>(this, mLazyBinding.refreshLayout, mLazyBinding.rv).init(limit);
+        mRefreshHelper = initRefreshHelper(mLazyBinding.refreshLayout, mLazyBinding.rv, limit);
         mRefreshHelper.onDefaluteMRefresh();
 
     }
@@ -38,17 +38,9 @@ public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, Lay
     }
 
     /**
-     * 设置一页的加载数据量，默认加载15个
+     * 设置一页的加载数据量，默认加载10个
      *
      * @return
      */
     public abstract int setLimit();
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mRefreshHelper != null) {
-            mRefreshHelper.onDestroy();
-        }
-    }
 }
