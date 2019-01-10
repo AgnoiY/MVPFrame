@@ -73,6 +73,4 @@ dependencies {
     /*RxLifecycle基础库*/
     implementation rootProject.ext.dependencies.rxlifecycle
     implementation rootProject.ext.dependencies.components
-    /*相机和相册图片选择库*/
-//    implementation rootProject.ext.dependencies.takephoto
 }
