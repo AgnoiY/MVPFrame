@@ -47,16 +47,19 @@ public abstract class BaseListModelObserver<T> extends HttpObserver<T> {
         String msg = response.getMsg();
 
         switch (code) {
+            case 0:
+                if (response.isSuccess()) {//与服务器约定成功逻辑
+                    t = response.getData();
+                } else {//统一为错误处理
+                    onError(getTag(), code, "与服务器约定错误");
+                }
+                break;
             case 101://token过期，跳转登录页面重新登录(示例)
                 break;
             case 102://系统公告(示例)
                 break;
             default:
-                if (response.isSuccess()) {//与服务器约定成功逻辑
-                    t = response.getData();
-                } else {//统一为错误处理
-                    onError(getTag(), code, msg);
-                }
+                onError(getTag(), code, msg);
                 break;
         }
         return (T) t;
