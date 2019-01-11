@@ -106,6 +106,12 @@ public class MyApplication extends Application {
      * finish全部Activity
      */
     public void clearAllAcitity() {
+        for (Activity activity : activitys) {
+            if (!activity.isFinishing()) {
+                activity.finish();
+            }
+        }
+        activitys.clear();
     }
 
     public static Context getContext() {
