@@ -19,9 +19,9 @@ import com.mvpframe.ui.base.delegate.ActivityMvpDelegateImpl;
 import com.mvpframe.ui.base.interfaces.CreateInit;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
+import com.mvpframe.util.GeneralUtils;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.ToastUtil;
-import com.mvpframe.util.GeneralUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;

@@ -1,20 +1,25 @@
 package com.mvpframe.ui.base.activity;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.mvpframe.R;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.Tools;
+import com.mvpframe.util.statusbar.StatusBarUtil;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
 import java.util.ArrayList;
@@ -45,11 +50,26 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
 
         initTitleView();
 
+        iniStatusBarDarkTheme();
+
         initNotify(this);
     }
 
     protected void initNotify(Context context) {
 
+    }
+
+    /**
+     * 设置状态栏风格
+     */
+    private void iniStatusBarDarkTheme() {
+
+        //当FitsSystemWindows设置true时，会在屏幕最上方预留出状态栏高度的padding
+        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
+        //设置状态栏透明
+        StatusBarUtil.setTranslucentStatus(this);
+
+        setStatusBarDarkTheme(false, 0);
     }
 
     /**
@@ -72,30 +92,47 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.fram_img_back:
-                topTitleViewleftClick();
-                break;
-            case R.id.fllayout_right:
-                topTitleViewRightClick();
-                break;
-            case R.id.fra_empty:
-                onEmptyClickListener();
-                break;
-            case R.id.tv_empty:
-                onEmptyTextClickListener();
-                break;
-        }
+    /**
+     * 是否加载状态栏
+     *
+     * @param isShow
+     */
+    protected void setShowStatusBar(boolean isShow) {
+        mBaseBinding.statusBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        setShowTitle(isShow);
+        if (!isShow)
+            mBaseBinding.statusBarHeightView.setStatusBarHeight();
     }
 
     /**
-     * 设置标题栏标题
+     * 设置状态栏字体颜色
+     *
+     * @param dark
+     * @param colorId 不设置默认为半透明灰色
      */
-    protected void setTopTitle(String title) {
-        mBaseBinding.titleView.setMidTitle(title);
+    @SuppressLint("Range")
+    protected void setStatusBarDarkTheme(boolean dark, int colorId) {
+
+        ViewGroup.LayoutParams params = mBaseBinding.statusBar.getLayoutParams();
+        params.height = StatusBarUtil.getStatusBarHeight(this);
+        mBaseBinding.statusBar.setLayoutParams(params);
+//        mBaseBinding.statusBar.setBackgroundColor(mBaseBinding.titleView.getBackgroundColor());
+//        mBaseBinding.statusBar.setAlpha(125);
+
+        if (colorId <= 0){
+//            ColorDrawable colorDrawable =mBaseBinding.titleView.getBackgroundColor();
+//            colorDrawable.setAlpha(125);
+//            colorId = colorDrawable.getColor();
+//            LogUtil.e(colorId+"=");
+            colorId = 0x50000000;
+        }
+
+        //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
+        //设置状态使用深色文字图标风格
+        if (!StatusBarUtil.setStatusBarDarkTheme(this, dark)) {
+            //设置一个状态栏颜色为半透明,
+            StatusBarUtil.setStatusBarColor(this, colorId);
+        }
     }
 
     /**
@@ -105,6 +142,23 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
      */
     private boolean canLoadTopTitleView() {
         return true;
+    }
+
+    /**
+     * 是否显示title
+     *
+     * @param isShow
+     */
+    protected void setShowTitle(boolean isShow) {
+        mBaseBinding.titleView.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        mBaseBinding.viewV.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * 设置标题栏标题
+     */
+    protected void setTopTitle(String title) {
+        mBaseBinding.titleView.setMidTitle(title);
     }
 
     /**
@@ -134,16 +188,6 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
      */
     public void topTitleViewRightClick() {
 
-    }
-
-    /**
-     * 是否显示title
-     *
-     * @param isShow
-     */
-    protected void setShowTitle(boolean isShow) {
-        mBaseBinding.titleView.setVisibility(isShow ? View.VISIBLE : View.GONE);
-        mBaseBinding.viewV.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -224,6 +268,25 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
      */
     protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView) {
         return initRefreshHelper(refreshLayout, recyclerView, 0);
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.fram_img_back:
+                topTitleViewleftClick();
+                break;
+            case R.id.fllayout_right:
+                topTitleViewRightClick();
+                break;
+            case R.id.fra_empty:
+                onEmptyClickListener();
+                break;
+            case R.id.tv_empty:
+                onEmptyTextClickListener();
+                break;
+        }
     }
 
     @Override

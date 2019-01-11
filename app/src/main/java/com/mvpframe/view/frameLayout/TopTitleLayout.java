@@ -1,6 +1,7 @@
 package com.mvpframe.view.frameLayout;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -114,6 +115,11 @@ public class TopTitleLayout extends FrameLayout {
 
     public void setBackgroundColor(int color) {
         findViewById(R.id.fram_title).setBackgroundColor(color);
+    }
+
+    public ColorDrawable getBackgroundColor() {
+        ColorDrawable colorDrawable = (ColorDrawable) findViewById(R.id.fram_title).getBackground();
+        return colorDrawable;
     }
 
 }

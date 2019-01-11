@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.mvpframe.view.frameLayout.TopTitleLayout
-            android:id="@+id/title_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </com.mvpframe.view.frameLayout.TopTitleLayout>
+        android:layout_height="match_parent">
 
         <View
-            android:id="@+id/view_v"
-            style="@style/style_split_line"
-            android:visibility="gone" />
-
-        <com.mvpframe.view.frameLayout.ViewLoadLayout
-            android:id="@+id/content_view"
+            android:id="@+id/status_bar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/bg_gray">
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
 
+        <com.mvpframe.view.linearLayout.StatusBarHeightView
+            android:id="@+id/status_bar_height_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        </com.mvpframe.view.frameLayout.ViewLoadLayout>
+            <com.mvpframe.view.frameLayout.TopTitleLayout
+                android:id="@+id/title_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+            </com.mvpframe.view.frameLayout.TopTitleLayout>
 
-    </LinearLayout>
+            <View
+                android:id="@+id/view_v"
+                style="@style/style_split_line"
+                android:visibility="gone" />
+
+            <com.mvpframe.view.frameLayout.ViewLoadLayout
+                android:id="@+id/content_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/bg_gray" />
+
+        </com.mvpframe.view.linearLayout.StatusBarHeightView>
+
+    </android.support.constraint.ConstraintLayout>
+
 </layout>

@@ -11,9 +11,9 @@ import android.util.Log;
  */
 public class LogUtil {
 
-    public static Boolean isDeBug = false;
+    public static Boolean isDeBug = true;
 
-    private static final String TAG = "LOG_YONG";
+    private static final String TAG = "log_yong";
 
     public static void i(String msg) {
         if (isDeBug) {
