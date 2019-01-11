@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import com.mvpframe.R;
 import com.mvpframe.app.MyApplication;
 import com.mvpframe.bean.event.BaseEventModel;
 import com.mvpframe.presenter.base.BasePresenter;
@@ -59,7 +60,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         presentationLayerFuncHelper = new PresentationLayerFuncHelper(this);
         setContentView(savedInstanceState);
         mContext = this;
-
+        getWindow().setBackgroundDrawableResource(R.color.transparent);//移除布局根背景
         initData();
         initListeners();
         MyApplication.getApplication().addActivity(this);

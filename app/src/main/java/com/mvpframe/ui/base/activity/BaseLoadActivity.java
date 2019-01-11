@@ -99,11 +99,11 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
     }
 
     /**
-     * 能否加载标题
+     * 加载标题
      *
      * @return
      */
-    protected boolean canLoadTopTitleView() {
+    private boolean canLoadTopTitleView() {
         return true;
     }
 

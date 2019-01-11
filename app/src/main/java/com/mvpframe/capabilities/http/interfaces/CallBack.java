@@ -77,4 +77,9 @@ public interface CallBack<T> {
      */
     T onConvert(String data) throws Exception;
 
+    /**
+     * token过期，跳转登录页面重新登录
+     */
+    void isLoginToken();
+
 }

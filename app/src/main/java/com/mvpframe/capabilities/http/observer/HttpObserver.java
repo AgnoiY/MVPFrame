@@ -1,10 +1,16 @@
 package com.mvpframe.capabilities.http.observer;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
+import com.mvpframe.app.MyApplication;
+import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.capabilities.http.interfaces.ParseHelper;
+import com.mvpframe.ui.view.account.activity.LoginActivity;
 import com.mvpframe.util.LogUtil;
+import com.mvpframe.util.ToastUtil;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -83,4 +89,12 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
         return mClass;
     }
 
+    @Override
+    public void isLoginToken() {
+        SharedPrefManager.getUser().clear();
+        Activity activity = MyApplication.getApplication().activitys.get(MyApplication.getApplication().activitys.size() - 1);
+        MyApplication.getApplication().clearAllAcitity();
+        activity.startActivity(new Intent(activity, LoginActivity.class));
+        ToastUtil.makeCenterToast(activity, "账号在其他地方登录");
+    }
 }

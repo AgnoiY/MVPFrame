@@ -19,6 +19,7 @@ import com.mvpframe.ui.base.delegate.FragmentMvpDelegateImpl;
 import com.mvpframe.ui.base.interfaces.CreateInit;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
+import com.mvpframe.util.ToastUtil;
 import com.mvpframe.util.Tools;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
@@ -223,6 +224,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     public void onDestroyView() {
         super.onDestroyView();
         getMvpDelegate().onDestroyView();
+        ToastUtil.destory();
         EventBus.getDefault().unregister(this);
     }
 

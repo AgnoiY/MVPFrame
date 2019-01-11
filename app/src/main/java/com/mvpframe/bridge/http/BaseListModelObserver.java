@@ -54,9 +54,10 @@ public abstract class BaseListModelObserver<T> extends HttpObserver<T> {
                     onError(getTag(), code, "与服务器约定错误");
                 }
                 break;
-            case 101://token过期，跳转登录页面重新登录(示例)
+            case 101://token过期，跳转登录页面重新登录
+                isLoginToken();
                 break;
-            case 102://系统公告(示例)
+            case 102://系统公告
                 break;
             default:
                 onError(getTag(), code, msg);
