@@ -14,7 +14,7 @@ import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.util.GeneralUtils;
+import com.mvpframe.util.Tools;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
 import java.util.ArrayList;
@@ -210,7 +210,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
      */
     protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {
         RefreshHelper helper = new RefreshHelper<>(this, refreshLayout, recyclerView).init(limit);
-        if (GeneralUtils.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
+        if (Tools.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
         listRefreshHelper.add(helper);
         return helper;
     }
@@ -229,7 +229,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (GeneralUtils.isNotNullOrZeroSize(listRefreshHelper)) {
+        if (Tools.isNotNullOrZeroSize(listRefreshHelper)) {
             for (RefreshHelper helper : listRefreshHelper) {
                 if (helper != null)
                     helper.onDestroy();

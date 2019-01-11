@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mvpframe.app.MyApplication;
 import com.mvpframe.bean.event.BaseEventModel;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
@@ -20,7 +19,7 @@ import com.mvpframe.ui.base.interfaces.CreateInit;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
 import com.mvpframe.util.ToastUtil;
-import com.mvpframe.util.Tools;
+import com.mvpframe.util.GeneralUtils;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -178,7 +177,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
      */
     @Override
     public void onClick(View v) {
-        if (Tools.isDoubleClick()) return;
+        if (GeneralUtils.isDoubleClick()) return;
     }
 
     @Override

@@ -2,11 +2,9 @@ package com.mvpframe.view;
 
 import android.view.View;
 
-import com.mvpframe.R;
-import com.mvpframe.app.MyApplication;
 import com.mvpframe.util.LogUtil;
 
-import static com.mvpframe.util.Tools.isDoubleClick;
+import static com.mvpframe.util.GeneralUtils.isDoubleClick;
 
 /**
  * 防止重复点击

@@ -21,7 +21,7 @@ import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.ToastUtil;
-import com.mvpframe.util.Tools;
+import com.mvpframe.util.GeneralUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -122,7 +122,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      */
     @Override
     public void onClick(View v) {
-        if (Tools.isDoubleClick()) return;
+        if (GeneralUtils.isDoubleClick()) return;
     }
 
     @Override

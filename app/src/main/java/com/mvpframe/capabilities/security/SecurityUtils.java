@@ -1,6 +1,6 @@
 package com.mvpframe.capabilities.security;
 
-import com.mvpframe.util.GeneralUtils;
+import com.mvpframe.util.Tools;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -20,7 +20,7 @@ public class SecurityUtils {
      * @return
      */
     public final static String get32MD5Str(String str) {
-        if (GeneralUtils.isNullOrZeroLenght(str)) {
+        if (Tools.isNullOrZeroLenght(str)) {
             return str;
         }
         MessageDigest messageDigest = null;

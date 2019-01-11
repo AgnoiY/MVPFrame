@@ -1,10 +1,9 @@
 package com.mvpframe.bridge.sharePref;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.mvpframe.capabilities.cache.BaseSharedPreference;
-import com.mvpframe.util.GeneralUtils;
+import com.mvpframe.util.Tools;
 
 
 /**
@@ -37,7 +36,7 @@ public class SharedPrefUser extends BaseSharedPreference {
      * @return
      */
     public boolean isLoginNoStart() {
-        return GeneralUtils.isNullOrZeroLenght(this.getString(USER_TOKEN, ""));
+        return Tools.isNullOrZeroLenght(this.getString(USER_TOKEN, ""));
     }
 
 }
