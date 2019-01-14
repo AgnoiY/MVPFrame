@@ -3,6 +3,7 @@ package com.mvpframe.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.mvpframe.bridge.BridgeFactory;
 import com.mvpframe.bridge.BridgeLifeCycleSetKeeper;
@@ -60,6 +61,11 @@ public class MyApplication extends Application {
         EventBus.builder().throwSubscriberException(isDebug).installDefaultEventBus();
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void onTerminate() {
