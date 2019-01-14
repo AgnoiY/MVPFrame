@@ -5,8 +5,7 @@
     <FrameLayout
         android:id="@+id/fram_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/title_bg">
+        android:layout_height="@dimen/title_height">
 
         <TextView
             android:id="@+id/tv_top_title_abs"

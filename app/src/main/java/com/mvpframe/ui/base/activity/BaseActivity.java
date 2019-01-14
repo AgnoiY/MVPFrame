@@ -58,13 +58,16 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         getMvpDelegate().onCreate(savedInstanceState);
 
         presentationLayerFuncHelper = new PresentationLayerFuncHelper(this);
+
         setContentView(savedInstanceState);
         mContext = this;
         getWindow().setBackgroundDrawableResource(R.color.transparent);//移除布局根背景
-        initData();
-        initListeners();
         MyApplication.getApplication().addActivity(this);
         EventBus.getDefault().register(this);
+
+        initData();
+        initStatusBarDarkTheme();
+        initListeners();
     }
 
     /**
