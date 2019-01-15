@@ -34,7 +34,7 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
 
 
     @Override
-    protected void initNotify(Context context) {
+    public void initNotify(Context context) {
         super.initNotify(context);
         initRefreshHelper(setLimit());
     }

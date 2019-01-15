@@ -24,7 +24,7 @@ public abstract class BaseTablayoutFragment<T> extends BaseLazyFragment<T, Activ
     private int tabMode = TabLayout.MODE_SCROLLABLE;//TabLayout.MODE_SCROLLABLE 可滑动 ，TabLayout.MODE_FIXED表示不可滑动
 
     @Override
-    protected int getLayout() {
+    public int getLayout() {
         return R.layout.activity_tab;
     }
 

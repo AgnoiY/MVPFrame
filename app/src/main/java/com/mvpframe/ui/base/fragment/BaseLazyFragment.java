@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.ui.base.interfaces.LazyCreateInit;
 import com.mvpframe.util.Tools;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
@@ -20,7 +21,9 @@ import java.util.List;
  *
  * @author yong
  */
-public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends BaseFragment<T, IMvpView<T>, BasePresenter<IMvpView<T>>> {
+public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
+        extends BaseFragment<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
+        implements LazyCreateInit {
 
     protected B mLazyBinding;
 
@@ -60,18 +63,6 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding> extends Bas
             onInvisible();
         }
     }
-
-    /**
-     * fragment显示时调用
-     */
-    protected abstract void lazyLoad();
-
-    /**
-     * fragment隐藏时调用
-     */
-    protected abstract void onInvisible();
-
-    protected abstract int getLayout();
 
     @Override
     public void initData() {

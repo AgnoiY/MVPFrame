@@ -19,7 +19,7 @@ public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, Lay
     protected RefreshHelper mRefreshHelper;
 
     @Override
-    protected int getLayout() {
+    public int getLayout() {
         return R.layout.layout_recycler_refresh;
     }
 
@@ -33,7 +33,7 @@ public abstract class BaseRefreshListFragment<T> extends BaseLazyFragment<T, Lay
     }
 
     @Override
-    protected void lazyLoad() {
+    public void lazyLoad() {
         initRefreshHelper(setLimit());
     }
 

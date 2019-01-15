@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +16,7 @@ import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.Tools;
 import com.mvpframe.util.statusbar.StatusBarUtil;
@@ -31,7 +31,9 @@ import java.util.List;
  *
  * @author yong
  */
-public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>> {
+public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
+        extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
+        implements LoadCreateClickListener<T> {
 
     protected ActivityBaseLoadBinding mBaseBinding;
 
@@ -55,7 +57,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
         initNotify(this);
     }
 
-    protected void initNotify(Context context) {
+    public void initNotify(Context context) {
 
     }
 
@@ -119,7 +121,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
 //        mBaseBinding.statusBar.setBackgroundColor(mBaseBinding.titleView.getBackgroundColor());
 //        mBaseBinding.statusBar.setAlpha(125);
 
-        if (colorId <= 0){
+        if (colorId <= 0) {
 //            ColorDrawable colorDrawable =mBaseBinding.titleView.getBackgroundColor();
 //            colorDrawable.setAlpha(125);
 //            colorId = colorDrawable.getColor();
@@ -170,23 +172,16 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
     }
 
     /**
-     * 添加布局layoutID
-     *
-     * @return
+     * 标题返回点击事件监听
      */
-    public abstract int getLayout();
-
-    /**
-     * 标题返回
-     */
-    public void topTitleViewleftClick() {
+    public void onTopTitleLeftClickListener() {
         finish();
     }
 
     /**
-     * 标题右侧点击事件
+     * 标题右侧点击事件监听
      */
-    public void topTitleViewRightClick() {
+    public void onTopTitleRightClickListener() {
 
     }
 
@@ -212,6 +207,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
      */
     @Override
     public void onError(String action, int code, String msg) {
+        LogUtil.e("url=" + action + ";" + "code=" + code + ";" + "msg=" + msg);
         if (code == ExceptionEngine.CONNECT_ERROR) {//网络连接失败
             mBaseBinding.contentView.setShowText(msg);
             mBaseBinding.contentView.setShowImage(R.mipmap.ic_launcher);
@@ -220,17 +216,10 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
 
     @Override
     public void onSuccess(String action, T data) {
+        LogUtil.e("url=" + action + ";" + data);
         mBaseBinding.contentView.hindEmptyAll();
         onSucceed(action, data);
     }
-
-    /**
-     * 加载成功
-     *
-     * @param action 区分不同事件
-     * @param data   数据
-     */
-    public abstract void onSucceed(String action, T data);
 
     /**
      * 加载显示错误布局，全布局点击事件监听
@@ -275,10 +264,10 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding> extends Bas
         super.onClick(v);
         switch (v.getId()) {
             case R.id.fram_img_back:
-                topTitleViewleftClick();
+                onTopTitleLeftClickListener();
                 break;
             case R.id.fllayout_right:
-                topTitleViewRightClick();
+                onTopTitleRightClickListener();
                 break;
             case R.id.fra_empty:
                 onEmptyClickListener();
