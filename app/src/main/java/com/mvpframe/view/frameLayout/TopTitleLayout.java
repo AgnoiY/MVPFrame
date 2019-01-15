@@ -117,9 +117,9 @@ public class TopTitleLayout extends FrameLayout {
         findViewById(R.id.fram_title).setBackgroundColor(color);
     }
 
-    public ColorDrawable getBackgroundColor() {
+    public int getBackgroundColor() {
         ColorDrawable colorDrawable = (ColorDrawable) findViewById(R.id.fram_title).getBackground();
-        return colorDrawable;
+        return colorDrawable.getColor();
     }
 
 }

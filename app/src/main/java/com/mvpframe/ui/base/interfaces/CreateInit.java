@@ -21,6 +21,11 @@ public interface CreateInit<V extends IMvpView, P extends Presenter> {
          */
         void setContentView(Bundle savedInstanceState);
 
+        /**
+         *  设置状态栏样式
+         */
+        void initStatusBarDarkTheme();
+
     }
 
     interface CreateInitFragment<V extends IMvpView, P extends Presenter> extends CreateInit<V, P> {

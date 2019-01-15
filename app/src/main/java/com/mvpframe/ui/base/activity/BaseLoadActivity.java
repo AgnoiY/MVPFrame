@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +17,6 @@ import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.Tools;
 import com.mvpframe.util.statusbar.StatusBarUtil;
@@ -57,21 +57,22 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         initNotify(this);
     }
 
-    public void initNotify(Context context) {
+    protected void initNotify(Context context) {
 
     }
 
     /**
      * 设置状态栏风格
      */
-    private void iniStatusBarDarkTheme() {
+    @Override
+    public void initStatusBarDarkTheme() {
 
         //当FitsSystemWindows设置true时，会在屏幕最上方预留出状态栏高度的padding
         StatusBarUtil.setRootViewFitsSystemWindows(this, false);
         //设置状态栏透明
         StatusBarUtil.setTranslucentStatus(this);
 
-        setStatusBarDarkTheme(false, 0);
+        setStatusBarDarkTheme(true, 0);
     }
 
     /**
@@ -118,14 +119,10 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         ViewGroup.LayoutParams params = mBaseBinding.statusBar.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(this);
         mBaseBinding.statusBar.setLayoutParams(params);
-//        mBaseBinding.statusBar.setBackgroundColor(mBaseBinding.titleView.getBackgroundColor());
-//        mBaseBinding.statusBar.setAlpha(125);
+        mBaseBinding.statusBar.setBackgroundColor(mBaseBinding.titleView.getBackgroundColor());
+        mBaseBinding.statusBar.getBackground().setAlpha(150);
 
-        if (colorId <= 0) {
-//            ColorDrawable colorDrawable =mBaseBinding.titleView.getBackgroundColor();
-//            colorDrawable.setAlpha(125);
-//            colorId = colorDrawable.getColor();
-//            LogUtil.e(colorId+"=");
+        if (colorId <= 0){
             colorId = 0x50000000;
         }
 
