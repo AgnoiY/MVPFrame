@@ -17,6 +17,7 @@ import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.Tools;
 import com.mvpframe.util.statusbar.StatusBarUtil;
@@ -52,12 +53,10 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
 
         initTitleView();
 
-        iniStatusBarDarkTheme();
-
         initNotify(this);
     }
 
-    protected void initNotify(Context context) {
+    public void initNotify(Context context) {
 
     }
 
