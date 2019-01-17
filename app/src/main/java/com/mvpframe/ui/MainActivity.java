@@ -1,6 +1,5 @@
 package com.mvpframe.ui;
 
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.mvpframe.R;

@@ -205,7 +205,7 @@ public class MyApplication extends Application {
      * @param context
      * @return
      */
-    private boolean needWait(Context context) {
+    public boolean needWait(Context context) {
         String flag = get2thDexSHA1(context);
         LogUtil.e("dex2-sha1 " + flag);
         SharedPreferences sp = context.getSharedPreferences(
@@ -290,10 +290,10 @@ public class MyApplication extends Application {
      * @param context
      * @return
      */
-    public boolean needFinishWelCome(Context context) {
+    public int needFinishWelCome(Context context) {
         SharedPreferences sp = context.getSharedPreferences(
                 getPackageInfo(context).versionName, MODE_MULTI_PROCESS);
-        return sp.getBoolean(WELCOME, false);
+        return sp.getInt(WELCOME, 0);
 
     }
 
@@ -301,11 +301,13 @@ public class MyApplication extends Application {
      * put finish WelcomeActivity
      *
      * @param context
+     * @param isFinish 0:等待状态、1:点击进入应用结束、2:返回键结束
+     *
      */
-    public void installFinishWelCome(Context context, boolean isFinish) {
+    public void installFinishWelCome(Context context, int isFinish) {
         SharedPreferences sp = context.getSharedPreferences(
                 getPackageInfo(context).versionName, MODE_MULTI_PROCESS);
-        sp.edit().putBoolean(WELCOME, isFinish).commit();
+        sp.edit().putInt(WELCOME, isFinish).commit();
     }
 
 }

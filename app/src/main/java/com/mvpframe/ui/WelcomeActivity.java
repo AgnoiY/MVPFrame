@@ -1,14 +1,25 @@
 package com.mvpframe.ui;
 
+import android.os.Build;
+import android.os.Handler;
+
 import com.mvpframe.R;
 import com.mvpframe.app.MyApplication;
 import com.mvpframe.databinding.ActivityWelcomeBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.util.LogUtil;
 
+/**
+ * <欢迎页>
+ * <p>
+ * Data：2019/01/17
+ *
+ * @author yong
+ */
 public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBinding> {
+
+    private long delayMillis = 2000;
 
     @Override
     public BasePresenter<IMvpView<Object>>[] getPresenterArray() {
@@ -18,9 +29,19 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
     @Override
     protected void onResume() {
         super.onResume();
-        if (((MyApplication) getApplication()).needFinishWelCome(getApplication())) {
-            ((MyApplication) getApplication()).installFinishWelCome(getApplication(), false);
-            finish();
+        switch (((MyApplication) getApplication()).needFinishWelCome(getApplication())) {
+            case 1:
+                if (MyApplication.getApplication().needFinishWelCome(this) == 1)
+                    waitLoadMain();
+                break;
+            case 2:
+                ((MyApplication) getApplication()).installFinishWelCome(getApplication(), 1);
+                finish();
+                break;
+            default:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    waitLoadMain();
+                break;
         }
     }
 
@@ -42,5 +63,21 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
     @Override
     public void onSucceed(String action, Object data) {
 
+    }
+
+    /**
+     * 等待加载主界面
+     */
+    private void waitLoadMain() {
+        new Handler().postDelayed(() -> {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && MyApplication.getApplication().needWait(this)) {
+                startActivity(LoadResActivity.class, null);
+            } else
+                startActivity(MainActivity.class, null);
+
+            finish();
+
+        }, delayMillis);
     }
 }
