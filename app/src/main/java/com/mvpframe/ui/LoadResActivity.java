@@ -1,19 +1,26 @@
 package com.mvpframe.ui;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.multidex.MultiDex;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.mvpframe.R;
+import com.mvpframe.adapters.ViewPagerAdapter;
 import com.mvpframe.app.MyApplication;
+import com.mvpframe.ui.view.guide.GuideFragment;
 import com.mvpframe.util.LogUtil;
+import com.mvpframe.view.viewpager.EnabledViewpager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <加载引导页，并分包加载class>
@@ -22,10 +29,13 @@ import com.mvpframe.util.LogUtil;
  *
  * @author yong
  */
-public class LoadResActivity extends Activity implements View.OnClickListener {
+public class LoadResActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tv;
+    private EnabledViewpager viewPager;
+
+    public static String GUIDE = "GUIDE";
     private boolean installFinishWelCome = false;
+    private int[] ints = {R.mipmap.ic_launcher, R.mipmap.ic_launcher};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +65,7 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
      * 初始化控件
      */
     private void initView() {
-        tv = findViewById(R.id.tv);
+        viewPager = findViewById(R.id.view_pager);
     }
 
     /**
@@ -63,13 +73,23 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
      */
     private void initData() {
         new LoadDexTask().execute();
+        List<Fragment> list = new ArrayList<>();
+        for (int i : ints) {
+            GuideFragment guide = new GuideFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(GUIDE, i);
+            guide.setArguments(bundle);
+            list.add(guide);
+        }
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), list));
+        viewPager.setCurrentItem(0);
     }
 
     /**
      * 增加按钮点击事件
      */
     private void initListeners() {
-        tv.setOnClickListener(this);
+
     }
 
     class LoadDexTask extends AsyncTask {

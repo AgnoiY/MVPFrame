@@ -1,7 +1,6 @@
 package com.mvpframe.ui.base.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
@@ -27,6 +26,8 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 /**
  * * 备注:
  * 1.XXActivity 继承 BaseActivity,当页面存在 Presenter 时，具体 Activity 需要调用 setPresenter(P... presenter)
@@ -40,9 +41,11 @@ import org.greenrobot.eventbus.Subscribe;
 public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresenter<V>> extends RxAppCompatActivity implements
         CreateInit.CreateInitActivity<V, P>, PublishActivityCallBack, PresentationLayerFunc<T>, IMvpView<T>, View.OnClickListener {
 
-    protected ActivityMvpDelegate mvpDelegate;
+    private ActivityMvpDelegate mvpDelegate;
 
-    private PresentationLayerFuncHelper presentationLayerFuncHelper;
+    private PresentationLayerFuncHelper helper;
+
+    protected CompositeDisposable disposable;
 
     public final String TAG = this.getClass().getSimpleName();
 
@@ -57,7 +60,8 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
 
         getMvpDelegate().onCreate(savedInstanceState);
 
-        presentationLayerFuncHelper = new PresentationLayerFuncHelper(this);
+        disposable = new CompositeDisposable();
+        helper = new PresentationLayerFuncHelper(this, disposable);
 
         setContentView(savedInstanceState);
         mContext = this;
@@ -112,11 +116,6 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     }
 
     /**
-     * 获取 Presenter 数组
-     */
-    public abstract P[] getPresenterArray();
-
-    /**
      * 配合DataBinding点击事件监听
      * 添加防止重复点击
      * 有点击事件只需重写
@@ -137,42 +136,35 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
 
     @Override
     public void startActivity(Class<?> openClass, Bundle bundle) {
-        Intent intent = new Intent(this, openClass);
-        if (null != bundle)
-            intent.putExtras(bundle);
-        startActivity(intent);
+        helper.startActivity(openClass, bundle);
     }
 
     @Override
     public void openActivityForResult(Class<?> openClass, int requestCode, Bundle bundle) {
-        Intent intent = new Intent(this, openClass);
-        if (null != bundle)
-            intent.putExtras(bundle);
-        startActivityForResult(intent, requestCode);
+        helper.openActivityForResult(openClass, requestCode, bundle);
     }
 
     @Override
     public void setResultOk(Bundle bundle) {
-        Intent intent = new Intent();
-        if (bundle != null) ;
-        intent.putExtras(bundle);
-        setResult(RESULT_OK, intent);
-        finish();
+        helper.setResultOk(bundle);
     }
 
     @Override
     public void showToast(String msg) {
-        presentationLayerFuncHelper.showToast(msg);
+        helper.showToast(msg);
     }
 
     @Override
     public void showSoftKeyboard(View focusView) {
-        presentationLayerFuncHelper.showSoftKeyboard(focusView);
+        helper.showSoftKeyboard(focusView);
     }
 
+    /**
+     * 隐藏软键盘
+     */
     @Override
     public void hideSoftKeyboard() {
-        presentationLayerFuncHelper.hideSoftKeyboard();
+        helper.hideSoftKeyboard();
     }
 
     /**
@@ -182,7 +174,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      */
     @Override
     public void getEventBusPost(Object... o) {
-        presentationLayerFuncHelper.getEventBusPost(o);
+        helper.getEventBusPost(o);
     }
 
     /**
@@ -193,7 +185,27 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     @Subscribe
     @Override
     public void onEventMainThread(BaseEventModel<T> eventModel) {
-        presentationLayerFuncHelper.onEventMainThread(eventModel);
+        helper.onEventMainThread(eventModel);
+    }
+
+    /**
+     * 延迟操作
+     *
+     * @param delay
+     */
+    @Override
+    public void postDelayed(long delay) {
+        helper.postDelayed(delay);
+    }
+
+    /**
+     * 延迟后要进行的操作
+     *
+     * @param l
+     */
+    @Override
+    public void nextStep(Long l) {
+        LogUtil.e(TAG + ":" + l);
     }
 
     @Override
@@ -202,27 +214,36 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         MyApplication.getApplication().deleteActivity(this);
         EventBus.getDefault().unregister(this);
         ToastUtil.destory();
+        if (disposable != null) {
+            disposable.dispose();
+            disposable.clear();
+        }
         super.onDestroy();
     }
 
     @Override
     public void finish() {
         try {
-            presentationLayerFuncHelper.hideSoftKeyboard();
+            helper.hideSoftKeyboard();
         } catch (Exception e) {
             LogUtil.e("finish 输入法错误");
         }
         super.finish();
     }
 
-    //监听点击事件 实现点击页面上除EditView外的位置隐藏输入法
+    /**
+     * 监听点击事件 实现点击页面上除EditView外的位置隐藏输入法
+     *
+     * @param ev
+     * @return
+     */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         try {
             if (ev.getAction() == MotionEvent.ACTION_DOWN) {
                 View v = getCurrentFocus();
                 if (isShouldHideKeyboard(v, ev)) {
-                    presentationLayerFuncHelper.hideKeyboard(v.getWindowToken());
+                    helper.hideKeyboard(v.getWindowToken());
                 }
             }
         } catch (Exception e) {
@@ -238,7 +259,6 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      * @param event
      * @return
      */
-
     private boolean isShouldHideKeyboard(View v, MotionEvent event) {
         if (v != null && (v instanceof EditText)) {
             int[] l = {0, 0};

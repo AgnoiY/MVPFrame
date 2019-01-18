@@ -1,7 +1,6 @@
 package com.mvpframe.ui.base.fragment;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,14 +17,15 @@ import com.mvpframe.ui.base.delegate.FragmentMvpDelegateImpl;
 import com.mvpframe.ui.base.interfaces.CreateInit;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
-import com.mvpframe.util.ToastUtil;
 import com.mvpframe.util.GeneralUtils;
+import com.mvpframe.util.LogUtil;
+import com.mvpframe.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import static android.app.Activity.RESULT_OK;
+import io.reactivex.disposables.CompositeDisposable;
 
 
 /**
@@ -45,12 +45,9 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
 
     protected FragmentMvpDelegate mvpDelegate;
 
-    /**
-     * 获取 Presenter 数组
-     */
-    public abstract P[] getPresenterArray();
+    private PresentationLayerFuncHelper helper;
 
-    private PresentationLayerFuncHelper presentationLayerFuncHelper;
+    protected CompositeDisposable disposable;
 
     public final String TAG = this.getClass().getSimpleName();
 
@@ -85,12 +82,15 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         getMvpDelegate().onActivityCreated(savedInstanceState);
-        presentationLayerFuncHelper = new PresentationLayerFuncHelper(mActivity);
+
+        disposable = new CompositeDisposable();
+        helper = new PresentationLayerFuncHelper(mActivity, disposable);
         EventBus.getDefault().register(this);
 
-        initListeners();
         initData();
+        initListeners();
     }
 
     /**
@@ -141,7 +141,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
      */
     @Override
     public void getEventBusPost(Object... o) {
-        presentationLayerFuncHelper.getEventBusPost(o);
+        helper.getEventBusPost(o);
     }
 
     /**
@@ -152,7 +152,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     @Subscribe
     @Override
     public void onEventMainThread(BaseEventModel<T> eventModel) {
-        presentationLayerFuncHelper.onEventMainThread(eventModel);
+        helper.onEventMainThread(eventModel);
     }
 
     /**
@@ -182,41 +182,42 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
 
     @Override
     public void startActivity(Class<?> openClass, Bundle bundle) {
-        Intent intent = new Intent(mActivity, openClass);
-        if (null != bundle)
-            intent.putExtras(bundle);
-        startActivity(intent);
+        helper.startActivity(openClass, bundle);
     }
 
     @Override
     public void openActivityForResult(Class<?> openClass, int requestCode, Bundle bundle) {
-        Intent intent = new Intent(mActivity, openClass);
-        if (null != bundle)
-            intent.putExtras(bundle);
-        startActivityForResult(intent, requestCode);
+        helper.openActivityForResult(openClass, requestCode, bundle);
     }
 
     @Override
     public void setResultOk(Bundle bundle) {
-        Intent intent = new Intent();
-        if (bundle != null) ;
-        intent.putExtras(bundle);
-        mActivity.setResult(RESULT_OK, intent);
+        helper.setResultOk(bundle);
     }
 
     @Override
     public void showToast(String msg) {
-        presentationLayerFuncHelper.showToast(msg);
+        helper.showToast(msg);
     }
 
     @Override
     public void showSoftKeyboard(View focusView) {
-        presentationLayerFuncHelper.showSoftKeyboard(focusView);
+        helper.showSoftKeyboard(focusView);
     }
 
     @Override
     public void hideSoftKeyboard() {
-        presentationLayerFuncHelper.hideSoftKeyboard();
+        helper.hideSoftKeyboard();
+    }
+
+    @Override
+    public void postDelayed(long delay) {
+        helper.postDelayed(delay);
+    }
+
+    @Override
+    public void nextStep(Long l) {
+        LogUtil.e(TAG + ":" + l);
     }
 
     @Override
@@ -225,6 +226,10 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
         getMvpDelegate().onDestroyView();
         ToastUtil.destory();
         EventBus.getDefault().unregister(this);
+        if (disposable != null) {
+            disposable.dispose();
+            disposable.clear();
+        }
     }
 
     @Override

@@ -79,9 +79,9 @@ public class ButtonTextView extends TextView {
 
         // 如果使用时没有设置内边距, 设置默认边距
         int paddingLeft = getPaddingLeft() == 0 ? DensityUtil.dip2px(DEFAULT_LR_PADDING) : getPaddingLeft();
-        int paddingRight = getPaddingLeft() == 0 ? DensityUtil.dip2px(DEFAULT_LR_PADDING) : getPaddingRight();
-        int paddingTop = getPaddingLeft() == 0 ? DensityUtil.dip2px(DEFAULT_TB_PADDING) : getPaddingTop();
-        int paddingBottom = getPaddingLeft() == 0 ? DensityUtil.dip2px(DEFAULT_TB_PADDING) : getPaddingBottom();
+        int paddingRight = getPaddingRight() == 0 ? DensityUtil.dip2px(DEFAULT_LR_PADDING) : getPaddingRight();
+        int paddingTop = getPaddingTop() == 0 ? DensityUtil.dip2px(DEFAULT_TB_PADDING) : getPaddingTop();
+        int paddingBottom = getPaddingBottom() == 0 ? DensityUtil.dip2px(DEFAULT_TB_PADDING) : getPaddingBottom();
         setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
     }
 

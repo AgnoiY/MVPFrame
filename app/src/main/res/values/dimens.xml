@@ -2,9 +2,13 @@
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="distance_48">48dp</dimen>
+    <dimen name="distance_20">20dp</dimen>
     <dimen name="distance_16">16dp</dimen>
+    <dimen name="distance_15">15dp</dimen>
     <dimen name="distance_8">8dp</dimen>
+    <dimen name="distance_6">6dp</dimen>
 
+    <!-- 字体大小 -->
     <dimen name="text_10">10sp</dimen>
     <dimen name="text_11">11sp</dimen>
     <dimen name="text_12">12sp</dimen>
@@ -17,15 +21,52 @@
     <dimen name="text_20">20sp</dimen>
     <dimen name="text_22">22sp</dimen>
 
-    <!--dialog-->
+    <!-- 距左侧边距 -->
+    <dimen name="left_distance_6">6dp</dimen>
+    <dimen name="left_distance_15">15dp</dimen>
+    <dimen name="left_distance_16">16dp</dimen>
+    <dimen name="left_distance_20">20dp</dimen>
+
+    <!-- 距上侧边距 -->
+    <dimen name="top_distance_6">6dp</dimen>
+    <dimen name="top_distance_15">15dp</dimen>
+    <dimen name="top_distance_16">16dp</dimen>
+    <dimen name="top_distance_20">20dp</dimen>
+
+    <!-- 距右侧边距 -->
+    <dimen name="right_distance_6">6dp</dimen>
+    <dimen name="right_distance_15">15dp</dimen>
+    <dimen name="right_distance_16">16dp</dimen>
+    <dimen name="right_distance_20">20dp</dimen>
+
+    <!-- 距下侧边距 -->
+    <dimen name="bottom_distance_6">6dp</dimen>
+    <dimen name="bottom_distance_15">15dp</dimen>
+    <dimen name="bottom_distance_16">16dp</dimen>
+    <dimen name="bottom_distance_20">20dp</dimen>
+
+    <!-- 圆角 -->
+    <dimen name="radius_3">3dp</dimen>
+    <dimen name="radius_5">5dp</dimen>
+    <dimen name="radius_10">10dp</dimen>
+    <dimen name="radius_15">15dp</dimen>
+    <dimen name="radius_20">20dp</dimen>
+    <dimen name="radius_200">200dp</dimen>
+
+    <!-- 边框线宽 -->
+    <dimen name="stroke_width">0.5dp</dimen>
+    <dimen name="stroke_width_1">1dp</dimen>
+    <dimen name="stroke_width_2">2dp</dimen>
+
+    <!-- dialog -->
     <dimen name="dialog_tips_corner">16dp</dimen>
     <dimen name="dialog_width">75dp</dimen>
     <dimen name="dialog_height">65dp</dimen>
 
-    <!--分割线-->
+    <!-- 分割线 -->
     <dimen name="line_distance_cd">1dp</dimen>
 
-    <!--标题栏-->
+    <!-- 标题栏 -->
     <dimen name="title_height">45dp</dimen>
     <dimen name="title_img_right_width">20dp</dimen>
     <dimen name="title_img_right_height">20dp</dimen>

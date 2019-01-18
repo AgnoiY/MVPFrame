@@ -1,7 +1,7 @@
 package com.mvpframe.ui;
 
 import android.os.Build;
-import android.os.Handler;
+import android.view.View;
 
 import com.mvpframe.R;
 import com.mvpframe.app.MyApplication;
@@ -9,6 +9,8 @@ import com.mvpframe.databinding.ActivityWelcomeBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
+import com.mvpframe.util.DownTime;
+import com.mvpframe.util.LogUtil;
 
 /**
  * <欢迎页>
@@ -19,7 +21,12 @@ import com.mvpframe.ui.base.activity.BaseLoadActivity;
  */
 public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBinding> {
 
-    private long delayMillis = 2000;
+    /**
+     * 等待时间
+     */
+    private long delayMillis = 3;
+
+    private DownTime downTime;
 
     @Override
     public BasePresenter<IMvpView<Object>>[] getPresenterArray() {
@@ -52,7 +59,17 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
 
     @Override
     public void initListeners() {
+        mLoadBinding.btvDownTime.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.btv_down_time:
+                skipLoadMain();
+                break;
+        }
     }
 
     @Override
@@ -66,18 +83,41 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
     }
 
     /**
-     * 等待加载主界面
+     * 等待加载主界面或引导页
      */
     private void waitLoadMain() {
-        new Handler().postDelayed(() -> {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && MyApplication.getApplication().needWait(this)) {
-                startActivity(LoadResActivity.class, null);
-            } else
-                startActivity(MainActivity.class, null);
+        postDelayed(delayMillis);
 
-            finish();
+        mLoadBinding.btvDownTime.setText(delayMillis + "s");
+        downTime = new DownTime(mLoadBinding.btvDownTime, delayMillis, true);
+    }
 
-        }, delayMillis);
+    @Override
+    public void nextStep(Long l) {
+        super.nextStep(l);
+        skipLoadMain();
+    }
+
+    /**
+     * 跳转到主界面或引导页
+     */
+    private void skipLoadMain() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && MyApplication.getApplication().needWait(this)) {
+            startActivity(LoadResActivity.class, null);
+        } else
+            startActivity(MainActivity.class, null);
+
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (downTime != null) {
+            downTime.cancel();
+            downTime = null;
+        }
     }
 }

@@ -46,4 +46,11 @@ public interface PresentationLayerFunc<T> {
      * @param o
      */
     void getEventBusPost(Object... o);
+
+    /**
+     * 延迟操作
+     *
+     * @param delay
+     */
+    void postDelayed(long delay);
 }

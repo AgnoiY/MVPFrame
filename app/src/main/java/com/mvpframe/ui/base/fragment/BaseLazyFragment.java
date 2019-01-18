@@ -2,6 +2,7 @@ package com.mvpframe.ui.base.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.interfaces.LazyCreateInit;
+import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.Tools;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
@@ -27,7 +29,9 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
 
     protected B mLazyBinding;
 
-    protected List<RefreshHelper> listRefreshHelper;
+    private List<RefreshHelper> listRefreshHelper;
+
+    protected Bundle mBundle;
 
     /**
      * Fragment第一次加载
@@ -56,7 +60,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
             isStartFragmen = true;
             if (isStartFragmen && isStartFragmenData) {
                 isStartFragmenData = false;
-                lazyLoad();
+                getBundle();
             }
         } else {
             isStartFragmen = false;
@@ -69,8 +73,20 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
         isStartFragmenData = true;//多个Fragment复用时，加载数据
         if (isStartFragmen) {
             isStartFragmenData = false;
-            lazyLoad();
+            getBundle();
         }
+    }
+
+    /**
+     * 获取传递的Bundle
+     */
+    private void getBundle() {
+        if (getArguments() != null)
+            mBundle = getArguments();
+        else
+            LogUtil.e(TAG + ":" + mBundle);
+
+        lazyLoad();
     }
 
     /**

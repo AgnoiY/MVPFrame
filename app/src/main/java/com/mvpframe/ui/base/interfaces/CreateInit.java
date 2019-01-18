@@ -22,7 +22,7 @@ public interface CreateInit<V extends IMvpView, P extends Presenter> {
         void setContentView(Bundle savedInstanceState);
 
         /**
-         *  设置状态栏样式
+         * 设置状态栏样式
          */
         void initStatusBarDarkTheme();
 
@@ -35,6 +35,11 @@ public interface CreateInit<V extends IMvpView, P extends Presenter> {
         View initView(LayoutInflater inflater);
 
     }
+
+    /**
+     * 获取 Presenter 数组
+     */
+    P[] getPresenterArray();
 
     /**
      * 连接P层
@@ -59,6 +64,13 @@ public interface CreateInit<V extends IMvpView, P extends Presenter> {
      * 增加按钮点击事件
      */
     void initListeners();
+
+    /**
+     * 延迟后要进行的操作
+     *
+     * @param l
+     */
+    void nextStep(Long l);
 
 }
 
