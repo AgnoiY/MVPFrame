@@ -37,7 +37,6 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
 
     private Context context;
     private Activity activity;
-    private BaseActivity mActivity;
     private String TAG;
     private CompositeDisposable disposable;
 
@@ -45,7 +44,6 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
     public PresentationLayerFuncHelper(Object o, CompositeDisposable disposable) {
         SoftReference sofr = new SoftReference(o);
         this.context = (Context) sofr.get();
-        this.mActivity = (BaseActivity) sofr.get();
         this.activity = (Activity) sofr.get();
         this.TAG = sofr.get().getClass().getSimpleName();
         this.disposable = disposable;
@@ -68,7 +66,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
      */
     @Override
     public void showSoftKeyboard(View focusView) {
-        ((Activity) context).getWindow().getDecorView().postDelayed(new Runnable() {
+        activity.getWindow().getDecorView().postDelayed(new Runnable() {
             @Override
             public void run() {
                 InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -88,7 +86,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
         if ((context == null || ((Activity) context).getWindow() == null)) {
             return;
         }
-        View view = ((Activity) context).getWindow().peekDecorView();
+        View view = activity.getWindow().peekDecorView();
         if (view == null || view.getWindowToken() == null) {
             return;
         }
@@ -153,7 +151,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
-                    mActivity.nextStep(aLong);
+                    ((BaseActivity) activity).nextStep(aLong);
                 }, throwable -> {
                     LogUtil.e(TAG + ":" + throwable.getMessage());
                 }));

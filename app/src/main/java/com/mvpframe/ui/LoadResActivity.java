@@ -29,13 +29,14 @@ import java.util.List;
  *
  * @author yong
  */
-public class LoadResActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoadResActivity extends AppCompatActivity {
 
     private EnabledViewpager viewPager;
 
-    public static String GUIDE = "GUIDE";
+    private Handler handler;
+    public static String POSITION = "position";
     private boolean installFinishWelCome = false;
-    private int[] ints = {R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+    public static int[] ints = {R.mipmap.ic_launcher, R.mipmap.ic_launcher};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,21 +45,6 @@ public class LoadResActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_load_res);
         initView();
         initData();
-        initListeners();
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            startActivity(new Intent(this, MainActivity.class));
-        installFinishWelCome = false;
-        installFinishWelCome(1);
-        finish();
-        new Handler().postDelayed(() -> {
-            System.exit(0);
-        }, 100);
-
     }
 
     /**
@@ -74,22 +60,15 @@ public class LoadResActivity extends AppCompatActivity implements View.OnClickLi
     private void initData() {
         new LoadDexTask().execute();
         List<Fragment> list = new ArrayList<>();
-        for (int i : ints) {
+        for (int i = 0; i < ints.length; i++) {
             GuideFragment guide = new GuideFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt(GUIDE, i);
+            bundle.putInt(POSITION, i);
             guide.setArguments(bundle);
             list.add(guide);
         }
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), list));
         viewPager.setCurrentItem(0);
-    }
-
-    /**
-     * 增加按钮点击事件
-     */
-    private void initListeners() {
-
     }
 
     class LoadDexTask extends AsyncTask {
@@ -127,6 +106,15 @@ public class LoadResActivity extends AppCompatActivity implements View.OnClickLi
         installFinishWelCome(installFinishWelCome ? 2 : 1);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+            handler = null;
+        }
+    }
+
     /**
      * 欢迎页
      *
@@ -134,5 +122,20 @@ public class LoadResActivity extends AppCompatActivity implements View.OnClickLi
      */
     private void installFinishWelCome(int installFinishWelCome) {
         ((MyApplication) getApplication()).installFinishWelCome(getApplication(), installFinishWelCome);
+    }
+
+    /**
+     * 结束引导页进入主界面
+     */
+    public void finishLoadRes(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            startActivity(new Intent(this, MainActivity.class));
+        installFinishWelCome = false;
+        installFinishWelCome(1);
+        finish();
+        handler = new Handler();
+        handler.postDelayed(() -> {
+            System.exit(0);
+        }, 100);
     }
 }

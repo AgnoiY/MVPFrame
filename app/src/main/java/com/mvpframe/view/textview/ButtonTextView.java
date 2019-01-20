@@ -28,9 +28,9 @@ public class ButtonTextView extends TextView {
     // 默认圆角半径, 2dp
     public static final float DEFAULT_CORNER_RADIUS = 2.0f;
     // 默认左右内边距
-    public static final float DEFAULT_LR_PADDING = 6f;
+    public static final float DEFAULT_LR_PADDING = 20f;
     // 默认上下内边距
-    public static final float DEFAULT_TB_PADDING = 2f;
+    public static final float DEFAULT_TB_PADDING = 6f;
 
     // 边框线宽
     private int strokeWidth;

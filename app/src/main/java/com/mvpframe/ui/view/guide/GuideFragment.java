@@ -1,13 +1,21 @@
 package com.mvpframe.ui.view.guide;
 
 
+import android.content.Intent;
+import android.os.Build;
+import android.os.Handler;
+import android.view.View;
+
 import com.mvpframe.R;
 import com.mvpframe.databinding.FragmentGuideBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.ui.LoadResActivity;
+import com.mvpframe.ui.MainActivity;
 import com.mvpframe.ui.base.fragment.BaseLazyFragment;
 
-import static com.mvpframe.ui.LoadResActivity.GUIDE;
+import static com.mvpframe.ui.LoadResActivity.POSITION;
+import static com.mvpframe.ui.LoadResActivity.ints;
 
 /**
  * <引导页>
@@ -18,7 +26,7 @@ import static com.mvpframe.ui.LoadResActivity.GUIDE;
  */
 public class GuideFragment extends BaseLazyFragment<Object, FragmentGuideBinding> {
 
-    private int guide;
+    private int position;//引导页索引
 
     @Override
     public void onSuccess(String action, Object data) {
@@ -32,12 +40,14 @@ public class GuideFragment extends BaseLazyFragment<Object, FragmentGuideBinding
 
     @Override
     public void initListeners() {
-
+        mLazyBinding.btvSkipApp.setOnClickListener(this);
     }
 
     @Override
     public void lazyLoad() {
-        guide = mBundle.getInt(GUIDE,-1);
+        position = mBundle.getInt(POSITION, -1);
+        mLazyBinding.ivGuide.setBackgroundResource(ints[position]);
+        mLazyBinding.btvSkipApp.setVisibility(position == ints.length - 1 ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -49,4 +59,16 @@ public class GuideFragment extends BaseLazyFragment<Object, FragmentGuideBinding
     public int getLayout() {
         return R.layout.fragment_guide;
     }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.btv_skip_app:
+                ((LoadResActivity)mActivity).finishLoadRes();
+                break;
+        }
+    }
+
+
 }
