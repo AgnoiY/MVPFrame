@@ -15,6 +15,9 @@ android {
         testInstrumentationRunner rootProject.ext.android.testInstrumentationRunner
 
         multiDexEnabled true
+        multiDexKeepFile file('multidex-config.txt')
+        multiDexKeepProguard file('multidex-config.pro')
+
     }
 
     buildTypes {
@@ -25,6 +28,7 @@ android {
             zipAlignEnabled true
             // 移除无用的resource文件
             shrinkResources true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -53,6 +57,7 @@ dependencies {
     testImplementation rootProject.ext.dependencies.junit
     implementation rootProject.ext.dependencies.appCompat
     implementation rootProject.ext.dependencies.design
+    implementation rootProject.ext.dependencies.multidex
     /*图片加载框架*/
     implementation rootProject.ext.dependencies.glide
     /*事件线Eventbus*/

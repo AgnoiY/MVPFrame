@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.mvpframe.R;
@@ -127,7 +126,7 @@ public class LoadResActivity extends AppCompatActivity {
     /**
      * 结束引导页进入主界面
      */
-    public void finishLoadRes(){
+    public void finishLoadRes() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             startActivity(new Intent(this, MainActivity.class));
         installFinishWelCome = false;

@@ -23,6 +23,7 @@ ext {
 
     dependencies = [
             appCompat          : 'com.android.support:appcompat-v7:27.0.2',
+            multidex           : 'com.android.support:multidex:1.0.3',
             junit              : 'junit:junit:4.12',
             glide              : 'com.github.bumptech.glide:glide:4.6.1',
             okhttp3            : 'com.squareup.okhttp3:okhttp:3.10.0',

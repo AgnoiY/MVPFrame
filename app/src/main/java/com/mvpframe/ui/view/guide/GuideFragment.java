@@ -1,9 +1,6 @@
 package com.mvpframe.ui.view.guide;
 
 
-import android.content.Intent;
-import android.os.Build;
-import android.os.Handler;
 import android.view.View;
 
 import com.mvpframe.R;
@@ -11,7 +8,6 @@ import com.mvpframe.databinding.FragmentGuideBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.LoadResActivity;
-import com.mvpframe.ui.MainActivity;
 import com.mvpframe.ui.base.fragment.BaseLazyFragment;
 
 import static com.mvpframe.ui.LoadResActivity.POSITION;
@@ -63,9 +59,9 @@ public class GuideFragment extends BaseLazyFragment<Object, FragmentGuideBinding
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btv_skip_app:
-                ((LoadResActivity)mActivity).finishLoadRes();
+                ((LoadResActivity) mActivity).finishLoadRes();
                 break;
         }
     }
