@@ -1,0 +1,3 @@
+com/mvpframe/WelcomeActivity.class
+com/mvpframe/LoadResActivity.class
+com/mvpframe/MyApplication.class
