@@ -1,5 +1,6 @@
 package com.mvpframe.ui;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -48,7 +49,7 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     @Override
     public void initData() {
 //        presenter.login("15713802736", "123456");
-//        mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this,R.color.colorAccent));
+        mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this,R.color.colorAccent));
     }
 
     @Override

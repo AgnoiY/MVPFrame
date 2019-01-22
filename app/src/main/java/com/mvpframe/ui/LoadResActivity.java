@@ -50,7 +50,6 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        new ButtonTextView(this);
         setContentView(R.layout.activity_load_res);
         initView();
         initData();

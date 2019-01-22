@@ -96,7 +96,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     /**
      * 是否加载状态栏
      *
-     * @param isShow
+     * @param isShow true: 显示、flase: 隐藏
      */
     protected void setShowStatusBar(boolean isShow) {
         mBaseBinding.statusBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
@@ -116,9 +116,9 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
 
         ViewGroup.LayoutParams params = mBaseBinding.statusBar.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(this);
-        mBaseBinding.statusBar.setLayoutParams(params);
         mBaseBinding.statusBar.setBackgroundColor(mBaseBinding.titleView.getBackgroundColor());
-        mBaseBinding.statusBar.getBackground().setAlpha(150);
+        mBaseBinding.statusBar.getBackground().setAlpha(145);
+        mBaseBinding.statusBar.setLayoutParams(params);
 
         if (colorId <= 0) {
             colorId = 0x50000000;
@@ -144,7 +144,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     /**
      * 是否显示title
      *
-     * @param isShow
+     * @param isShow true: 显示、flase: 隐藏
      */
     protected void setShowTitle(boolean isShow) {
         mBaseBinding.titleView.setVisibility(isShow ? View.VISIBLE : View.GONE);
