@@ -2,7 +2,7 @@
 <layout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:pv="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/ll"
         android:layout_width="match_parent"
@@ -36,8 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher"
-            pv:border_inside_color="#50c0e9"
-            pv:border_thickness="3dp" />
+            app:border_inside_color="#50c0e9"
+            app:border_thickness="3dp" />
 
     </LinearLayout>
 

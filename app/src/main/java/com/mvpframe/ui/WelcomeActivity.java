@@ -10,7 +10,6 @@ import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
 import com.mvpframe.util.DownTime;
-import com.mvpframe.util.LogUtil;
 
 /**
  * <欢迎页>

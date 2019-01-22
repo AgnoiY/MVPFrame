@@ -1,5 +1,6 @@
 package com.mvpframe.ui;
 
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.mvpframe.R;
@@ -22,7 +23,7 @@ import com.mvpframe.ui.base.activity.BaseLoadActivity;
  *
  * @author yong
  */
-public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBinding> {
+public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBinding> implements ViewPager.OnPageChangeListener{
 
     private LoginPresenter presenter = new LoginPresenter(this);
 
@@ -64,5 +65,37 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     public void onEmptyClickListener() {
         super.onEmptyClickListener();
 //        presenter.login("15713802736", "123456");
+    }
+
+    /**
+     * 滑动过程
+     *
+     * @param position             左侧view索引
+     * @param positionOffset       滑动的半分比，左->右：0->1
+     * @param positionOffsetPixels 滑动的距离，，左->右：0->屏幕的宽度
+     */
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    /**
+     * 停止滑动后view的索引
+     *
+     * @param position
+     */
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    /**
+     * 滑动的状态 0：空闲、1：开始滑动、2：结束滑动
+     *
+     * @param state
+     */
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

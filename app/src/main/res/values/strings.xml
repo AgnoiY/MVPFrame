@@ -1,9 +1,15 @@
 <resources>
+    <!-- 应用名称 -->
     <string name="app_name">MVPFrame</string>
 
+    <!-- 标题 -->
     <string name="sure">确定</string>
     <string name="back">返回</string>
 
+    <!-- 空白页 -->
     <string name="noData">暂无数据</string>
+
+    <!-- 引导页 -->
+    <string name="guide_skip">进入</string>
 
 </resources>

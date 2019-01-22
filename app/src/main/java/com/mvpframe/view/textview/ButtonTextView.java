@@ -50,6 +50,7 @@ public class ButtonTextView extends TextView {
 
     public ButtonTextView(Context context) {
         super(context);
+        setCustomAttributes(context, null);
     }
 
     public ButtonTextView(Context context, AttributeSet attrs) {
@@ -67,13 +68,15 @@ public class ButtonTextView extends TextView {
         strokeWidth = DensityUtil.dip2px(DEFAULT_STROKE_WIDTH);
         cornerRadius = DensityUtil.dip2px(DEFAULT_CORNER_RADIUS);
         // 读取属性值
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.BorderLabelTextView);
-        strokeWidth = ta.getDimensionPixelSize(R.styleable.BorderLabelTextView_strokeWidth, strokeWidth);
-        cornerRadius = ta.getDimensionPixelSize(R.styleable.BorderLabelTextView_cornerRadius, cornerRadius);
-        strokeColor = ta.getColor(R.styleable.BorderLabelTextView_strokeColor, Color.TRANSPARENT);
-        mFollowTextColor = ta.getBoolean(R.styleable.BorderLabelTextView_followTextColor, false);
-        isSolid = ta.getBoolean(R.styleable.BorderLabelTextView_isSolid, false);
-        ta.recycle();
+        if (attrs != null) {
+            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.BorderLabelTextView);
+            strokeWidth = ta.getDimensionPixelSize(R.styleable.BorderLabelTextView_strokeWidth, strokeWidth);
+            cornerRadius = ta.getDimensionPixelSize(R.styleable.BorderLabelTextView_cornerRadius, cornerRadius);
+            strokeColor = ta.getColor(R.styleable.BorderLabelTextView_strokeColor, Color.TRANSPARENT);
+            mFollowTextColor = ta.getBoolean(R.styleable.BorderLabelTextView_followTextColor, false);
+            isSolid = ta.getBoolean(R.styleable.BorderLabelTextView_isSolid, false);
+            ta.recycle();
+        }
 
         mRectF = new RectF();
 

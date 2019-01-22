@@ -5,6 +5,8 @@
     <dimen name="distance_20">20dp</dimen>
     <dimen name="distance_16">16dp</dimen>
     <dimen name="distance_15">15dp</dimen>
+    <dimen name="distance_12">12dp</dimen>
+    <dimen name="distance_10">10dp</dimen>
     <dimen name="distance_8">8dp</dimen>
     <dimen name="distance_6">6dp</dimen>
 
