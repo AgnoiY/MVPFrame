@@ -207,7 +207,7 @@ public class MyApplication extends Application {
      */
     public boolean needWait(Context context) {
         String flag = get2thDexSHA1(context);
-        LogUtil.e("dex2-sha1 " + flag);
+        LogUtil.e("dex2-sha1=" + flag);
         SharedPreferences sp = context.getSharedPreferences(
                 getPackageInfo(context).versionName, MODE_MULTI_PROCESS);
         String saveValue = sp.getString(KEY_DEX2_SHA1, "");
