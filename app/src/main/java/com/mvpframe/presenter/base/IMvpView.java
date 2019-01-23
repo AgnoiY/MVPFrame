@@ -2,6 +2,8 @@ package com.mvpframe.presenter.base;
 
 import android.support.annotation.UiThread;
 
+import java.util.List;
+
 /**
  * <功能详细描述>
  * <p>
@@ -31,5 +33,14 @@ public interface IMvpView<T> {
      */
     @UiThread
     void onSuccess(String action, T data);
+
+    /**
+     * 成功返回结果
+     *
+     * @param action 区分不同事件
+     * @param data   数据
+     */
+    @UiThread
+    void onSuccess(String action, List<T> data);
 
 }

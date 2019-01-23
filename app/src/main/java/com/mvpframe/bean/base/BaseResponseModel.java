@@ -31,7 +31,7 @@ public class BaseResponseModel<T> implements Serializable {
      *
      * @return
      */
-    private boolean success = false;
+    private boolean success = true;
 
     public T getData() {
         return data;
@@ -66,6 +66,28 @@ public class BaseResponseModel<T> implements Serializable {
 
     public BaseResponseModel<T> setSuccess(boolean success) {
         this.success = success;
+        return this;
+    }
+
+
+    private String loginState;
+    private T userInfo;
+
+    public String getLoginState() {
+        return loginState;
+    }
+
+    public BaseResponseModel<T> setLoginState(String loginState) {
+        this.loginState = loginState;
+        return this;
+    }
+
+    public T getUserInfo() {
+        return userInfo;
+    }
+
+    public BaseResponseModel<T> setUserInfo(T userInfo) {
+        this.userInfo = userInfo;
         return this;
     }
 }

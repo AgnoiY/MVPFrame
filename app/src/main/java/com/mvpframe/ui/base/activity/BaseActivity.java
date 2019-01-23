@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mvpframe.R;
-import com.mvpframe.app.MyApplication;
+import com.mvpframe.app.App;
 import com.mvpframe.bean.event.BaseEventModel;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
@@ -61,12 +61,12 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         getMvpDelegate().onCreate(savedInstanceState);
 
         disposable = new CompositeDisposable();
-        helper = new PresentationLayerFuncHelper(this, disposable);
+        helper = new PresentationLayerFuncHelper<T>(this, disposable);
 
         setContentView(savedInstanceState);
         mContext = this;
         getWindow().setBackgroundDrawableResource(R.color.transparent);//移除布局根背景
-        MyApplication.getApplication().addActivity(this);
+        App.getApp().addActivity(this);
         EventBus.getDefault().register(this);
 
         initData();
@@ -129,7 +129,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
 
     @Override
     protected void onResume() {
-        MyApplication.getApplication().currentActivityName = this.getClass().getName();
+        App.getApp().currentActivityName = this.getClass().getName();
         getMvpDelegate().onResume();
         super.onResume();
     }
@@ -211,7 +211,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     @Override
     protected void onDestroy() {
         getMvpDelegate().onDestroy();
-        MyApplication.getApplication().deleteActivity(this);
+        App.getApp().deleteActivity(this);
         EventBus.getDefault().unregister(this);
         ToastUtil.destory();
         if (disposable != null) {

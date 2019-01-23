@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mvpframe.R;
-import com.mvpframe.app.MyApplication;
+import com.mvpframe.app.App;
 
 /**
  * <提示公共类>
@@ -25,7 +25,7 @@ public final class ToastUtil {
      * @see [类、类#方法、类#成员]
      */
     public static void makeTextShort(Context context, String msg) {
-        if (MyApplication.currentActivityName.equals(context.getClass().getName())) {
+        if (App.currentActivityName.equals(context.getClass().getName())) {
             if (toast == null) {
                 toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
             } else {
@@ -43,7 +43,7 @@ public final class ToastUtil {
      * @see [类、类#方法、类#成员]
      */
     public static void makeTextLong(Context context, String msg) {
-        if (MyApplication.currentActivityName.equals(context.getClass().getName())) {
+        if (App.currentActivityName.equals(context.getClass().getName())) {
             if (toast == null) {
                 toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
             } else {
@@ -60,7 +60,7 @@ public final class ToastUtil {
      * @see [类、类#方法、类#成员]
      */
     public static void makeCenterToast(Context context, String msg) {
-        if (MyApplication.currentActivityName.equals(context.getClass().getName())) {
+        if (App.currentActivityName.equals(context.getClass().getName())) {
             if (toast == null) {
                 toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);

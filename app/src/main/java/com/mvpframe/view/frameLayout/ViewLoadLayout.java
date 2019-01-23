@@ -2,6 +2,7 @@ package com.mvpframe.view.frameLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mvpframe.R;
+import com.mvpframe.databinding.LayoutEmptyBinding;
 
 /**
  * 加载中布局 可以设置空页面 错误页面 加载中页面 titleView
@@ -24,9 +26,8 @@ import com.mvpframe.R;
 
 public class ViewLoadLayout extends FrameLayout {
 
-    private TextView mEmptyTextView;
-    private ImageView mEmptyImageView;
-    private FrameLayout mEmptyfra;
+    private LayoutEmptyBinding mBinding;
+
     private View mContentView;
 
     public ViewLoadLayout(@NonNull Context context) {
@@ -46,10 +47,7 @@ public class ViewLoadLayout extends FrameLayout {
      * 初始化
      */
     private void init() {
-        LayoutInflater.from(getContext()).inflate(R.layout.layout_empty, this, true);
-        mEmptyTextView = findViewById(R.id.tv_empty);
-        mEmptyImageView = findViewById(R.id.img_empty);
-        mEmptyfra = findViewById(R.id.fra_empty);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()),R.layout.layout_empty,this,true);
     }
 
 
@@ -60,11 +58,11 @@ public class ViewLoadLayout extends FrameLayout {
     }
 
     private void showEmptyFra(boolean isShow) {
-        mEmptyfra.setVisibility(isShow ? VISIBLE : GONE);
+        mBinding.fraEmpty.setVisibility(isShow ? VISIBLE : GONE);
     }
 
     public boolean isShowEmptyFra() {
-        return mEmptyfra.getVisibility() == VISIBLE;
+        return mBinding.fraEmpty.getVisibility() == VISIBLE;
     }
 
     public void hindAll() {
@@ -86,21 +84,21 @@ public class ViewLoadLayout extends FrameLayout {
     public void setShowText(String text, @DrawableRes int bg) {
         showContent(text == null);
         showEmptyFra(text != null);
-        mEmptyTextView.setText(text);
+        mBinding.tvEmpty.setText(text);
         if (bg > 0)
-            mEmptyTextView.setBackgroundResource(bg);
-        mEmptyTextView.setVisibility(text != null ? VISIBLE : GONE);
+            mBinding.tvEmpty.setBackgroundResource(bg);
+        mBinding.tvEmpty.setVisibility(text != null ? VISIBLE : GONE);
     }
 
     @SuppressLint("ResourceType")
     public void setShowImage(@DrawableRes int img) {
         showEmptyFra(img != 0);
         showContent(img == 0);
-        mEmptyImageView.setVisibility(img != 0 ? VISIBLE : GONE);
+        mBinding.imgEmpty.setVisibility(img != 0 ? VISIBLE : GONE);
         if (img <= 0) {
-            mEmptyImageView.setImageResource(R.mipmap.ic_launcher);
+            mBinding.imgEmpty.setImageResource(R.mipmap.ic_launcher);
         } else {
-            mEmptyImageView.setImageResource(img);
+            mBinding.imgEmpty.setImageResource(img);
         }
     }
 
@@ -120,13 +118,13 @@ public class ViewLoadLayout extends FrameLayout {
      * 加载显示错误布局，显示信息点击事件监听
      */
     public void setEmptyTextClickListener(OnClickListener listener) {
-        mEmptyTextView.setOnClickListener(listener);
+        mBinding.tvEmpty.setOnClickListener(listener);
     }
 
     /**
      * 加载显示错误布局，全布局点击事件监听
      */
     public void setEmptyClickListener(OnClickListener listener) {
-        mEmptyfra.setOnClickListener(listener);
+        mBinding.fraEmpty.setOnClickListener(listener);
     }
 }

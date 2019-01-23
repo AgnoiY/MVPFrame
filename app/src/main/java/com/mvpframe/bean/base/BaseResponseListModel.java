@@ -30,7 +30,7 @@ public class BaseResponseListModel<T> implements Serializable {
      *
      * @return
      */
-    private boolean success = false;
+    private boolean success = true;
 
     public int getCode() {
         return code;

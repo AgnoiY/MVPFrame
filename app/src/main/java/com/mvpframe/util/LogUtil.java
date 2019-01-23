@@ -27,6 +27,10 @@ public class LogUtil {
         }
     }
 
+    public static void e(String tag, String msg) {
+        e(tag + ":" + msg);
+    }
+
     public static void biglog(String responseInfo) {
         if (!isDeBug) {
             return;

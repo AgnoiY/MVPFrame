@@ -7,7 +7,7 @@ package com.mvpframe.ui.base.interfaces;
  *
  * @author yong
  */
-public interface LazyCreateInit {
+public interface LazyCreateInit<T> {
 
     /**
      * fragment显示时调用
@@ -25,4 +25,9 @@ public interface LazyCreateInit {
      * @return
      */
     int getLayout();
+
+    /**
+     * 获取当前类泛型
+     */
+    Class<T> getTypeClass();
 }

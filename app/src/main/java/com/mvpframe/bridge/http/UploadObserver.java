@@ -2,7 +2,8 @@ package com.mvpframe.bridge.http;
 
 import android.content.Context;
 
-import com.mvpframe.app.MyApplication;
+import com.mvpframe.R;
+import com.mvpframe.app.App;
 import com.mvpframe.capabilities.http.interfaces.UploadProgressCallback;
 import com.mvpframe.capabilities.http.observer.HttpObserver;
 import com.mvpframe.util.LogUtil;
@@ -59,14 +60,14 @@ public abstract class UploadObserver<T> extends HttpObserver<T> implements Uploa
      * @param desc
      */
     public void onError(String action, int code, String desc) {
-        UITipDialog.showFall(MyApplication.getApplication(), desc);
+        UITipDialog.showFall(App.getApp(), desc);
     }
 
     /**
      * 取消回调
      */
     public void onCancel() {
-        LogUtil.e("请求取消了");
+        LogUtil.e(App.getAppString(R.string.request_cancelled));
     }
 
 }

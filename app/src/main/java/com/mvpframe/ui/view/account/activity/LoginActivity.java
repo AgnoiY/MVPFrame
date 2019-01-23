@@ -7,6 +7,7 @@ import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
+import com.mvpframe.util.ToastUtil;
 
 /**
  * 账号登录
@@ -17,22 +18,22 @@ import com.mvpframe.ui.base.activity.BaseLoadActivity;
  */
 public class LoginActivity extends BaseLoadActivity<LoginModel, ActivityLoginBinding> {
 
-    private LoginPresenter presenter = new LoginPresenter(this);
+    private LoginPresenter presenter = new LoginPresenter();
 
     @Override
     public BasePresenter<IMvpView<LoginModel>>[] getPresenterArray() {
         return new BasePresenter[]{presenter};
     }
 
+    @Override
+    public void onSuccess(String action, LoginModel data) {
+        super.onSuccess(action, data);
+        ToastUtil.makeCenterToast(this,data.getUserId()+"");
+    }
 
     @Override
     public int getLayout() {
         return R.layout.activity_login;
-    }
-
-    @Override
-    public void onSucceed(String action, LoginModel data) {
-
     }
 
 

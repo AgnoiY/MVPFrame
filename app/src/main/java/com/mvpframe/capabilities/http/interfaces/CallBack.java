@@ -41,14 +41,6 @@ public interface CallBack<T> {
     void onSuccess(String action, T value);
 
     /**
-     * 成功回调
-     *
-     * @param action
-     * @param value
-     */
-    void onSuccess(String action, List<T> value);
-
-    /**
      * 失败回调
      *
      * @param action
@@ -81,5 +73,4 @@ public interface CallBack<T> {
      * token过期，跳转登录页面重新登录
      */
     void isLoginToken();
-
 }

@@ -13,6 +13,7 @@ import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
+import com.mvpframe.ui.view.account.activity.LoginActivity;
 
 /**
  * <功能详细描述>
@@ -24,9 +25,9 @@ import com.mvpframe.ui.base.activity.BaseLoadActivity;
  *
  * @author yong
  */
-public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBinding> implements ViewPager.OnPageChangeListener{
+public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBinding> implements ViewPager.OnPageChangeListener {
 
-    private LoginPresenter presenter = new LoginPresenter(this);
+    private LoginPresenter presenter = new LoginPresenter();
 
     @Override
     public int getLayout() {
@@ -34,11 +35,13 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     }
 
     @Override
-    public void onSucceed(String action, LoginModel data) {
+    public void onSuccess(String action, LoginModel data) {
+        super.onSuccess(action, data);
         mLoadBinding.text.setText(SharedPrefManager.getUser().getString(SharedPrefUser.USER_NAME, ""));
-        mLoadBinding.text1.setText(data.getNickName());
+        mLoadBinding.text1.setText(data.getUserid());
         mLoadBinding.bt.setText(action);
     }
+
 
     @Override
     public void initListeners() {
@@ -48,8 +51,9 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
 
     @Override
     public void initData() {
-//        presenter.login("15713802736", "123456");
-        mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this,R.color.colorAccent));
+        presenter.login("15713802736", "a123456");
+        mBaseBinding.titleView.setMidTitle("主页");
+        mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
 
     @Override
@@ -60,6 +64,7 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        startActivity(LoginActivity.class, null);
     }
 
     @Override

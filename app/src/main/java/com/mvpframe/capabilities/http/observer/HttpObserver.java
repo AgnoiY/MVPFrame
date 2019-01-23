@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.mvpframe.app.MyApplication;
+import com.mvpframe.R;
+import com.mvpframe.app.App;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.capabilities.http.interfaces.ParseHelper;
@@ -46,7 +47,7 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
         } catch (Exception e) {
             callSuccess = false;
             e.printStackTrace();
-            onError(getTag(), ExceptionEngine.ANALYTIC_CLIENT_DATA_ERROR, "解析数据出错");
+            onError(getTag(), ExceptionEngine.ANALYTIC_CLIENT_DATA_ERROR, App.getAppString(R.string.data_parsing_error));
         }
         return t;
     }
@@ -56,11 +57,7 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
     public void inSuccess(String action, T value) {
         T result = parse((String) value);
         if (callSuccess && isBusinessOk()) {
-            if (result instanceof List) {
-                onSuccess(action, (List<T>) result);
-            } else {
-                onSuccess(action, result);
-            }
+            onSuccess(action, result);
         }
     }
 
@@ -74,27 +71,12 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
         onCancel();
     }
 
-    @Deprecated
-    protected Class<T> getTypeClass() {
-        /**
-         * 获取当前类泛型(暂时保留)
-         */
-        ParameterizedType ptClass = (ParameterizedType) getClass().getGenericSuperclass();
-        Class<T> mClass = null;
-        if (ptClass != null) {
-            Type type = ptClass.getActualTypeArguments()[0];
-            mClass = (Class<T>) type;
-            LogUtil.e("当前类泛型:" + mClass);
-        }
-        return mClass;
-    }
-
     @Override
     public void isLoginToken() {
         SharedPrefManager.getUser().clear();
-        Activity activity = MyApplication.getApplication().activitys.get(MyApplication.getApplication().activitys.size() - 1);
-        MyApplication.getApplication().clearAllAcitity();
+        Activity activity = App.getApp().activitys.get(App.getApp().activitys.size() - 1);
+        App.getApp().clearAllAcitity();
         activity.startActivity(new Intent(activity, LoginActivity.class));
-        ToastUtil.makeCenterToast(activity, "账号在其他地方登录");
+        ToastUtil.makeCenterToast(activity, App.getAppString(R.string.login_elsewhere));
     }
 }

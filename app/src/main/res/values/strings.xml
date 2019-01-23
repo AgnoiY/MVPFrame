@@ -9,7 +9,20 @@
     <!-- 空白页 -->
     <string name="noData">暂无数据</string>
 
+    <!-- BasePresenter -->
+    <string name="view_add_error">View添加失败</string>
+
     <!-- 引导页 -->
     <string name="guide_skip">进入</string>
+
+    <!-- 网络访问 -->
+    <string name="login_elsewhere">账号在其他地方登录</string>
+    <string name="network_error">网络错误</string>
+    <string name="data_parsing_error">解析错误</string>
+    <string name="time_out_error">网络超时</string>
+    <string name="connect_error">网络连接失败</string>
+    <string name="un_known_error">未知错误</string>
+    <string name="server_agreement_error">与服务器约定错误</string>
+    <string name="request_cancelled">请求取消了</string>
 
 </resources>

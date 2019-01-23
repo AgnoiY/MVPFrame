@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.mvpframe.R;
-import com.mvpframe.app.MyApplication;
+import com.mvpframe.app.App;
 import com.mvpframe.util.DensityUtil;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.view.textview.ButtonTextView;
@@ -103,7 +103,7 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
             try {
                 MultiDex.install(getApplication());
                 LogUtil.e("install finish");
-                ((MyApplication) getApplication()).installFinish(getApplication());
+                ((App) getApplication()).installFinish(getApplication());
             } catch (Exception e) {
                 LogUtil.e(e.getLocalizedMessage());
             }
@@ -147,7 +147,7 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
      * @param installFinishWelCome
      */
     private void installFinishWelCome(int installFinishWelCome) {
-        ((MyApplication) getApplication()).installFinishWelCome(getApplication(), installFinishWelCome);
+        ((App) getApplication()).installFinishWelCome(getApplication(), installFinishWelCome);
     }
 
     /**

@@ -22,6 +22,8 @@ import com.mvpframe.util.Tools;
 import com.mvpframe.util.statusbar.StatusBarUtil;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,10 +89,8 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
             setTitleBg();
         }
 
-        if (mBaseBinding.contentView.isShowEmptyFra()) {
-            mBaseBinding.contentView.setEmptyClickListener(this);
-            mBaseBinding.contentView.setEmptyTextClickListener(this);
-        }
+        mBaseBinding.contentView.setEmptyClickListener(this);
+        mBaseBinding.contentView.setEmptyTextClickListener(this);
     }
 
     /**
@@ -202,30 +202,49 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     @Override
     public void onError(String action, int code, String msg) {
-        LogUtil.e("url=" + action + ";" + "code=" + code + ";" + "msg=" + msg);
+        LogUtil.e(TAG, "url=" + action + ";  code=" + code + ";  msg=" + msg);
         if (code == ExceptionEngine.CONNECT_ERROR) {//网络连接失败
             mBaseBinding.contentView.setShowText(msg);
             mBaseBinding.contentView.setShowImage(R.mipmap.ic_launcher);
         }
     }
 
+    /**
+     * 成功返回结果
+     *
+     * @param action 区分不同事件
+     * @param data   数据
+     */
     @Override
     public void onSuccess(String action, T data) {
-        LogUtil.e("url=" + action + ";" + data);
+        LogUtil.e(TAG, "url=" + action + ";  data=" + data);
         mBaseBinding.contentView.hindEmptyAll();
-        onSucceed(action, data);
     }
 
     /**
-     * 加载显示错误布局，全布局点击事件监听
+     * 成功返回结果
+     *
+     * @param action 区分不同事件
+     * @param data   数据
+     */
+    @Override
+    public void onSuccess(String action, List<T> data) {
+        LogUtil.e(TAG, "url=" + action + ";  data=" + data);
+        mBaseBinding.contentView.hindEmptyAll();
+    }
+
+    /**
+     * 错误布局，全局点击监听
      */
     public void onEmptyClickListener() {
+        LogUtil.e(TAG, "错误布局，全局点击监听");
     }
 
     /**
-     * 加载显示错误布局，显示信息点击事件监听
+     * 错误布局，显示信息点击监听
      */
     public void onEmptyTextClickListener() {
+        LogUtil.e(TAG, "错误布局，显示信息点击监听");
     }
 
     /**
@@ -282,5 +301,21 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
                     helper.onDestroy();
             }
         }
+    }
+
+    /**
+     * 获取当前类泛型
+     */
+    @Override
+    @Deprecated
+    public Class<T> getTypeClass() {
+        ParameterizedType ptClass = (ParameterizedType) getClass().getGenericSuperclass();
+        Class<T> mClass = null;
+        if (ptClass != null) {
+            Type type = ptClass.getActualTypeArguments()[0];
+            mClass = (Class<T>) type;
+            LogUtil.e("当前类泛型:" + mClass);
+        }
+        return mClass;
     }
 }

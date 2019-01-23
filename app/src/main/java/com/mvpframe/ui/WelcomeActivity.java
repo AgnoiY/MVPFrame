@@ -4,12 +4,13 @@ import android.os.Build;
 import android.view.View;
 
 import com.mvpframe.R;
-import com.mvpframe.app.MyApplication;
+import com.mvpframe.app.App;
 import com.mvpframe.databinding.ActivityWelcomeBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
 import com.mvpframe.util.DownTime;
+import com.mvpframe.util.LogUtil;
 
 /**
  * <欢迎页>
@@ -35,13 +36,13 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
     @Override
     protected void onResume() {
         super.onResume();
-        switch (((MyApplication) getApplication()).needFinishWelCome(getApplication())) {
+        switch (((App) getApplication()).needFinishWelCome(getApplication())) {
             case 1:
-                if (MyApplication.getApplication().needFinishWelCome(this) == 1)
+                if (App.getApp().needFinishWelCome(this) == 1)
                     waitLoadMain();
                 break;
             case 2:
-                ((MyApplication) getApplication()).installFinishWelCome(getApplication(), 1);
+                ((App) getApplication()).installFinishWelCome(getApplication(), 1);
                 finish();
                 break;
             default:
@@ -76,15 +77,12 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
         return R.layout.activity_welcome;
     }
 
-    @Override
-    public void onSucceed(String action, Object data) {
-
-    }
-
     /**
      * 等待加载主界面或引导页
      */
     private void waitLoadMain() {
+
+        LogUtil.e("等待时间：" + delayMillis + "s");
 
         postDelayed(delayMillis);
 
@@ -102,7 +100,7 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
      * 跳转到主界面或引导页
      */
     private void skipLoadMain() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && MyApplication.getApplication().needWait(this)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && App.getApp().needWait(this)) {
             startActivity(LoadResActivity.class, null);
         } else
             startActivity(MainActivity.class, null);

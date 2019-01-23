@@ -2,6 +2,8 @@ package com.mvpframe.capabilities.http.exception;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.MalformedJsonException;
+import com.mvpframe.R;
+import com.mvpframe.app.App;
 
 import org.json.JSONException;
 
@@ -35,7 +37,7 @@ public class ExceptionEngine {
         if (e instanceof HttpException) {             //HTTP错误
             HttpException httpExc = (HttpException) e;
             ex = new ApiException(e, httpExc.code());
-            ex.setMsg("网络错误");  //均视为网络错误
+            ex.setMsg(App.getAppString(R.string.network_error));  //均视为网络错误
             return ex;
         } else if (e instanceof ServerException) {    //服务器返回的错误(交由开发者自己处理)
             ServerException serverExc = (ServerException) e;
@@ -46,19 +48,19 @@ public class ExceptionEngine {
                 || e instanceof JSONException
                 || e instanceof ParseException || e instanceof MalformedJsonException) {  //解析数据错误
             ex = new ApiException(e, ANALYTIC_SERVER_DATA_ERROR);
-            ex.setMsg("解析错误");
+            ex.setMsg(App.getAppString(R.string.data_parsing_error));
             return ex;
         } else if (e instanceof ConnectException || e instanceof SSLHandshakeException || e instanceof UnknownHostException) {//连接网络错误
             ex = new ApiException(e, CONNECT_ERROR);
-            ex.setMsg("网络连接失败");
+            ex.setMsg(App.getAppString(R.string.connect_error));
             return ex;
         } else if (e instanceof SocketTimeoutException) {//网络超时
             ex = new ApiException(e, TIME_OUT_ERROR);
-            ex.setMsg("网络超时");
+            ex.setMsg(App.getAppString(R.string.time_out_error));
             return ex;
         } else {  //未知错误
             ex = new ApiException(e, UN_KNOWN_ERROR);
-            ex.setMsg("未知错误");
+            ex.setMsg(App.getAppString(R.string.un_known_error));
             return ex;
         }
     }

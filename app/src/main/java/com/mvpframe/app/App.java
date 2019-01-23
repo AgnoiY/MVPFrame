@@ -11,6 +11,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.StringRes;
 import android.support.multidex.MultiDex;
 
 import com.mvpframe.bridge.BridgeFactory;
@@ -37,16 +38,11 @@ import static com.mvpframe.constant.Constants.isDebug;
  *
  * @author yong
  */
-public class MyApplication extends Application {
+public class App extends Application {
     /**
      * app实例
      */
-    private static MyApplication mApplication;
-    /**
-     * app实例
-     */
-    public static Context context;
-
+    private static App mApp;
 
     /**
      * 本地activity栈
@@ -74,8 +70,7 @@ public class MyApplication extends Application {
      * 初始化数据
      */
     private void initData() {
-        mApplication = this;
-        context = getApplicationContext();
+        mApp = this;
         BridgeFactory.init(this);
         BridgeLifeCycleSetKeeper.getInstance().initOnApplicationCreate(getApplicationContext());
         EventBus.builder().throwSubscriberException(isDebug).installDefaultEventBus();
@@ -166,12 +161,12 @@ public class MyApplication extends Application {
         activitys.clear();
     }
 
-    public static Context getContext() {
-        return context;
+    public static App getApp() {
+        return mApp;
     }
 
-    public static MyApplication getApplication() {
-        return mApplication;
+    public static String getAppString(@StringRes int resId) {
+        return mApp.getString(resId);
     }
 
     public boolean quickStart() {
@@ -302,7 +297,6 @@ public class MyApplication extends Application {
      *
      * @param context
      * @param isFinish 0:等待状态、1:点击进入应用结束、2:返回键结束
-     *
      */
     public void installFinishWelCome(Context context, int isFinish) {
         SharedPreferences sp = context.getSharedPreferences(
