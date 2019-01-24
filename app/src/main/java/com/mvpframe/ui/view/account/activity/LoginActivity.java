@@ -1,7 +1,7 @@
 package com.mvpframe.ui.view.account.activity;
 
 import com.mvpframe.R;
-import com.mvpframe.bean.home.LoginModel;
+import com.mvpframe.bean.account.LoginModel;
 import com.mvpframe.databinding.ActivityLoginBinding;
 import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;

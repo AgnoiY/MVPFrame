@@ -26,8 +26,4 @@ public interface LazyCreateInit<T> {
      */
     int getLayout();
 
-    /**
-     * 获取当前类泛型
-     */
-    Class<T> getTypeClass();
 }

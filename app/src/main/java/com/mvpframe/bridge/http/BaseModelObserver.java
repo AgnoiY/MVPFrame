@@ -9,12 +9,11 @@ import com.mvpframe.bean.base.BaseResponseListModel;
 import com.mvpframe.bean.base.BaseResponseModel;
 import com.mvpframe.capabilities.http.observer.HttpObserver;
 import com.mvpframe.presenter.base.BasePresenter;
-import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.ui.base.fragment.BaseLazyFragment;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.view.dialog.UITipDialog;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 
@@ -24,8 +23,10 @@ import java.util.List;
  * Data：2018/12/18
  *
  * @author yong
+ * <p>
+ * 重要提醒 : abstract 不能给删掉
  */
-public class BaseModelObserver<T> extends HttpObserver<T> {
+public abstract class BaseModelObserver<T> extends HttpObserver<T> {
 
     private BasePresenter mPresenter;
     private BaseResponseModel response;
@@ -170,12 +171,17 @@ public class BaseModelObserver<T> extends HttpObserver<T> {
         return false;
     }
 
-    private Class<T> getTypeClass() {
-        IMvpView view = mPresenter.getMvpView();
-        if (view instanceof BaseLoadActivity) {
-            return ((BaseLoadActivity) view).getTypeClass();
-        } else if (view instanceof BaseLazyFragment)
-            return ((BaseLazyFragment) view).getTypeClass();
-        return null;
+    /**
+     * 获取当前类泛型
+     */
+    public Type getTypeClass() {
+        ParameterizedType ptClass = (ParameterizedType) getClass().getGenericSuperclass();
+        Type type = null;
+        if (ptClass != null) {
+            type = ptClass.getActualTypeArguments()[0];
+            LogUtil.e("当前类泛型:" + type);
+        }
+        return type;
     }
+
 }

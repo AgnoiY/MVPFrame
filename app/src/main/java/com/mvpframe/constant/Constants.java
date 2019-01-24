@@ -10,8 +10,6 @@ public class Constants {
 
     public static final boolean isDebug = true;//打开日志
 
-    public static final String NETWORK_ERROR = "您的网络状况不佳，请检查网络连接";
-
     /**
      * 数据缓存时间
      */

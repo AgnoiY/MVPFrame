@@ -1,6 +1,6 @@
 package com.mvpframe.presenter.account;
 
-import com.mvpframe.bean.home.LoginModel;
+import com.mvpframe.bean.account.LoginModel;
 import com.mvpframe.bridge.http.BaseModelObserver;
 import com.mvpframe.constant.UrlConstans;
 import com.mvpframe.presenter.base.BasePresenter;
@@ -16,18 +16,18 @@ import java.util.Map;
  *
  * @author yong
  */
-public class LoginPresenter extends BasePresenter<IMvpView<LoginModel>> {
+public class LoginPresenter extends BasePresenter<IMvpView> {
 
     public void login(String userid, String pwd) {
 
         Map<String, Object> map = new HashMap<>();
-        map.put("userid", userid);
-        map.put("pwd", pwd);
+//        map.put("userid", userid);
+//        map.put("pwd", pwd);
+        map.put("mobile", userid);
+        map.put("password", pwd);
 
         getRetrofitHttp().post().apiUrl(UrlConstans.LOGIN)
                 .addParameter(map).build()
-                .request(new BaseModelObserver<LoginModel>(this));
-
+                .request(new BaseModelObserver<LoginModel>(this){});
     }
-
 }

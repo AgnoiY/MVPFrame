@@ -117,22 +117,6 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
         return initRefreshHelper(refreshLayout, recyclerView, 0);
     }
 
-    /**
-     * 获取当前类泛型
-     */
-    @Override
-    @Deprecated
-    public Class<T> getTypeClass() {
-        ParameterizedType ptClass = (ParameterizedType) getClass().getGenericSuperclass();
-        Class<T> mClass = null;
-        if (ptClass != null) {
-            Type type = ptClass.getActualTypeArguments()[0];
-            mClass = (Class<T>) type;
-            LogUtil.e("当前类泛型:" + mClass);
-        }
-        return mClass;
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();

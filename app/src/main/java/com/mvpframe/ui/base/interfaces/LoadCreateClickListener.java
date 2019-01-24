@@ -45,9 +45,4 @@ public interface LoadCreateClickListener<T> {
      */
     void onEmptyTextClickListener();
 
-    /**
-     * 获取当前类泛型
-     */
-    Class<T> getTypeClass();
-
 }

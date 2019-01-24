@@ -22,8 +22,6 @@ import com.mvpframe.util.Tools;
 import com.mvpframe.util.statusbar.StatusBarUtil;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +31,7 @@ import java.util.List;
  *
  * @author yong
  */
-public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
+public abstract class BaseLoadActivity<T,B extends ViewDataBinding>
         extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
         implements LoadCreateClickListener<T> {
 
@@ -301,21 +299,5 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
                     helper.onDestroy();
             }
         }
-    }
-
-    /**
-     * 获取当前类泛型
-     */
-    @Override
-    @Deprecated
-    public Class<T> getTypeClass() {
-        ParameterizedType ptClass = (ParameterizedType) getClass().getGenericSuperclass();
-        Class<T> mClass = null;
-        if (ptClass != null) {
-            Type type = ptClass.getActualTypeArguments()[0];
-            mClass = (Class<T>) type;
-            LogUtil.e("当前类泛型:" + mClass);
-        }
-        return mClass;
     }
 }
