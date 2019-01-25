@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/top_distance_15"
             android:maxLength="100"
-            android:textColor="@color/text_black_cd"
+            android:textColor="@color/text_three"
             android:textSize="@dimen/text_16"
             tools:text="@string/noData" />
 

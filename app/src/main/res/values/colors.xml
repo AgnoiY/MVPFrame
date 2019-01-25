@@ -11,6 +11,7 @@
 
     <!--透明度颜色-->
     <color name="transparent">#00000000</color>
+    <color name="transparent_white">#ffffffff</color>
     <color name="translucent_white">#70ffffff</color>
     <color name="translucent_black">#70000000</color>
 
@@ -26,7 +27,11 @@
     <color name="dialog_tips_select_btn">#ffc602</color>
 
     <!--字体-->
-    <color name="text_black_cd">#333333</color>
+    <color name="text_three">#333333</color>
+    <color name="text_six">#666666</color>
+    <color name="text_eight">#888888</color>
+    <color name="text_nine">#999999</color>
+
     <!--分割线-->
     <color name="line_gray_cd">#dedede</color>
 

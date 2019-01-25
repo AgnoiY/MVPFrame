@@ -5,7 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.mvpframe.R;
-import com.mvpframe.bean.home.LoginModel;
+import com.mvpframe.bean.account.LoginModel;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.bridge.sharePref.SharedPrefUser;
 import com.mvpframe.databinding.ActivityMainBinding;
@@ -14,18 +14,22 @@ import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
 import com.mvpframe.ui.view.account.activity.LoginActivity;
+import com.mvpframe.util.ToastUtil;
+import com.mvpframe.view.dialog.CommonDialog;
+import com.mvpframe.view.dialog.DialogInterface;
 
 /**
  * <功能详细描述>
  * 泛型传入
- * 1、网络请求实体类：如果有多个实体类可以传入Object或是通过BaseListMode中set、get方法设置
+ * 1、网络请求实体类：如果有多个实体类可以传入Object
  * 2、自动生成ViewDataBinding
  * <p>
  * Data：2018/12/18
  *
  * @author yong
  */
-public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBinding> implements ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
+        implements ViewPager.OnPageChangeListener ,DialogInterface {
 
     private LoginPresenter presenter = new LoginPresenter();
 
@@ -35,10 +39,11 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     }
 
     @Override
-    public void onSuccess(String action, LoginModel data) {
+    public void onSuccess(String action, Object data) {
         super.onSuccess(action, data);
         mLoadBinding.text.setText(SharedPrefManager.getUser().getString(SharedPrefUser.USER_NAME, ""));
-        mLoadBinding.text1.setText(data.getUserid());
+        mLoadBinding.text1.setText(((LoginModel) data).getToken());
+//        mLoadBinding.text1.setText(data.getToken());
         mLoadBinding.bt.setText(action);
     }
 
@@ -57,20 +62,24 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     }
 
     @Override
-    public BasePresenter<IMvpView<LoginModel>>[] getPresenterArray() {
+    public BasePresenter<IMvpView<Object>>[] getPresenterArray() {
         return new BasePresenter[]{presenter};
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        startActivity(LoginActivity.class, null);
+        switch (v.getId()) {
+            case R.id.bt:
+                new CommonDialog(mContext).;
+                break;
+        }
     }
 
     @Override
-    public void onEmptyClickListener() {
-        super.onEmptyClickListener();
-//        presenter.login("15713802736", "123456");
+    public void onEmptyTextClickListener() {
+        super.onEmptyTextClickListener();
+        presenter.login("15713802736", "123456");
     }
 
     /**
@@ -103,5 +112,10 @@ public class MainActivity extends BaseLoadActivity<LoginModel, ActivityMainBindi
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void dialogTipsOk() {
+        ToastUtil.makeCenterToast(this,"1");
     }
 }

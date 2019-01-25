@@ -26,7 +26,7 @@ public class ButtonTextView extends TextView {
     // 默认边框宽度, 1dp
     public static final float DEFAULT_STROKE_WIDTH = 1.0f;
     // 默认圆角半径, 2dp
-    public static final float DEFAULT_CORNER_RADIUS = 2.0f;
+    public static final float DEFAULT_CORNER_RADIUS = 3.0f;
     // 默认左右内边距
     public static final float DEFAULT_LR_PADDING = 20f;
     // 默认上下内边距
@@ -40,8 +40,10 @@ public class ButtonTextView extends TextView {
     private int cornerRadius;
     // 边框颜色是否跟随文字颜色
     private boolean mFollowTextColor;
-    //实心或空心，默认空心
+    // 实心或空心，默认空心
     private boolean isSolid;
+    // 字数量改变边距，默认：true 改变
+    private boolean isTextNumPadding;
 
     // 画边框所使用画笔对象
     private Paint mPaint = new Paint();
@@ -75,6 +77,7 @@ public class ButtonTextView extends TextView {
             strokeColor = ta.getColor(R.styleable.BorderLabelTextView_strokeColor, Color.TRANSPARENT);
             mFollowTextColor = ta.getBoolean(R.styleable.BorderLabelTextView_followTextColor, false);
             isSolid = ta.getBoolean(R.styleable.BorderLabelTextView_isSolid, false);
+            isTextNumPadding = ta.getBoolean(R.styleable.BorderLabelTextView_isTextNumPadding, true);
             ta.recycle();
         }
 
@@ -91,28 +94,37 @@ public class ButtonTextView extends TextView {
     @Override
     protected void onDraw(Canvas canvas) {
         if (isSolid)
-            mPaint.setStyle(Paint.Style.FILL);//实心效果
+            mPaint.setStyle(Paint.Style.FILL);// 实心效果
         else
-            mPaint.setStyle(Paint.Style.STROKE);//空心效果
+            mPaint.setStyle(Paint.Style.STROKE);// 空心效果
 
-        mPaint.setAntiAlias(true);//设置画笔为无锯齿
-        mPaint.setStrokeWidth(strokeWidth);//线宽
+        mPaint.setAntiAlias(true);// 设置画笔为无锯齿
+        mPaint.setStrokeWidth(strokeWidth);// 线宽
 
-        //设置边框线的颜色, 如果声明为边框跟随文字颜色且当前边框颜色与文字颜色不同时重新设置边框颜色
+        // 设置边框线的颜色, 如果声明为边框跟随文字颜色且当前边框颜色与文字颜色不同时重新设置边框颜色
         if (mFollowTextColor && strokeColor != getCurrentTextColor())
             strokeColor = getCurrentTextColor();
         mPaint.setColor(strokeColor);
 
-        //画空心圆矩形
+        // 画空心圆矩形
         mRectF.left = mRectF.top = 0.5f * strokeWidth;
         mRectF.right = getMeasuredWidth() - strokeWidth;
         mRectF.bottom = getMeasuredHeight() - strokeWidth;
         canvas.drawRoundRect(mRectF, cornerRadius, cornerRadius, mPaint);
 
         super.onDraw(canvas);
-        //drawRoundRect放在 super.onDraw(canvas)前面
-        //如果drawRoundRect放在 super.onDraw(canvas)后面，父类先画TextView，然后再画子类矩形，
-        //如果画的是实心矩形，则会遮盖父类的text字体
+        // drawRoundRect放在 super.onDraw(canvas)前面
+        // 如果drawRoundRect放在 super.onDraw(canvas)后面，父类先画TextView，然后再画子类矩形，
+        // 如果画的是实心矩形，则会遮盖父类的text字体
+
+        // 根据文本长度改变边距
+        if (getText().length() > 2 && isTextNumPadding) {
+            int paddingLeft = DensityUtil.dip2px(DEFAULT_LR_PADDING * 1.5f);
+            int paddingRight = DensityUtil.dip2px((DEFAULT_LR_PADDING * 1.5f));
+            int paddingTop = DensityUtil.dip2px(DEFAULT_TB_PADDING * 2);
+            int paddingBottom = DensityUtil.dip2px(DEFAULT_TB_PADDING * 2);
+            setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+        }
     }
 
     /**
@@ -162,6 +174,16 @@ public class ButtonTextView extends TextView {
      */
     public void setSolid(boolean solid) {
         isSolid = solid;
+        invalidate();
+    }
+
+    /**
+     * 字数量改变边距，默认：true 改变
+     *
+     * @param textNumPadding
+     */
+    public void setTextNumPadding(boolean textNumPadding) {
+        isTextNumPadding = textNumPadding;
         invalidate();
     }
 }

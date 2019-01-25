@@ -36,11 +36,6 @@ public interface LoadCreateClickListener<T> {
     int getLayout();
 
     /**
-     * 加载显示错误布局，全布局点击事件监听
-     */
-    void onEmptyClickListener();
-
-    /**
      * 加载显示错误布局，显示信息点击事件监听
      */
     void onEmptyTextClickListener();

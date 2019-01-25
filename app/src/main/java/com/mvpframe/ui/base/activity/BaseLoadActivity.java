@@ -18,6 +18,7 @@ import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
 import com.mvpframe.util.LogUtil;
+import com.mvpframe.util.NetUtils;
 import com.mvpframe.util.Tools;
 import com.mvpframe.util.statusbar.StatusBarUtil;
 import com.mvpframe.view.recyclerView.RefreshHelper;
@@ -31,7 +32,8 @@ import java.util.List;
  *
  * @author yong
  */
-public abstract class BaseLoadActivity<T,B extends ViewDataBinding>
+public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
+//    extends PermissionsActivity<T>
         extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
         implements LoadCreateClickListener<T> {
 
@@ -87,7 +89,6 @@ public abstract class BaseLoadActivity<T,B extends ViewDataBinding>
             setTitleBg();
         }
 
-        mBaseBinding.contentView.setEmptyClickListener(this);
         mBaseBinding.contentView.setEmptyTextClickListener(this);
     }
 
@@ -183,9 +184,9 @@ public abstract class BaseLoadActivity<T,B extends ViewDataBinding>
      */
     protected void setTitleBg() {
         mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this, R.color.title_bg));
-        mBaseBinding.titleView.setLeftTitleColor(R.color.text_black_cd);
-        mBaseBinding.titleView.setRightTitleColor(R.color.text_black_cd);
-        mBaseBinding.titleView.setMidTitleColor(R.color.text_black_cd);
+        mBaseBinding.titleView.setLeftTitleColor(R.color.text_three);
+        mBaseBinding.titleView.setRightTitleColor(R.color.text_three);
+        mBaseBinding.titleView.setMidTitleColor(R.color.text_three);
         mBaseBinding.titleView.setLeftImg(R.mipmap.back_black);
 //        mBaseBinding.titleView.setLeftTitle(getString(R.string.back));
     }
@@ -232,17 +233,13 @@ public abstract class BaseLoadActivity<T,B extends ViewDataBinding>
     }
 
     /**
-     * 错误布局，全局点击监听
-     */
-    public void onEmptyClickListener() {
-        LogUtil.e(TAG, "错误布局，全局点击监听");
-    }
-
-    /**
      * 错误布局，显示信息点击监听
      */
     public void onEmptyTextClickListener() {
         LogUtil.e(TAG, "错误布局，显示信息点击监听");
+        if (mBaseBinding.contentView.getTextView().getText().equals(getString(R.string.connect_error))) {//网络连接失败
+            NetUtils.setDataEnable(this);
+        }
     }
 
     /**
@@ -280,9 +277,6 @@ public abstract class BaseLoadActivity<T,B extends ViewDataBinding>
                 break;
             case R.id.fllayout_right:
                 onTopTitleRightClickListener();
-                break;
-            case R.id.fra_empty:
-                onEmptyClickListener();
                 break;
             case R.id.tv_empty:
                 onEmptyTextClickListener();

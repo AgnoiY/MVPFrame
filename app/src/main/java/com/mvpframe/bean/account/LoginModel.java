@@ -1,4 +1,4 @@
-package com.mvpframe.bean.home;
+package com.mvpframe.bean.account;
 
 import com.mvpframe.bean.base.BaseResponseModel;
 

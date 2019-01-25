@@ -6,19 +6,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <!-- Dialog提示框 -->
-    <style name="TipDialog" parent="android:Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowIsFloating">true</item>
+    <style name="TipDialog" parent="LoadingDialogLight">
+        <!--阴影-->
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <attr name="LoadingViewStyle" format="reference" />
+
     <declare-styleable name="LoadingView">
         <attr name="loading_view_size" format="dimension" />
         <attr name="loading_view_color" format="color" />
@@ -26,34 +24,24 @@
 
     <!--加载框-->
     <style name="LoadingDialogLight" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
         <!-- 边框 -->
-        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
         <!-- 是否浮现在activity之上 -->
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">true</item>
         <!-- 半透明 -->
-        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
         <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景颜色及和透明程度 -->
         <item name="android:windowBackground">@android:color/transparent</item>
-        <!-- 自己想要的背景 -->
-        <item name="android:backgroundDimEnabled">false</item>
         <!-- 屏幕背景不变暗 -->
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
     <!--弹框styles设置-->
-    <style name="TipsDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <!-- 边框 -->
-        <item name="android:windowIsFloating">true</item>
-        <!-- 是否浮现在activity之上 -->
-        <item name="android:windowIsTranslucent">true</item>
-        <!-- 半透明 -->
-        <item name="android:windowNoTitle">true</item>
-        <!-- 无标题 -->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!-- 自己想要的背景 -->
+    <style name="TipsDialog" parent="LoadingDialogLight">
+        <!-- 屏幕背景变暗 -->
         <item name="android:backgroundDimEnabled">true</item>
-        <!-- 屏幕背景不变暗 -->
     </style>
 
     <!--长的分割线styles设置-->
@@ -81,7 +69,7 @@
     <!--Tablayout字体大小-->
     <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">@dimen/text_16</item>
-        <item name="android:textColor">@color/text_black_cd</item>
+        <item name="android:textColor">@color/text_three</item>
     </style>
 
     <!-- 圆形边框的ImageView -->
@@ -104,6 +92,8 @@
         <attr name="followTextColor" format="boolean" />
         <!--实心或空心，默认是false(空心)-->
         <attr name="isSolid" format="boolean" />
+        <!--字数量改变边距，默认是true(改变)-->
+        <attr name="isTextNumPadding" format="boolean" />
     </declare-styleable>
 
 </resources>

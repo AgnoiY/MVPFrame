@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.mvpframe.R;
 import com.mvpframe.databinding.LayoutEmptyBinding;
+import com.mvpframe.view.textview.ButtonTextView;
 
 /**
  * 加载中布局 可以设置空页面 错误页面 加载中页面 titleView
@@ -58,11 +59,11 @@ public class ViewLoadLayout extends FrameLayout {
     }
 
     private void showEmptyFra(boolean isShow) {
-        mBinding.fraEmpty.setVisibility(isShow ? VISIBLE : GONE);
+        mBinding.clEmpty.setVisibility(isShow ? VISIBLE : GONE);
     }
 
     public boolean isShowEmptyFra() {
-        return mBinding.fraEmpty.getVisibility() == VISIBLE;
+        return mBinding.clEmpty.getVisibility() == VISIBLE;
     }
 
     public void hindAll() {
@@ -122,9 +123,9 @@ public class ViewLoadLayout extends FrameLayout {
     }
 
     /**
-     * 加载显示错误布局，全布局点击事件监听
+     * 设置显示文字的样式
      */
-    public void setEmptyClickListener(OnClickListener listener) {
-        mBinding.fraEmpty.setOnClickListener(listener);
+    public ButtonTextView getTextView() {
+       return mBinding.tvEmpty;
     }
 }

@@ -26,11 +26,15 @@
             android:text="Hello World!1"
             android:textColor="#000000" />
 
-        <Button
+        <com.mvpframe.view.textview.ButtonTextView
             android:id="@+id/bt"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="按钮" />
+            android:layout_marginTop="@dimen/top_distance_20"
+            android:text="网络加载失败"
+            android:textSize="@dimen/text_16"
+            app:cornerRadius="@dimen/radius_5"
+            app:strokeColor="@color/colorPrimary" />
 
         <com.mvpframe.view.imageview.RoundImageView
             android:layout_width="wrap_content"

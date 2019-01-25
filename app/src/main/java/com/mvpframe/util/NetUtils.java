@@ -5,7 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * <跟网络相关的工具类>
@@ -98,7 +103,8 @@ public class NetUtils {
     public static void openSetting(Context context) {
         Intent intent;
         if (android.os.Build.VERSION.SDK_INT > 10) {
-            intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+//            intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+            intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
         } else {
             intent = new Intent();
             ComponentName component = new ComponentName("com.android.settings", "com.android.settings.WirelessSettings");
@@ -106,6 +112,57 @@ public class NetUtils {
             intent.setAction("android.intent.action.VIEW");
         }
         context.startActivity(intent);
+    }
+
+    /**
+     * 设置手机的移动数据
+     */
+
+    public static void setDataEnable(Context context) {
+
+        TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        Object object = Build.VERSION.SDK_INT >= 21 ? mTelephonyManager : mConnectivityManager;
+        String methodName = Build.VERSION.SDK_INT >= 21 ? "setDataEnabled" : "setMobileDataEnabled";
+        Method setMobileDataEnable;
+
+        try {
+            setMobileDataEnable = object.getClass().getMethod(methodName, boolean.class);
+            setMobileDataEnable.invoke(object, true);
+            checkConnectState(context);
+        } catch (InvocationTargetException e) {
+            LogUtil.e("此处接收被调用方法内部未被捕获的异常");
+            Throwable t = e.getTargetException();// 获取目标异常
+            LogUtil.e("移动数据设置错误1: " + e.toString());
+            t.printStackTrace();
+            LogUtil.e("移动数据设置错误2: " + t.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtil.e("移动数据设置错误: " + e.toString());
+        }
+
+    }
+
+    public static Boolean checkConnectState(Context context) {
+
+        TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        Object object = Build.VERSION.SDK_INT >= 21 ? mTelephonyManager : mConnectivityManager;
+        String methodName = Build.VERSION.SDK_INT >= 21 ? "getDataEnabled" : "getMobileDataEnabled";
+        Method getMobileDataEnable;
+        boolean isDataEnabled = false;
+        try {
+            getMobileDataEnable = object.getClass().getMethod(methodName);
+            isDataEnabled = (Boolean) getMobileDataEnable.invoke(object);
+            LogUtil.e("移动数据开启状态：" + isDataEnabled);
+            return isDataEnabled;
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtil.e("移动数据设置错误: " + e.toString());
+        }
+        return isDataEnabled;
     }
 
 }
