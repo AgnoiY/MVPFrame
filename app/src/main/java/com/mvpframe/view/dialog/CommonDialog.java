@@ -2,6 +2,8 @@ package com.mvpframe.view.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -24,8 +26,7 @@ import java.lang.ref.SoftReference;
  *
  * @author yong
  */
-@SuppressLint("ValidFragment")
-public class CommonDialog extends DialogFragment implements View.OnClickListener {
+public class CommonDialog extends AlertDialog implements View.OnClickListener {
 
     private Context mActivity;
     private DialogTipsBinding mBinding;
@@ -34,7 +35,7 @@ public class CommonDialog extends DialogFragment implements View.OnClickListener
     private DialogInterface.Among mInterfaceAmong;
 
     public CommonDialog(Object o) {
-
+        super((Context) o,R.style.TipsDialog);
         SoftReference soft = new SoftReference(o);
         Object object = soft.get();
         this.mActivity = (Activity) o;
@@ -44,17 +45,17 @@ public class CommonDialog extends DialogFragment implements View.OnClickListener
             this.mInterfaceAmong = (DialogInterface.Among) object;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        return builder(inflater, container);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        builder();
     }
 
-    private View builder(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+    private View builder() {
 
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_tips, container, true);
+//        setContentView(R.layout.dialog_tips);
+
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.dialog_tips, findViewById(R.id.dialog_tips_layout), true);
 
 //        ViewGroup.LayoutParams params = mBinding.dialogTipsLayout.getLayoutParams();
 //        params.width = DensityUtil.getXScreenpx(mActivity) * 4 / 5;
@@ -102,11 +103,11 @@ public class CommonDialog extends DialogFragment implements View.OnClickListener
      *
      * @return
      */
-//    public CommonDialog shows() {
-//        if (!isShowing())
-//            show();
-//        return this;
-//    }
+    public CommonDialog shows() {
+        if (!isShowing())
+            show();
+        return this;
+    }
 
     @Override
     public void onClick(View view) {

@@ -17,7 +17,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/text_six"
             android:textSize="@dimen/text_14"
-            tools:text="销售经理" />
+            android:text="销售经理" />
 
         <TextView
             android:id="@+id/dialog_tips_content_msg"
@@ -28,7 +28,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/text_three"
             android:textSize="@dimen/text_20"
-            tools:text="马化腾" />
+            android:text="马化腾" />
 
 
         <View style="@style/style_split_line" />

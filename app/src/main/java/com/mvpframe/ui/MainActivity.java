@@ -71,7 +71,7 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
         super.onClick(v);
         switch (v.getId()) {
             case R.id.bt:
-                new CommonDialog(mContext).;
+                new CommonDialog(mContext).shows();
                 break;
         }
     }
