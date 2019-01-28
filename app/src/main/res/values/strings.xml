@@ -12,6 +12,13 @@
     <!-- BasePresenter -->
     <string name="view_add_error">View添加失败</string>
 
+    <!-- Permissions -->
+    <string name="permissions_open">立即开启</string>
+
+    <!-- Dialog -->
+    <string name="dialog_no">取消</string>
+    <string name="dialog_ok">确定</string>
+
     <!-- 引导页 -->
     <string name="guide_skip">进入</string>
 
@@ -24,5 +31,8 @@
     <string name="un_known_error">未知错误</string>
     <string name="server_agreement_error">与服务器约定错误</string>
     <string name="request_cancelled">请求取消了</string>
+    <string name="open_network">请打开网络</string>
+    <string name="wifi">WIFI</string>
+    <string name="mobile_netwoek">移动网络</string>
 
 </resources>

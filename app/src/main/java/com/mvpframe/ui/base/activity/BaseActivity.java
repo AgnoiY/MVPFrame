@@ -69,13 +69,10 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         App.getApp().addActivity(this);
         EventBus.getDefault().register(this);
 
-//        initPermissions();
         initData();
         initStatusBarDarkTheme();
         initListeners();
     }
-
-//    abstract void initPermissions();
 
     /**
      * 注入View

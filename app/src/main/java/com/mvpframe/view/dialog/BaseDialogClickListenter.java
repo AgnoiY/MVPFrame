@@ -1,8 +1,15 @@
 package com.mvpframe.view.dialog;
 
-public interface DialogInterface {
+/**
+ * Dialog
+ * <p>
+ * Data：2019/01/28
+ *
+ * @author yong
+ */
+public interface BaseDialogClickListenter {
 
-    interface Among extends DialogInterface {
+    interface Among extends BaseDialogClickListenter {
         /**
          * 中间的按钮
          */

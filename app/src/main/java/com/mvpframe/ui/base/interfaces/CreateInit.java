@@ -13,7 +13,7 @@ import com.mvpframe.presenter.base.Presenter;
  *
  * @author yong
  */
-public interface CreateInit<V extends IMvpView, P extends Presenter> {
+public interface CreateInit<V extends IMvpView, P extends Presenter> extends BaseInterface {
 
     interface CreateInitActivity<V extends IMvpView, P extends Presenter> extends CreateInit<V, P> {
         /**
@@ -25,6 +25,11 @@ public interface CreateInit<V extends IMvpView, P extends Presenter> {
          * 设置状态栏样式
          */
         void initStatusBarDarkTheme();
+
+        /**
+         * 权限申请成功
+         */
+        void initPermissionSuccess();
 
     }
 
@@ -54,16 +59,6 @@ public interface CreateInit<V extends IMvpView, P extends Presenter> {
      * @return
      */
     V[] createView();
-
-    /**
-     * 初始化数据
-     */
-    void initData();
-
-    /**
-     * 增加按钮点击事件
-     */
-    void initListeners();
 
     /**
      * 延迟后要进行的操作

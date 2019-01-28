@@ -9,7 +9,7 @@ import android.content.Context;
  *
  * @author yong
  */
-public interface LoadCreateClickListener<T> {
+public interface LoadCreateClickListener {
 
     /**
      * 初始化操作
@@ -27,13 +27,6 @@ public interface LoadCreateClickListener<T> {
      * 标题右侧点击事件监听
      */
     void onTopTitleRightClickListener();
-
-    /**
-     * 添加布局layoutID
-     *
-     * @return
-     */
-    int getLayout();
 
     /**
      * 加载显示错误布局，显示信息点击事件监听

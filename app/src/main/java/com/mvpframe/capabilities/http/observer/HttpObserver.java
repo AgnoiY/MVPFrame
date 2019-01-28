@@ -6,17 +6,11 @@ import android.content.Intent;
 
 import com.mvpframe.R;
 import com.mvpframe.app.App;
-import com.mvpframe.bridge.http.BaseModelObserver;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.capabilities.http.interfaces.ParseHelper;
 import com.mvpframe.ui.view.account.activity.LoginActivity;
-import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.ToastUtil;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  * Http请求回调
@@ -57,7 +51,7 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
     @Override
     public void inSuccess(String action, T value) {
         T result = parse((String) value);
-        if (callSuccess && isBusinessOk()) {
+        if (callSuccess && isBusinessOk() && result != null) {
             onSuccess(action, result);
         }
     }

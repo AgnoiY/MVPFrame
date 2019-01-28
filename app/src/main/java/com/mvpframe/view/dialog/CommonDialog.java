@@ -1,75 +1,63 @@
 package com.mvpframe.view.dialog;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mvpframe.R;
 import com.mvpframe.databinding.DialogTipsBinding;
+import com.mvpframe.util.DensityUtil;
 import com.mvpframe.util.Tools;
 
 import java.lang.ref.SoftReference;
 
 /**
- * 三个按钮或是两个按钮 Dialog
- * Data：2018/12/18
+ * Dialog
+ * <p>
+ * Data：2019/01/28
  *
  * @author yong
  */
-public class CommonDialog extends AlertDialog implements View.OnClickListener {
+public class CommonDialog extends BaseFragmentDialog<DialogTipsBinding> implements View.OnClickListener {
 
-    private Context mActivity;
-    private DialogTipsBinding mBinding;
+    private String TAG = "CommonDialog";
+    private BaseDialogClickListenter mInterface;
+    private BaseDialogClickListenter.Among mInterfaceAmong;
 
-    private DialogInterface mInterface;
-    private DialogInterface.Among mInterfaceAmong;
+    private String title, contentMsg, noMsg, amongMsg, okMsg;
 
-    public CommonDialog(Object o) {
-        super((Context) o,R.style.TipsDialog);
-        SoftReference soft = new SoftReference(o);
-        Object object = soft.get();
-        this.mActivity = (Activity) o;
-        if (object instanceof DialogInterface)
-            this.mInterface = (DialogInterface) object;
-        else if (object instanceof DialogInterface.Among)
-            this.mInterfaceAmong = (DialogInterface.Among) object;
+    @Override
+    public int getLayoutId() {
+        return R.layout.dialog_tips;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        builder();
+    public void initData() {
+        ViewGroup.LayoutParams params = mDialogBing.dialogTipsContentMsg.getLayoutParams();
+        params.width = DensityUtil.getXScreenpx(getActivity()) * 4 / 5;
+        mDialogBing.dialogTipsContentMsg.setLayoutParams(params);
+
+        mDialogBing.dialogTipsAmong.setVisibility(mInterfaceAmong != null && Tools.isNotNull(amongMsg) ? View.VISIBLE : View.GONE);
+        mDialogBing.view.setVisibility(mInterfaceAmong != null && Tools.isNotNull(amongMsg) ? View.VISIBLE : View.GONE);
+
+        mDialogBing.dialogTipsTitle.setVisibility(Tools.isNotNull(title) ? View.VISIBLE : View.GONE);
+
+        mDialogBing.dialogTipsTitle.setText(title);
+        mDialogBing.dialogTipsContentMsg.setText(contentMsg);
+        mDialogBing.dialogTipsAmong.setText(amongMsg);
+        if (Tools.isNotNull(okMsg))
+            mDialogBing.dialogTipsOk.setText(okMsg);
+        if (Tools.isNotNull(noMsg))
+            mDialogBing.dialogTipsNo.setText(noMsg);
     }
 
-    private View builder() {
-
-//        setContentView(R.layout.dialog_tips);
-
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.dialog_tips, findViewById(R.id.dialog_tips_layout), true);
-
-//        ViewGroup.LayoutParams params = mBinding.dialogTipsLayout.getLayoutParams();
-//        params.width = DensityUtil.getXScreenpx(mActivity) * 4 / 5;
-//        mBinding.dialogTipsLayout.setLayoutParams(params);
-
-        mBinding.dialogTipsNo.setOnClickListener(this);
-        mBinding.dialogTipsAmong.setOnClickListener(this);
-        mBinding.dialogTipsOk.setOnClickListener(this);
-
-        mBinding.dialogTipsAmong.setVisibility(mInterfaceAmong != null ? View.VISIBLE : View.GONE);
-        mBinding.view.setVisibility(mInterfaceAmong != null ? View.VISIBLE : View.GONE);
-
-        return mBinding.getRoot();
-
+    @Override
+    public void initListeners() {
+        mDialogBing.dialogTipsNo.setOnClickListener(this);
+        mDialogBing.dialogTipsOk.setOnClickListener(this);
+        mDialogBing.dialogTipsAmong.setOnClickListener(this);
     }
 
     /**
@@ -79,40 +67,100 @@ public class CommonDialog extends AlertDialog implements View.OnClickListener {
      * @return
      */
     public CommonDialog setTitleMsg(@Nullable String title) {
-        if (mBinding.dialogTipsTitle != null && Tools.isNotNull(title)) {
-            mBinding.dialogTipsTitle.setText(title);
-        }
+        this.title = title;
         return this;
     }
 
     /**
      * 设置内容
      *
-     * @param msg
+     * @param contentMsg
      * @return
      */
-    public CommonDialog setContentMsg(String msg) {
-        if (mBinding.dialogTipsContentMsg != null && Tools.isNotNull(msg)) {
-            mBinding.dialogTipsContentMsg.setText(msg);
-        }
+    public CommonDialog setContentMsg(@NonNull String contentMsg) {
+        this.contentMsg = contentMsg;
         return this;
     }
 
     /**
-     * 显示 Dialog
+     * 设置取消按钮
      *
+     * @param noMsg
      * @return
      */
-    public CommonDialog shows() {
-        if (!isShowing())
-            show();
+    public CommonDialog setButtonNo(@NonNull String noMsg) {
+        if (Tools.isNotNull(noMsg))
+            this.noMsg = noMsg;
+        return this;
+    }
+
+    /**
+     * 设置中间按钮
+     *
+     * @param amongMsg
+     * @return
+     */
+    public CommonDialog setButtonAmong(@NonNull String amongMsg) {
+        this.amongMsg = amongMsg;
+        return this;
+    }
+
+    /**
+     * 设置确定按钮
+     *
+     * @param okMsg
+     * @return
+     */
+    public CommonDialog setButtonOk(@NonNull String okMsg) {
+        if (Tools.isNotNull(okMsg))
+            this.okMsg = okMsg;
+        return this;
+    }
+
+    /**
+     * 两个按钮
+     *
+     * @param mInterface
+     * @return
+     */
+    public CommonDialog setClickListenter(BaseDialogClickListenter mInterface) {
+        this.mInterface = mInterface;
+        return this;
+    }
+
+    /**
+     * 三个按钮
+     *
+     * @param mInterfaceAmong
+     * @return
+     */
+    public CommonDialog setClickListenterAmong(BaseDialogClickListenter.Among mInterfaceAmong) {
+        this.mInterfaceAmong = mInterfaceAmong;
+        return this;
+    }
+
+    /**
+     * 显示Dialog
+     *
+     * @param o
+     * @return
+     */
+    public CommonDialog shows(Object o) {
+        SoftReference soft = new SoftReference(o);
+        Object ob = soft.get();
+        FragmentActivity activity = (FragmentActivity) ob;
+
+        if (ob instanceof BaseDialogClickListenter.Among)
+            this.mInterfaceAmong = (BaseDialogClickListenter.Among) ob;
+        else if (ob instanceof BaseDialogClickListenter)
+            this.mInterface = (BaseDialogClickListenter) ob;
+        show(activity.getSupportFragmentManager(), TAG);
         return this;
     }
 
     @Override
-    public void onClick(View view) {
-
-        switch (view.getId()) {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.dialog_tips_no:
                 dismiss();
                 break;
@@ -130,5 +178,4 @@ public class CommonDialog extends AlertDialog implements View.OnClickListener {
                 break;
         }
     }
-
 }

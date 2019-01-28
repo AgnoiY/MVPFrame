@@ -14,13 +14,13 @@ import android.view.ViewGroup;
 import com.mvpframe.R;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
-import com.mvpframe.presenter.base.BasePresenter;
-import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.NetUtils;
 import com.mvpframe.util.Tools;
 import com.mvpframe.util.statusbar.StatusBarUtil;
+import com.mvpframe.view.dialog.BaseDialogClickListenter;
+import com.mvpframe.view.dialog.CommonDialog;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
 import java.util.ArrayList;
@@ -33,9 +33,9 @@ import java.util.List;
  * @author yong
  */
 public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
-//    extends PermissionsActivity<T>
-        extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
-        implements LoadCreateClickListener<T> {
+        extends PermissionsActivity<T>
+//        extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
+        implements LoadCreateClickListener {
 
     protected ActivityBaseLoadBinding mBaseBinding;
 
@@ -161,7 +161,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      * 添加要显示的View
      */
     private View addMainView() {
-        mLoadBinding = DataBindingUtil.inflate(getLayoutInflater(), getLayout(), null, false);
+        mLoadBinding = DataBindingUtil.inflate(getLayoutInflater(), getLayoutId(), null, false);
         return mLoadBinding.getRoot();
     }
 
@@ -235,11 +235,40 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     /**
      * 错误布局，显示信息点击监听
      */
-    public void onEmptyTextClickListener() {
+    private void onEmptyTextClickListeners() {
         LogUtil.e(TAG, "错误布局，显示信息点击监听");
         if (mBaseBinding.contentView.getTextView().getText().equals(getString(R.string.connect_error))) {//网络连接失败
-            NetUtils.setDataEnable(this);
+            new CommonDialog().setContentMsg(getString(R.string.open_network))
+                    .setButtonAmong(getString(R.string.wifi)).setButtonOk(getString(R.string.mobile_netwoek))
+                    .setClickListenterAmong(new BaseDialogClickListenter.Among() {
+                        @Override
+                        public void dialogTipsAmong() {
+
+                        }
+
+                        @Override
+                        public void dialogTipsOk() {
+                            if (NetUtils.setDataEnable(mContext, true))
+                                onEmptyTextClickListener();
+                        }
+                    }).shows(this);
         }
+
+        if (NetUtils.isConnected(mContext))
+            onEmptyTextClickListener();
+    }
+
+    /**
+     * 错误布局，显示信息点击监听
+     */
+    @Override
+    public void onEmptyTextClickListener() {
+
+    }
+
+    @Override
+    public void initPermissionSuccess() {
+        LogUtil.e(TAG, "权限申请成功");
     }
 
     /**
@@ -279,7 +308,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
                 onTopTitleRightClickListener();
                 break;
             case R.id.tv_empty:
-                onEmptyTextClickListener();
+                onEmptyTextClickListeners();
                 break;
         }
     }

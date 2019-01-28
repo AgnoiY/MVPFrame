@@ -20,7 +20,7 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
     protected RefreshHelper mRefreshHelper;
 
     @Override
-    public int getLayout() {
+    public int getLayoutId() {
         return R.layout.layout_recycler_refresh;
     }
 

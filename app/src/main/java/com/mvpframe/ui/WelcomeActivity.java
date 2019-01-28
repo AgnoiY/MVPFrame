@@ -73,7 +73,7 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
     }
 
     @Override
-    public int getLayout() {
+    public int getLayoutId() {
         return R.layout.activity_welcome;
     }
 

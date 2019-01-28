@@ -9,7 +9,6 @@ import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -118,30 +117,29 @@ public class NetUtils {
      * 设置手机的移动数据
      */
 
-    public static void setDataEnable(Context context) {
+    public static boolean setDataEnable(Context context,boolean b) {
 
-        TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= 21)
+            openSetting(context);
+        else {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        Object object = Build.VERSION.SDK_INT >= 21 ? mTelephonyManager : mConnectivityManager;
-        String methodName = Build.VERSION.SDK_INT >= 21 ? "setDataEnabled" : "setMobileDataEnabled";
-        Method setMobileDataEnable;
+            Method setMobileDataEnable;
 
-        try {
-            setMobileDataEnable = object.getClass().getMethod(methodName, boolean.class);
-            setMobileDataEnable.invoke(object, true);
-            checkConnectState(context);
-        } catch (InvocationTargetException e) {
-            LogUtil.e("此处接收被调用方法内部未被捕获的异常");
-            Throwable t = e.getTargetException();// 获取目标异常
-            LogUtil.e("移动数据设置错误1: " + e.toString());
-            t.printStackTrace();
-            LogUtil.e("移动数据设置错误2: " + t.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            LogUtil.e("移动数据设置错误: " + e.toString());
+            boolean isDataEnabled = false;
+
+            try {
+                setMobileDataEnable = mConnectivityManager.getClass().getMethod("setMobileDataEnabled", boolean.class);
+                isDataEnabled = (boolean) setMobileDataEnable.invoke(mConnectivityManager, b);
+                checkConnectState(context);
+                return isDataEnabled;
+            } catch (Exception e) {
+                e.printStackTrace();
+                LogUtil.e("移动数据设置错误: " + e.toString());
+            }
+            return isDataEnabled;
         }
-
+        return false;
     }
 
     public static Boolean checkConnectState(Context context) {

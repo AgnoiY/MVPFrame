@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/dialog_tips_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_white_bg"
@@ -11,24 +10,26 @@
 
         <TextView
             android:id="@+id/dialog_tips_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:textColor="@color/text_six"
             android:textSize="@dimen/text_14"
-            android:text="销售经理" />
+            tools:text="销售经理" />
 
         <TextView
             android:id="@+id/dialog_tips_content_msg"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="26dp"
             android:layout_marginBottom="26dp"
             android:gravity="center_horizontal"
             android:textColor="@color/text_three"
             android:textSize="@dimen/text_20"
-            android:text="马化腾" />
+            tools:text="马化腾" />
 
 
         <View style="@style/style_split_line" />
@@ -44,10 +45,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:text="@string/dialog_no"
                 android:textColor="@color/text_three"
-                android:textSize="@dimen/text_16"
-                app:cornerRadius="@dimen/radius_8"
-                android:text="ad" />
+                android:textSize="@dimen/text_18"
+                app:cornerRadius="@dimen/radius_8" />
 
             <View style="@style/style_split_vline" />
 
@@ -58,9 +59,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/text_three"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_18"
                 app:cornerRadius="@dimen/radius_8"
-                android:text="ad" />
+                tools:text="ad" />
 
             <View
                 android:id="@+id/view"
@@ -72,10 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:text="@string/dialog_ok"
                 android:textColor="@color/text_three"
-                android:textSize="@dimen/text_16"
-                app:cornerRadius="@dimen/radius_8"
-                android:text="ad" />
+                android:textSize="@dimen/text_18"
+                app:cornerRadius="@dimen/radius_8" />
 
         </LinearLayout>
 

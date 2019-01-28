@@ -32,7 +32,7 @@ public class LoginActivity extends BaseLoadActivity<LoginModel, ActivityLoginBin
     }
 
     @Override
-    public int getLayout() {
+    public int getLayoutId() {
         return R.layout.activity_login;
     }
 

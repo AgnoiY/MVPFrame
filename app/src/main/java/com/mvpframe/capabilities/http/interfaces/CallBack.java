@@ -1,7 +1,5 @@
 package com.mvpframe.capabilities.http.interfaces;
 
-import java.util.List;
-
 /**
  * <请求返回状态>
  * <p>

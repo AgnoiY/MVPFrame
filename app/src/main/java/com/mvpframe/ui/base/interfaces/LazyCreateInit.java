@@ -7,7 +7,7 @@ package com.mvpframe.ui.base.interfaces;
  *
  * @author yong
  */
-public interface LazyCreateInit<T> {
+public interface LazyCreateInit {
 
     /**
      * fragment显示时调用
@@ -18,12 +18,4 @@ public interface LazyCreateInit<T> {
      * fragment隐藏时调用
      */
     void onInvisible();
-
-    /**
-     * 添加布局layoutID
-     *
-     * @return
-     */
-    int getLayout();
-
 }

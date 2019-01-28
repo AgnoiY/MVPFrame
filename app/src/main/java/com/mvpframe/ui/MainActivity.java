@@ -1,11 +1,13 @@
 package com.mvpframe.ui;
 
+import android.Manifest;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.mvpframe.R;
 import com.mvpframe.bean.account.LoginModel;
+import com.mvpframe.bean.permissions.PermissionsModel;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.bridge.sharePref.SharedPrefUser;
 import com.mvpframe.databinding.ActivityMainBinding;
@@ -13,10 +15,10 @@ import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.ui.view.account.activity.LoginActivity;
-import com.mvpframe.util.ToastUtil;
-import com.mvpframe.view.dialog.CommonDialog;
-import com.mvpframe.view.dialog.DialogInterface;
+import com.mvpframe.util.NetUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <功能详细描述>
@@ -29,12 +31,12 @@ import com.mvpframe.view.dialog.DialogInterface;
  * @author yong
  */
 public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
-        implements ViewPager.OnPageChangeListener ,DialogInterface {
+        implements ViewPager.OnPageChangeListener {
 
     private LoginPresenter presenter = new LoginPresenter();
 
     @Override
-    public int getLayout() {
+    public int getLayoutId() {
         return R.layout.activity_main;
     }
 
@@ -71,7 +73,12 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
         super.onClick(v);
         switch (v.getId()) {
             case R.id.bt:
-                new CommonDialog(mContext).shows();
+//                List<PermissionsModel> list = new ArrayList<>();
+//                list.add(new PermissionsModel().setPermissions(Manifest.permission.RECORD_AUDIO).setContent("录音权限"));
+//                list.add(new PermissionsModel().setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE).setContent("读写权限"));
+//                setPermissions(list);
+                NetUtils.setDataEnable(mContext,false);
+                presenter.login("15713802736", "a123456");
                 break;
         }
     }
@@ -79,7 +86,7 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
     @Override
     public void onEmptyTextClickListener() {
         super.onEmptyTextClickListener();
-        presenter.login("15713802736", "123456");
+        presenter.login("15713802736", "a123456");
     }
 
     /**
@@ -112,10 +119,5 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }
-
-    @Override
-    public void dialogTipsOk() {
-        ToastUtil.makeCenterToast(this,"1");
     }
 }

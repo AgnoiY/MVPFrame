@@ -27,7 +27,7 @@ import java.util.List;
  */
 public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
         extends BaseFragment<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
-        implements LazyCreateInit<T> {
+        implements LazyCreateInit {
 
     protected B mLazyBinding;
 
@@ -46,7 +46,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
 
     @Override
     public View initView(LayoutInflater inflater) {
-        mLazyBinding = DataBindingUtil.inflate(inflater, getLayout(), null, false);
+        mLazyBinding = DataBindingUtil.inflate(inflater, getLayoutId(), null, false);
         return mLazyBinding.getRoot();
     }
 
