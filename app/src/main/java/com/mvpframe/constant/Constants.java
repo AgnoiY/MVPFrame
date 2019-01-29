@@ -8,7 +8,15 @@ package com.mvpframe.constant;
  */
 public class Constants {
 
-    public static final boolean isDebug = true;//打开日志
+    /**
+     * 打开日志打开日志
+     */
+    public static final boolean isDebug = true;
+
+    /**
+     * 超时时长: 默认60秒
+     */
+    public static final long timeOut = 60;
 
     /**
      * 数据缓存时间

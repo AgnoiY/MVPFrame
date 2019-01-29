@@ -16,6 +16,7 @@ import com.mvpframe.capabilities.http.observer.HttpObserver;
 import com.mvpframe.capabilities.http.upload.UploadRequestBody;
 import com.mvpframe.capabilities.http.utils.Method;
 import com.mvpframe.capabilities.http.utils.RequestUtils;
+import com.mvpframe.constant.Constants;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
@@ -298,7 +299,7 @@ public class RetrofitHttp {
         }
 
         private Configure() {
-            timeout = 60;//默认60秒
+            timeout = Constants.timeOut;//默认60秒
             timeUnit = TimeUnit.SECONDS;//默认秒
             showLog = true;//默认打印LOG
         }

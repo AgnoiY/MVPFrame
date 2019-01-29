@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+
+import com.mvpframe.view.dialog.LoadingDialog;
 
 import java.lang.reflect.Method;
 
@@ -83,26 +86,13 @@ public class NetUtils {
     }
 
     /**
-     * 判断当前网络是否是移动数据网络.
+     * 打开移动数据设置界面
      *
-     * @param context the context
-     * @return boolean
-     */
-    public static boolean isMobile(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager == null)
-            return false;
-        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetInfo != null && activeNetInfo.getType() == ConnectivityManager.TYPE_MOBILE;
-    }
-
-    /**
-     * 打开网络设置界面
+     * @param context
      */
     public static void openSetting(Context context) {
         Intent intent;
         if (android.os.Build.VERSION.SDK_INT > 10) {
-//            intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
             intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
         } else {
             intent = new Intent();
@@ -114,10 +104,31 @@ public class NetUtils {
     }
 
     /**
-     * 设置手机的移动数据
+     * 打开手机的WIFI
+     *
+     * @param context
+     * @return
+     */
+    public static boolean openWifi(Context context) {
+        LoadingDialog loadingDialog = new LoadingDialog(context);
+        loadingDialog.showDialog();
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        wifiManager.setWifiEnabled(true);
+        while (true)
+            if (isWifi(context)) {
+                loadingDialog.closeDialog();
+                return wifiManager.isWifiEnabled();
+            }
+    }
+
+    /**
+     * 打开手机的移动数据
+     *
+     * @param context
+     * @return
      */
 
-    public static boolean setDataEnable(Context context,boolean b) {
+    public static boolean openMobileData(Context context) {
 
         if (Build.VERSION.SDK_INT >= 21)
             openSetting(context);
@@ -130,7 +141,7 @@ public class NetUtils {
 
             try {
                 setMobileDataEnable = mConnectivityManager.getClass().getMethod("setMobileDataEnabled", boolean.class);
-                isDataEnabled = (boolean) setMobileDataEnable.invoke(mConnectivityManager, b);
+                isDataEnabled = (boolean) setMobileDataEnable.invoke(mConnectivityManager, true);
                 checkConnectState(context);
                 return isDataEnabled;
             } catch (Exception e) {
@@ -141,6 +152,13 @@ public class NetUtils {
         }
         return false;
     }
+
+    /**
+     * 判断当前网络是否是移动数据网络.
+     *
+     * @param context the context
+     * @return boolean
+     */
 
     public static Boolean checkConnectState(Context context) {
 

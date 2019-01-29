@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.mvpframe.R;
 import com.mvpframe.capabilities.http.interfaces.ProgressDialogObserver;
+import com.mvpframe.constant.Constants;
 
 /**
  * <请求加载弹窗>
@@ -19,7 +20,7 @@ import com.mvpframe.capabilities.http.interfaces.ProgressDialogObserver;
  */
 public final class LoadingDialog extends ProgressDialog {
 
-    private long delayMillis = 3 * 1000;
+    private long delayMillis = Constants.timeOut * 1000;
     private int mWidth;
     private int mHeight;
     private LoadingView mLoadingView;

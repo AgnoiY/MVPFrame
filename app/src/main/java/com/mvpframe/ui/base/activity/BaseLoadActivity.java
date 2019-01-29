@@ -237,24 +237,24 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     private void onEmptyTextClickListeners() {
         LogUtil.e(TAG, "错误布局，显示信息点击监听");
-        if (mBaseBinding.contentView.getTextView().getText().equals(getString(R.string.connect_error))) {//网络连接失败
+        if (!NetUtils.isConnected(mContext)) {//网络连接失败
             new CommonDialog().setContentMsg(getString(R.string.open_network))
                     .setButtonAmong(getString(R.string.wifi)).setButtonOk(getString(R.string.mobile_netwoek))
                     .setClickListenterAmong(new BaseDialogClickListenter.Among() {
                         @Override
                         public void dialogTipsAmong() {
+                            if (NetUtils.openWifi(mContext))
+                                onEmptyTextClickListener();
 
                         }
 
                         @Override
                         public void dialogTipsOk() {
-                            if (NetUtils.setDataEnable(mContext, true))
+                            if (NetUtils.openMobileData(mContext))
                                 onEmptyTextClickListener();
                         }
                     }).shows(this);
-        }
-
-        if (NetUtils.isConnected(mContext))
+        } else
             onEmptyTextClickListener();
     }
 

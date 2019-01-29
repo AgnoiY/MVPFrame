@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:text="@string/dialog_no"
                 android:textColor="@color/text_three"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_16"
                 app:cornerRadius="@dimen/radius_8" />
 
             <View style="@style/style_split_vline" />
@@ -59,9 +59,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/text_three"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_16"
                 app:cornerRadius="@dimen/radius_8"
-                tools:text="ad" />
+                tools:text="WIFI" />
 
             <View
                 android:id="@+id/view"
@@ -75,7 +75,7 @@
                 android:gravity="center"
                 android:text="@string/dialog_ok"
                 android:textColor="@color/text_three"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_16"
                 app:cornerRadius="@dimen/radius_8" />
 
         </LinearLayout>
