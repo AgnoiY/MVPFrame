@@ -72,7 +72,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         //设置状态栏透明
         StatusBarUtil.setTranslucentStatus(this);
 
-        setStatusBarDarkTheme(true, 0);
+        setStatusBarDarkTheme(true);
     }
 
     /**
@@ -108,26 +108,21 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      * 设置状态栏字体颜色
      *
      * @param dark
-     * @param colorId 不设置默认为半透明灰色
      */
     @SuppressLint("Range")
-    protected void setStatusBarDarkTheme(boolean dark, int colorId) {
+    protected void setStatusBarDarkTheme(boolean dark) {
 
         ViewGroup.LayoutParams params = mBaseBinding.statusBar.getLayoutParams();
         params.height = StatusBarUtil.getStatusBarHeight(this);
         mBaseBinding.statusBar.setBackgroundColor(mBaseBinding.titleView.getBackgroundColor());
-        mBaseBinding.statusBar.getBackground().setAlpha(145);
         mBaseBinding.statusBar.setLayoutParams(params);
-
-        if (colorId <= 0) {
-            colorId = 0x50000000;
-        }
 
         //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
         //设置状态使用深色文字图标风格
-        if (!StatusBarUtil.setStatusBarDarkTheme(this, dark)) {
+        if (!StatusBarUtil.setStatusBarDarkTheme(this, dark) &&
+                mBaseBinding.titleView.getBackgroundColor() == ContextCompat.getColor(mContext,R.color.white)) {
             //设置一个状态栏颜色为半透明,
-            StatusBarUtil.setStatusBarColor(this, colorId);
+            StatusBarUtil.setStatusBarColor(this, 0x50000000);
         }
     }
 
