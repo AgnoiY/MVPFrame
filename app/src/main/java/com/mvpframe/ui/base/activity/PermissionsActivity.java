@@ -33,7 +33,7 @@ public abstract class PermissionsActivity<T> extends BaseActivity<T, IMvpView<T>
 
     private void initPermissions() {
         // 版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // 检查该权限是否已经获取
             for (int i = 0; i < modelList.size(); i++) {
                 int pId = ContextCompat.checkSelfPermission(this, modelList.get(i).getPermissions());
@@ -82,20 +82,17 @@ public abstract class PermissionsActivity<T> extends BaseActivity<T, IMvpView<T>
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == 321) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 for (int i = 0; i < permissions.length; i++) {
                     if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                         // 判断用户是否 点击了不再提醒。(检测该权限是否还可以申请)
-                        boolean b = false;
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                            b = shouldShowRequestPermissionRationale(permissions[i]);
-                            if (!b) {
-                                // 用户还是想用我的 APP 的
-                                // 提示用户去应用设置界面手动开启权限
-                                showDialogTipUserGoToAppSettting(i);
-                            }
-                        } else
+                        boolean b = shouldShowRequestPermissionRationale(permissions[i]);
+                        if (!b) {
+                            // 用户还是想用我的 APP 的
+                            // 提示用户去应用设置界面手动开启权限
                             showDialogTipUserGoToAppSettting(i);
+                        }
+
                     } else {
                         initPermissionSuccess();
                     }
@@ -139,7 +136,7 @@ public abstract class PermissionsActivity<T> extends BaseActivity<T, IMvpView<T>
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 123) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 for (int i = 0; i < modelList.size(); i++) {
                     // 检查该权限是否已经获取
                     int pId = ContextCompat.checkSelfPermission(this, modelList.get(i).getPermissions());
