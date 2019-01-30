@@ -120,7 +120,8 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
         //设置状态使用深色文字图标风格
         if (!StatusBarUtil.setStatusBarDarkTheme(this, dark) &&
-                mBaseBinding.titleView.getBackgroundColor() == ContextCompat.getColor(mContext,R.color.white)) {
+                mBaseBinding.titleView.getBackgroundColor() == ContextCompat.getColor(mContext, R.color.white) &&
+                mBaseBinding.titleView.getVisibility() == View.VISIBLE) {
             //设置一个状态栏颜色为半透明,
             StatusBarUtil.setStatusBarColor(this, 0x50000000);
         }
