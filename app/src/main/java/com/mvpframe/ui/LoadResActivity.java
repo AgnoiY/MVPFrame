@@ -173,8 +173,9 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
      * @return
      */
     private ButtonTextView createView(int width, int height) {
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width > 0 ? width : ViewGroup.LayoutParams.WRAP_CONTENT,
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width > 0 ? width : ViewGroup.LayoutParams.WRAP_CONTENT,
                 height > 0 ? height : ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.rightMargin = DensityUtil.dip2px(8);
         ButtonTextView textView = new ButtonTextView(this);
         textView.setLayoutParams(params);
         return textView;
