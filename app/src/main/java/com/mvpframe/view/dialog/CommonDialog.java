@@ -165,16 +165,16 @@ public class CommonDialog extends BaseFragmentDialog<DialogTipsBinding> implemen
                 dismiss();
                 break;
             case R.id.dialog_tips_among:
+                dismiss();
                 if (mInterfaceAmong != null)
                     mInterfaceAmong.dialogTipsAmong();
-                dismiss();
                 break;
             case R.id.dialog_tips_ok:
+                dismiss();
                 if (mInterfaceAmong != null)
                     mInterfaceAmong.dialogTipsOk();
                 if (mInterface != null)
                     mInterface.dialogTipsOk();
-                dismiss();
                 break;
         }
     }

@@ -92,6 +92,41 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
     }
 
     /**
+     * 网络请求的错误信息，已在请求中处理提示Toast
+     * 如果有特殊处理需重写
+     *
+     * @param action 区分不同事件
+     * @param code   错误码
+     * @param msg    错误信息
+     */
+    @Override
+    public void onError(String action, int code, String msg) {
+        LogUtil.e(TAG, "url=" + action + ";  code=" + code + ";  msg=" + msg);
+    }
+
+    /**
+     * 成功返回结果
+     *
+     * @param action 区分不同事件
+     * @param data   数据
+     */
+    @Override
+    public void onSuccess(String action, T data) {
+        LogUtil.e(TAG, "url=" + action + ";  data=" + data);
+    }
+
+    /**
+     * 成功返回结果
+     *
+     * @param action 区分不同事件
+     * @param data   数据
+     */
+    @Override
+    public void onSuccess(String action, List<T> data) {
+        LogUtil.e(TAG, "url=" + action + ";  data=" + data);
+    }
+
+    /**
      * 初始化刷新相关
      *
      * @param refreshLayout
