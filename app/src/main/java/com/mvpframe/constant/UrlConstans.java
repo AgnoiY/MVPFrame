@@ -12,7 +12,7 @@ public class UrlConstans {
      * 服务器地址
      */
 //    public static final String SERVER = "http://116.62.162.56:80/pjriver/";
-    public static final String SERVER = "http://192.168.6.15:8080/klApp/";
+    public static final String SERVER = "http://183.129.178.44:8320/klApp/";
 
     /**
      * 用户登陆

@@ -58,7 +58,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
      */
     @Override
     public void showToast(String msg) {
-        ToastUtil.makeTextShort(context, msg);
+        ToastUtil.makeCenterToast(context, msg);
     }
 
     /**

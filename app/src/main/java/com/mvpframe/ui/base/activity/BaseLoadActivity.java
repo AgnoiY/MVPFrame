@@ -17,10 +17,9 @@ import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.NetUtils;
+import com.mvpframe.util.ToastUtil;
 import com.mvpframe.util.Tools;
 import com.mvpframe.util.statusbar.StatusBarUtil;
-import com.mvpframe.view.dialog.BaseDialogClickListenter;
-import com.mvpframe.view.dialog.CommonDialog;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
 import java.util.ArrayList;
@@ -234,22 +233,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     private void onEmptyTextClickListeners() {
         LogUtil.e(TAG, "错误布局，显示信息点击监听");
         if (!NetUtils.isConnected(mContext)) {//网络连接失败
-            new CommonDialog().setContentMsg(getString(R.string.open_network))
-                    .setButtonAmong(getString(R.string.wifi)).setButtonOk(getString(R.string.mobile_netwoek))
-                    .setClickListenterAmong(new BaseDialogClickListenter.Among() {
-                        @Override
-                        public void dialogTipsAmong() {
-                            if (NetUtils.openWifi(mContext))
-                                onEmptyTextClickListener();
-
-                        }
-
-                        @Override
-                        public void dialogTipsOk() {
-                            if (NetUtils.openMobileData(mContext))
-                                onEmptyTextClickListener();
-                        }
-                    }).shows(this);
+            ToastUtil.makeCenterToast(mContext, getString(R.string.no_netwoek));
         } else
             onEmptyTextClickListener();
     }
