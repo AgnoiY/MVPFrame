@@ -32,7 +32,7 @@ import java.util.List;
  * @author yong
  */
 public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
-        extends PermissionsActivity<T>
+        extends BasePermissionsActivity<T>
 //        extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
         implements LoadCreateClickListener {
 
@@ -248,6 +248,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
 
     @Override
     public void initPermissionSuccess() {
+        ToastUtil.makeCenterToast(mContext,"权限申请成功");
         LogUtil.e(TAG, "权限申请成功");
     }
 

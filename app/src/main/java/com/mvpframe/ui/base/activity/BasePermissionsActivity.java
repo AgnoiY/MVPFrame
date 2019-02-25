@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author yong
  */
-public abstract class PermissionsActivity<T> extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>> {
+public abstract class BasePermissionsActivity<T> extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>> {
 
     // 要申请的权限
     private List<PermissionsModel> modelList = new ArrayList<>();
@@ -54,16 +54,13 @@ public abstract class PermissionsActivity<T> extends BaseActivity<T, IMvpView<T>
         if (Tools.isNull(model.getContent()))
             return;
 
-        new CommonDialog().setTitleMsg(model.getTitle())
-                .setContentMsg(model.getContent())
-                .setButtonOk(Tools.isNotNull(model.getOpen()) ? model.getOpen() : getString(R.string.permissions_open))
-                .shows(this)
-                .setClickListenter(new BaseDialogClickListenter() {
-                    @Override
-                    public void dialogTipsOk() {
-                        startRequestPermission();
-                    }
-                });
+//        new CommonDialog().setTitleMsg(model.getTitle())
+//                .setContentMsg(model.getContent())
+//                .setButtonOk(Tools.isNotNull(model.getOpen()) ? model.getOpen() : getString(R.string.permissions_open))
+//                .shows(this)
+//                .setClickListenter(() -> {
+                    startRequestPermission();
+//                });
     }
 
     // 开始提交请求权限
@@ -88,7 +85,6 @@ public abstract class PermissionsActivity<T> extends BaseActivity<T, IMvpView<T>
                         // 判断用户是否 点击了不再提醒。(检测该权限是否还可以申请)
                         boolean b = shouldShowRequestPermissionRationale(permissions[i]);
                         if (!b) {
-                            // 用户还是想用我的 APP 的
                             // 提示用户去应用设置界面手动开启权限
                             showDialogTipUserGoToAppSettting(i);
                         }
@@ -108,7 +104,7 @@ public abstract class PermissionsActivity<T> extends BaseActivity<T, IMvpView<T>
         PermissionsModel model = modelList.get(position);
 
         new CommonDialog().setTitleMsg(model.getTitle())
-                .setContentMsg("请在-应用设置-权限-中，已禁用权限")
+                .setContentMsg("请在应用设置权限中，已禁用权限")
                 .setButtonOk(Tools.isNotNull(model.getOpen()) ? model.getOpen() : getString(R.string.permissions_open))
                 .shows(this)
                 .setClickListenter(new BaseDialogClickListenter() {
@@ -157,7 +153,7 @@ public abstract class PermissionsActivity<T> extends BaseActivity<T, IMvpView<T>
      *
      * @param modelList
      */
-    public void setPermissions(List<PermissionsModel> modelList) {
+    public void setPermissions(@NonNull List<PermissionsModel> modelList) {
         this.modelList = modelList;
         initPermissions();
     }
