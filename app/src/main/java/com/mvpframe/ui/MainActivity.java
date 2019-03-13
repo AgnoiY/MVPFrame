@@ -74,17 +74,17 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
 //                list.add(new PermissionsModel().setPermissions(Manifest.permission.SEND_SMS).setTitle("权限").setContent("录音权限"));
 //                list.add(new PermissionsModel().setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE).setContent("读写权限"));
 //                setPermissions(list);
-                setPermissions(getNoGrantedPermission(mContext));
-//                new CommonDialog().setTitleMsg("安徽")
-//                        .setContentMsg("已禁用权限")
-//                        .setButtonOk("立即开启")
-//                        .shows(this)
-//                        .setClickListenter(new BaseDialogClickListenter() {
-//                            @Override
-//                            public void dialogTipsOk() {
-//                                ToastUtil.makeCenterToast(mContext, "ads");
-//                            }
-//                        });
+//                setPermissions(getNoGrantedPermission(mContext));
+                new CommonDialog().setTitleMsg("安徽")
+                        .setContentMsg("已禁用权限")
+                        .setButtonOk("立即开启")
+                        .shows(this)
+                        .setClickListenter(new BaseDialogClickListenter() {
+                            @Override
+                            public void dialogTipsOk() {
+                                ToastUtil.makeCenterToast(mContext, "ads");
+                            }
+                        });
                 break;
         }
     }

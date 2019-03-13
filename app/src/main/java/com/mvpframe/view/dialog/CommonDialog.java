@@ -4,11 +4,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.mvpframe.R;
 import com.mvpframe.databinding.DialogTipsBinding;
-import com.mvpframe.util.DensityUtil;
 import com.mvpframe.util.Tools;
 
 import java.lang.ref.SoftReference;
@@ -35,9 +33,6 @@ public class CommonDialog extends BaseFragmentDialog<DialogTipsBinding> implemen
 
     @Override
     public void initData() {
-        ViewGroup.LayoutParams params = mDialogBing.dialogTipsContentMsg.getLayoutParams();
-        params.width = DensityUtil.getXScreenpx(getActivity()) * 4 / 5;
-        mDialogBing.dialogTipsContentMsg.setLayoutParams(params);
 
         mDialogBing.dialogTipsAmong.setVisibility(mInterfaceAmong != null && Tools.isNotNull(amongMsg) ? View.VISIBLE : View.GONE);
         mDialogBing.view.setVisibility(mInterfaceAmong != null && Tools.isNotNull(amongMsg) ? View.VISIBLE : View.GONE);
