@@ -10,7 +10,8 @@ import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
 import com.mvpframe.util.DownTime;
-import com.mvpframe.util.LogUtil;
+
+import static com.mvpframe.constant.Constants.loge;
 
 /**
  * <欢迎页>
@@ -82,7 +83,7 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
      */
     private void waitLoadMain() {
 
-        LogUtil.e("等待时间：" + delayMillis + "s");
+        log("等待时间：" + delayMillis + "s", loge);
 
         postDelayed(delayMillis);
 

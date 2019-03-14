@@ -18,7 +18,6 @@ import com.mvpframe.ui.base.interfaces.CreateInit;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
 import com.mvpframe.util.GeneralUtils;
-import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
@@ -26,6 +25,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import io.reactivex.disposables.CompositeDisposable;
+
+import static com.mvpframe.constant.Constants.loge;
 
 
 /**
@@ -204,7 +205,12 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
 
     @Override
     public void nextStep(Long l) {
-        LogUtil.e(TAG + ":" + l);
+        log(l, loge);
+    }
+
+    @Override
+    public void log(Object msg, String type) {
+        helper.log(msg, type);
     }
 
     @Override

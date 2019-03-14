@@ -150,8 +150,33 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
                 .subscribe(aLong -> {
                     ((BaseActivity) activity).nextStep(aLong);
                 }, throwable -> {
-                    LogUtil.e(TAG + ":" + throwable.getMessage());
+                    LogUtil.e(TAG, throwable.getMessage());
                 }));
+    }
+
+    /**
+     * 打印日志
+     *
+     * @param msg
+     * @param type 日志的样式 e/d/i
+     */
+    @Override
+    public void log(Object msg, String type) {
+        switch (type) {
+            case "e":
+                LogUtil.e(TAG, msg);
+                break;
+            case "i":
+                LogUtil.i(TAG, msg);
+                break;
+            case "d":
+                LogUtil.d(TAG, msg);
+                break;
+            default:
+                LogUtil.e(TAG, msg);
+                break;
+        }
+
     }
 
     /**

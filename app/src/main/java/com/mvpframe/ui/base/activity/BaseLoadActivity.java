@@ -15,7 +15,6 @@ import com.mvpframe.R;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
-import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.NetUtils;
 import com.mvpframe.util.ToastUtil;
 import com.mvpframe.util.Tools;
@@ -25,6 +24,8 @@ import com.mvpframe.view.recyclerView.RefreshHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mvpframe.constant.Constants.loge;
+
 /**
  * 带空页面，错误页面显示的BaseActivity 通过BaseActivity界面操作封装成View而来
  * Data：2018/12/18
@@ -33,7 +34,6 @@ import java.util.List;
  */
 public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         extends BasePermissionsActivity<T>
-//        extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
         implements LoadCreateClickListener {
 
     protected ActivityBaseLoadBinding mBaseBinding;
@@ -196,7 +196,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     @Override
     public void onError(String action, int code, String msg) {
-        LogUtil.e(TAG, "url=" + action + ";  code=" + code + ";  msg=" + msg);
+        log("url=" + action + ";  code=" + code + ";  msg=" + msg, loge);
         if (code == ExceptionEngine.CONNECT_ERROR) {//网络连接失败
             mBaseBinding.contentView.setShowText(msg);
             mBaseBinding.contentView.setShowImage(R.mipmap.ic_launcher);
@@ -211,7 +211,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, T data) {
-        LogUtil.e(TAG, "url=" + action + ";  data=" + data);
+        log("url=" + action + ";  data=" + data, loge);
         mBaseBinding.contentView.hindEmptyAll();
     }
 
@@ -223,7 +223,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, List<T> data) {
-        LogUtil.e(TAG, "url=" + action + ";  data=" + data);
+        log("url=" + action + ";  data=" + data, loge);
         mBaseBinding.contentView.hindEmptyAll();
     }
 
@@ -231,7 +231,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      * 错误布局，显示信息点击监听
      */
     private void onEmptyTextClickListeners() {
-        LogUtil.e(TAG, "错误布局，显示信息点击监听");
+        log("错误布局，显示信息点击监听", loge);
         if (!NetUtils.isConnected(mContext)) {//网络连接失败
             ToastUtil.makeCenterToast(mContext, getString(R.string.no_netwoek));
         } else
@@ -248,8 +248,8 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
 
     @Override
     public void initPermissionSuccess() {
-        ToastUtil.makeCenterToast(mContext,"权限申请成功");
-        LogUtil.e(TAG, "权限申请成功");
+        ToastUtil.makeCenterToast(mContext, "权限申请成功");
+        log("权限申请成功", loge);
     }
 
     /**

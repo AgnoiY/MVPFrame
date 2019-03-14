@@ -14,6 +14,9 @@ public class Constants {
      * 打开日志打开日志
      */
     public static final boolean isDebug = BuildConfig.DEBUG;
+    public static final String loge = "e";
+    public static final String logi = "i";
+    public static final String logd = "d";
 
     /**
      * 超时时长: 默认60秒

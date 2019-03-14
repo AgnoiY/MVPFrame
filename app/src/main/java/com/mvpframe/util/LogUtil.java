@@ -15,10 +15,24 @@ public class LogUtil {
 
     private static final String TAG = "log_yong";
 
+    public static void d(String msg) {
+        if (isDebug) {
+            Log.d(TAG, msg);
+        }
+    }
+
+    public static void d(String tag, Object msg) {
+        d(tag + ":  " + msg);
+    }
+
     public static void i(String msg) {
         if (isDebug) {
             Log.i(TAG, msg);
         }
+    }
+
+    public static void i(String tag, Object msg) {
+        i(tag + ":  " + msg);
     }
 
     public static void e(String msg) {
@@ -27,7 +41,7 @@ public class LogUtil {
         }
     }
 
-    public static void e(String tag, String msg) {
+    public static void e(String tag, Object msg) {
         e(tag + ":  " + msg);
     }
 

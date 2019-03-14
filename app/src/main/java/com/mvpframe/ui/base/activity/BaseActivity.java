@@ -19,7 +19,6 @@ import com.mvpframe.ui.base.interfaces.CreateInit;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
 import com.mvpframe.util.GeneralUtils;
-import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -27,6 +26,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import io.reactivex.disposables.CompositeDisposable;
+
+import static com.mvpframe.constant.Constants.loge;
 
 /**
  * * 备注:
@@ -205,7 +206,18 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      */
     @Override
     public void nextStep(Long l) {
-        LogUtil.e(TAG + ":" + l);
+        log(l, loge);
+    }
+
+    /**
+     * 打印日志
+     *
+     * @param msg
+     * @param type 日志的样式 e/d/i 为空默认是 e
+     */
+    @Override
+    public void log(Object msg, String type) {
+        helper.log(msg, type);
     }
 
     @Override
@@ -226,7 +238,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         try {
             helper.hideSoftKeyboard();
         } catch (Exception e) {
-            LogUtil.e("finish 输入法错误");
+            log("finish 输入法错误", loge);
         }
         super.finish();
     }
@@ -247,7 +259,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
                 }
             }
         } catch (Exception e) {
-            LogUtil.e("dispatchTouchEvent 输入法错误");
+            log("dispatchTouchEvent 输入法错误", loge);
         }
         return super.dispatchTouchEvent(ev);
     }

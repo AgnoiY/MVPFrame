@@ -53,4 +53,12 @@ public interface PresentationLayerFunc<T> {
      * @param delay
      */
     void postDelayed(long delay);
+
+    /**
+     * 打印日志
+     *
+     * @param msg
+     * @param type 日志的样式 e/d/i
+     */
+    void log(Object msg, String type);
 }

@@ -10,14 +10,13 @@ import android.view.View;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.interfaces.LazyCreateInit;
-import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.Tools;
 import com.mvpframe.view.recyclerView.RefreshHelper;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mvpframe.constant.Constants.loge;
 
 /**
  * Fragment 懒加载 防止fragment初始化时加载大量数据
@@ -86,7 +85,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
         if (getArguments() != null)
             mBundle = getArguments();
         else
-            LogUtil.e(TAG + ":" + mBundle);
+            log(mBundle, loge);
 
         lazyLoad();
     }
@@ -101,7 +100,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      */
     @Override
     public void onError(String action, int code, String msg) {
-        LogUtil.e(TAG, "url=" + action + ";  code=" + code + ";  msg=" + msg);
+        log("url=" + action + ";  code=" + code + ";  msg=" + msg, loge);
     }
 
     /**
@@ -112,7 +111,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, T data) {
-        LogUtil.e(TAG, "url=" + action + ";  data=" + data);
+        log("url=" + action + ";  data=" + data, loge);
     }
 
     /**
@@ -123,7 +122,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, List<T> data) {
-        LogUtil.e(TAG, "url=" + action + ";  data=" + data);
+        log("url=" + action + ";  data=" + data, loge);
     }
 
     /**
