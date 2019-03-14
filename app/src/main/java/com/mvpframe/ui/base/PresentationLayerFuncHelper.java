@@ -19,8 +19,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.ref.SoftReference;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,14 +66,11 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
      */
     @Override
     public void showSoftKeyboard(View focusView) {
-        activity.getWindow().getDecorView().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    focusView.requestFocus();
-                    imm.showSoftInput(focusView, 0);
-                }
+        activity.getWindow().getDecorView().postDelayed(() -> {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                focusView.requestFocus();
+                imm.showSoftInput(focusView, 0);
             }
         }, 100);
     }

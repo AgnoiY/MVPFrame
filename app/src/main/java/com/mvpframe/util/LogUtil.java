@@ -2,6 +2,8 @@ package com.mvpframe.util;
 
 import android.util.Log;
 
+import static com.mvpframe.constant.Constants.isDebug;
+
 
 /**
  * log工具类
@@ -11,18 +13,16 @@ import android.util.Log;
  */
 public class LogUtil {
 
-    public static Boolean isDeBug = true;
-
     private static final String TAG = "log_yong";
 
     public static void i(String msg) {
-        if (isDeBug) {
+        if (isDebug) {
             Log.i(TAG, msg);
         }
     }
 
     public static void e(String msg) {
-        if (isDeBug) {
+        if (isDebug) {
             Log.e(TAG, msg);
         }
     }
@@ -32,7 +32,7 @@ public class LogUtil {
     }
 
     public static void biglog(String responseInfo) {
-        if (!isDeBug) {
+        if (!isDebug) {
             return;
         }
         if (responseInfo.length() > 3000) {

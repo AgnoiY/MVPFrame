@@ -1,5 +1,7 @@
 package com.mvpframe.constant;
 
+import com.mvpframe.BuildConfig;
+
 /**
  * <全局常量>
  * Data：2018/12/18
@@ -11,7 +13,7 @@ public class Constants {
     /**
      * 打开日志打开日志
      */
-    public static final boolean isDebug = true;
+    public static final boolean isDebug = BuildConfig.DEBUG;
 
     /**
      * 超时时长: 默认60秒
