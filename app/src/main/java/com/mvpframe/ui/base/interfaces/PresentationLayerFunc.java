@@ -57,8 +57,7 @@ public interface PresentationLayerFunc<T> {
     /**
      * 打印日志
      *
-     * @param msg
-     * @param type 日志的样式 e/d/i
+     * @param msg 0: 信息  1: 日志的样式 e/d/i
      */
-    void log(Object msg, String type);
+    void log(Object... msg);
 }

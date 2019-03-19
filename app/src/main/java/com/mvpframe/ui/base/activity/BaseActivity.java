@@ -212,12 +212,11 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     /**
      * 打印日志
      *
-     * @param msg
-     * @param type 日志的样式 e/d/i 为空默认是 e
+     * @param msg 0: 信息  1: 日志的样式 e/d/i
      */
     @Override
-    public void log(Object msg, String type) {
-        helper.log(msg, type);
+    public void log(Object... msg) {
+        helper.log(msg);
     }
 
     @Override

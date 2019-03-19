@@ -209,8 +209,8 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     }
 
     @Override
-    public void log(Object msg, String type) {
-        helper.log(msg, type);
+    public void log(Object... msg) {
+        helper.log(msg);
     }
 
     @Override

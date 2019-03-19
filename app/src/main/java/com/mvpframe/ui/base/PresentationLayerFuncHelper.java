@@ -157,25 +157,27 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
     /**
      * 打印日志
      *
-     * @param msg
-     * @param type 日志的样式 e/d/i
+     * @param msg 0: 信息  1: 日志的样式 e/d/i
      */
     @Override
-    public void log(Object msg, String type) {
-        switch (type) {
-            case "e":
-                LogUtil.e(TAG, msg);
-                break;
-            case "i":
-                LogUtil.i(TAG, msg);
-                break;
-            case "d":
-                LogUtil.d(TAG, msg);
-                break;
-            default:
-                LogUtil.e(TAG, msg);
-                break;
-        }
+    public void log(Object... msg) {
+        if (msg.length > 1)
+            switch ((String) msg[1]) {
+                case "e":
+                    LogUtil.e(TAG, msg[0]);
+                    break;
+                case "i":
+                    LogUtil.i(TAG, msg[0]);
+                    break;
+                case "d":
+                    LogUtil.d(TAG, msg[0]);
+                    break;
+                default:
+                    LogUtil.e(TAG, msg[0]);
+                    break;
+            }
+        else if (msg.length == 1)
+            LogUtil.e(TAG, msg[0]);
 
     }
 
