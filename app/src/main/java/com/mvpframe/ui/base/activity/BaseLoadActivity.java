@@ -24,7 +24,9 @@ import com.mvpframe.view.recyclerView.RefreshHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mvpframe.constant.Constants.logd;
 import static com.mvpframe.constant.Constants.loge;
+import static com.mvpframe.constant.Constants.logi;
 
 /**
  * 带空页面，错误页面显示的BaseActivity 通过BaseActivity界面操作封装成View而来
@@ -211,7 +213,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, T data) {
-        log("url=" + action + ";  data=" + data, loge);
+        log("url=" + action + ";  data=" + data, logi);
         mBaseBinding.contentView.hindEmptyAll();
     }
 
@@ -223,7 +225,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, List<T> data) {
-        log("url=" + action + ";  data=" + data, loge);
+        log("url=" + action + ";  data=" + data, logi);
         mBaseBinding.contentView.hindEmptyAll();
     }
 
@@ -231,7 +233,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      * 错误布局，显示信息点击监听
      */
     private void onEmptyTextClickListeners() {
-        log("错误布局，显示信息点击监听", loge);
+        log("错误布局，显示信息点击监听", logd);
         if (!NetUtils.isConnected(mContext)) {//网络连接失败
             ToastUtil.makeCenterToast(mContext, getString(R.string.no_netwoek));
         } else
@@ -249,7 +251,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     @Override
     public void initPermissionSuccess() {
         ToastUtil.makeCenterToast(mContext, "权限申请成功");
-        log("权限申请成功", loge);
+        log("权限申请成功", logd);
     }
 
     /**

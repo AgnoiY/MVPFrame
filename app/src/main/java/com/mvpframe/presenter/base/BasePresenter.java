@@ -92,7 +92,7 @@ public abstract class BasePresenter<V extends IMvpView> implements Presenter<V> 
     protected RetrofitHttp.Builder getRetrofitHttp() {
 
         if (!isViewAttached()) {
-            LogUtil.e(App.getAppString(R.string.view_add_error));
+            LogUtil.d(App.getAppString(R.string.view_add_error));
             return null;
         }
 

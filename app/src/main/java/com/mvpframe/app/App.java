@@ -84,7 +84,7 @@ public class App extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        LogUtil.e("App attachBaseContext ");
+        LogUtil.d("App attachBaseContext ");
         if (!quickStart() && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {//>=5.0的系统默认对dex进行oat优化
             if (needWait(base)) {
                 waitForDexopt(base);
@@ -139,11 +139,8 @@ public class App extends Application {
                     Activity activity = (Activity) ((Class) o).newInstance();
                     activitys.remove(activity);
                     activity.finish();
-                } catch (InstantiationException e) {
-                    LogUtil.e(e.getMessage());
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    LogUtil.e(e.getMessage());
+                } catch (Exception e) {
+                    LogUtil.w(e);
                     e.printStackTrace();
                 }
             }
@@ -171,7 +168,7 @@ public class App extends Application {
 
     public boolean quickStart() {
         if (getCurProcessName(this).contains(":mini")) {
-            LogUtil.e(":mini start!");
+            LogUtil.d(":mini start!");
             return true;
         }
         return false;
@@ -202,7 +199,7 @@ public class App extends Application {
      */
     public boolean needWait(Context context) {
         String flag = get2thDexSHA1(context);
-        LogUtil.e("dex2-sha1=" + flag);
+        LogUtil.i("dex2-sha1=" + flag);
         SharedPreferences sp = context.getSharedPreferences(
                 getPackageInfo(context).versionName, MODE_MULTI_PROCESS);
         String saveValue = sp.getString(KEY_DEX2_SHA1, "");
@@ -214,7 +211,7 @@ public class App extends Application {
         try {
             return pm.getPackageInfo(context.getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
-            LogUtil.e(e.getLocalizedMessage());
+            LogUtil.w(e);
         }
         return new PackageInfo();
     }
@@ -255,9 +252,9 @@ public class App extends Application {
         while (needWait(base)) {
             try {
                 long nowWait = System.currentTimeMillis() - startWait;
-                LogUtil.e("wait ms :" + nowWait);
+                LogUtil.d("wait ms :" + nowWait);
                 if (nowWait >= waitTime) {
-                    LogUtil.e("加载完成");
+                    LogUtil.d("加载完成");
                     return;
                 }
                 Thread.sleep(200);

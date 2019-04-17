@@ -172,6 +172,12 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
                 case "d":
                     LogUtil.d(TAG, msg[0]);
                     break;
+                case "w":
+                    if (msg.length > 2)
+                        LogUtil.w(TAG, msg[2], (Throwable) msg[0]);
+                    else
+                        LogUtil.w(TAG, (Throwable) msg[0]);
+                    break;
                 default:
                     LogUtil.e(TAG, msg[0]);
                     break;

@@ -15,6 +15,11 @@ public class LogUtil {
 
     private static final String TAG = "log_yong";
 
+    /**
+     * 输出debug调试信息
+     *
+     * @param msg
+     */
     public static void d(String msg) {
         if (isDebug) {
             Log.d(TAG, msg);
@@ -25,6 +30,11 @@ public class LogUtil {
         d(tag + ":  " + msg);
     }
 
+    /**
+     * 输出数据资源信息
+     *
+     * @param msg
+     */
     public static void i(String msg) {
         if (isDebug) {
             Log.i(TAG, msg);
@@ -35,6 +45,11 @@ public class LogUtil {
         i(tag + ":  " + msg);
     }
 
+    /**
+     * 输出错误信息
+     *
+     * @param msg
+     */
     public static void e(String msg) {
         if (isDebug) {
             Log.e(TAG, msg);
@@ -43,6 +58,37 @@ public class LogUtil {
 
     public static void e(String tag, Object msg) {
         e(tag + ":  " + msg);
+    }
+
+    /**
+     * 输出警告信息
+     *
+     * @param msg
+     */
+    public static void w(String msg) {
+        if (isDebug) {
+            Log.w(TAG, msg);
+        }
+    }
+
+    public static void w(Throwable tr) {
+        if (isDebug) {
+            Log.w(TAG, tr);
+        }
+    }
+
+    public static void w(String msg, Throwable tr) {
+        if (isDebug) {
+            Log.w(TAG, msg, tr);
+        }
+    }
+
+    public static void w(String tag, Object msg) {
+        w(tag + ":  " + msg);
+    }
+
+    public static void w(String tag, Object msg, Throwable tr) {
+        w(tag + ":  " + msg, tr);
     }
 
     public static void biglog(String responseInfo) {

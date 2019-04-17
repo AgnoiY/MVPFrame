@@ -16,7 +16,9 @@ import com.mvpframe.view.recyclerView.RefreshHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mvpframe.constant.Constants.logd;
 import static com.mvpframe.constant.Constants.loge;
+import static com.mvpframe.constant.Constants.logi;
 
 /**
  * Fragment 懒加载 防止fragment初始化时加载大量数据
@@ -85,7 +87,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
         if (getArguments() != null)
             mBundle = getArguments();
         else
-            log(mBundle, loge);
+            log(mBundle, logd);
 
         lazyLoad();
     }
@@ -111,7 +113,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, T data) {
-        log("url=" + action + ";  data=" + data, loge);
+        log("url=" + action + ";  data=" + data, logi);
     }
 
     /**
@@ -122,7 +124,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, List<T> data) {
-        log("url=" + action + ";  data=" + data, loge);
+        log("url=" + action + ";  data=" + data, logi);
     }
 
     /**

@@ -19,7 +19,7 @@ public class HttpResultFunction<T> implements Function<Throwable, Observable<T>>
     @Override
     public Observable<T> apply(@NonNull Throwable throwable) throws Exception {
         //打印具体错误
-        LogUtil.e("HttpResultFunction:" + throwable);
+        LogUtil.w("HttpResultFunction:", throwable);
         return Observable.error(ExceptionEngine.handleException(throwable));
     }
 }

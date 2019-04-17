@@ -20,7 +20,7 @@ public class OnNoDoubleClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (isDoubleClick()) {
-            LogUtil.e("重复点击");
+            LogUtil.d("重复点击");
         } else {
             onNoDoubleClick.onNoDoubleClick(v);
         }

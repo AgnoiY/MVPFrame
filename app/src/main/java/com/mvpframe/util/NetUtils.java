@@ -145,8 +145,8 @@ public class NetUtils {
                 checkConnectState(context);
                 return isDataEnabled;
             } catch (Exception e) {
+                LogUtil.w("移动数据设置错误: " , e);
                 e.printStackTrace();
-                LogUtil.e("移动数据设置错误: " + e.toString());
             }
             return isDataEnabled;
         }
@@ -172,11 +172,11 @@ public class NetUtils {
         try {
             getMobileDataEnable = object.getClass().getMethod(methodName);
             isDataEnabled = (Boolean) getMobileDataEnable.invoke(object);
-            LogUtil.e("移动数据开启状态：" + isDataEnabled);
+            LogUtil.d("移动数据开启状态：" + isDataEnabled);
             return isDataEnabled;
         } catch (Exception e) {
+            LogUtil.w("移动数据设置错误: " , e);
             e.printStackTrace();
-            LogUtil.e("移动数据设置错误: " + e.toString());
         }
         return isDataEnabled;
     }

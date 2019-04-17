@@ -27,7 +27,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-import static com.mvpframe.constant.Constants.loge;
+import static com.mvpframe.constant.Constants.logd;
+import static com.mvpframe.constant.Constants.logw;
 
 /**
  * * 备注:
@@ -206,7 +207,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      */
     @Override
     public void nextStep(Long l) {
-        log(l, loge);
+        log(l, logd);
     }
 
     /**
@@ -237,7 +238,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         try {
             helper.hideSoftKeyboard();
         } catch (Exception e) {
-            log("finish 输入法错误", loge);
+            log(e, logw, "finish 输入法错误");
         }
         super.finish();
     }
@@ -258,7 +259,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
                 }
             }
         } catch (Exception e) {
-            log("dispatchTouchEvent 输入法错误", loge);
+            log(e, logw, "dispatchTouchEvent 输入法错误");
         }
         return super.dispatchTouchEvent(ev);
     }

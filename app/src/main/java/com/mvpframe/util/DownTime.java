@@ -54,7 +54,7 @@ public class DownTime extends CountDownTimer {
 
     @Override
     public void onTick(long l) {
-        LogUtil.e("onTick: " + l);
+        LogUtil.d("onTick: " + l);
         view.setEnabled(isEnabled);
         view.setText(l / 1000 + processText);
     }

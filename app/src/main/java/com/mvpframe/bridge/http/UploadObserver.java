@@ -67,7 +67,7 @@ public abstract class UploadObserver<T> extends HttpObserver<T> implements Uploa
      * 取消回调
      */
     public void onCancel() {
-        LogUtil.e(App.getAppString(R.string.request_cancelled));
+        LogUtil.d(App.getAppString(R.string.request_cancelled));
     }
 
 }

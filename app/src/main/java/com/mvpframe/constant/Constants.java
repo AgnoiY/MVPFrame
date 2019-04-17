@@ -17,6 +17,7 @@ public class Constants {
     public static final String loge = "e";
     public static final String logi = "i";
     public static final String logd = "d";
+    public static final String logw = "w";
 
     /**
      * 超时时长: 默认60秒

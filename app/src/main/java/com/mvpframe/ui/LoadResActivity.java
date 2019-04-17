@@ -102,24 +102,24 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
         protected Object doInBackground(Object[] params) {
             try {
                 MultiDex.install(getApplication());
-                LogUtil.e("install finish");
+                LogUtil.d("install finish");
                 ((App) getApplication()).installFinish(getApplication());
             } catch (Exception e) {
-                LogUtil.e(e.getLocalizedMessage());
+                LogUtil.w(e.getLocalizedMessage());
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Object o) {
-            LogUtil.e("get install finish");
+            LogUtil.d("get install finish");
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        LogUtil.e("back");
+        LogUtil.d("back");
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             installFinishWelCome = true;
             installFinishWelCome(2);
@@ -218,7 +218,7 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
                     startpos = (int) ev.getX();
-                    LogUtil.e("startpos=" + startpos);
+                    LogUtil.d("startpos=" + startpos);
                 }
                 break;
                 case MotionEvent.ACTION_MOVE: {
@@ -230,7 +230,7 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
 
                     /*先根据速度来判断向左或向右*/
                     int speed = releaseSpeedChange((int) ev.getX(), 80);
-                    LogUtil.e("speed=" + speed);
+                    LogUtil.d("speed=" + speed);
                     if (speed > 0) {
                         nextPage();
                         return true;
@@ -241,7 +241,7 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
                     }
 
                     /*这里是根据触摸起始和结束位置来判断向左或向右*/
-                    LogUtil.e("ev.getX()-startpos=" + (ev.getX() - startpos));
+                    LogUtil.d("ev.getX()-startpos=" + (ev.getX() - startpos));
                     if (Math.abs((ev.getX() - startpos)) > getWidth() / 3) {
                         if (ev.getX() - startpos > 0) {
                             /*向左*/
@@ -251,7 +251,7 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
                             nextPage();
                         }
                     } else {
-                        LogUtil.e("ToPage:pageNo=" + pageNo);
+                        LogUtil.d("ToPage:pageNo=" + pageNo);
                         /*不变*/
                         scrollToPage(pageNo > 0 ? 1 : 0);
                     }
@@ -279,8 +279,8 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
         public void prevPage() {
             if (pageNo != 0) {
                 pageNo--;
-                LogUtil.e("prevPage:pageNo=" + pageNo);
-                LogUtil.e("prevPage:getChildCount=" + childGroup.getChildCount());
+                LogUtil.d("prevPage:pageNo=" + pageNo);
+                LogUtil.d("prevPage:getChildCount=" + childGroup.getChildCount());
                 scrollToPage(pageNo > 0 ? 1 : 0);
                 if (pageNo > 0)
                     addLeft(createExampleView(pageNo - 1));
@@ -295,8 +295,8 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
         public void nextPage() {
             if (pageNo < poscache.length - 1) {
                 pageNo++;
-                LogUtil.e("nextPage:pageNo=" + pageNo);
-                LogUtil.e("nextPage:getChildCount=" + childGroup.getChildCount());
+                LogUtil.d("nextPage:pageNo=" + pageNo);
+                LogUtil.d("nextPage:getChildCount=" + childGroup.getChildCount());
                 scrollToPage(1);
                 if (pageNo < poscache.length - 1)
                     addRight(createExampleView(pageNo + 1));
@@ -356,7 +356,7 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
             /*因为在左边增加了View，因此所有View的x坐标都会增加，因此需要让ScrollView也跟着移动，才能从屏幕看来保持平滑。*/
             int tmpwidth = view.getLayoutParams().width;
             if (tmpwidth == 0) tmpwidth = getWinWidth();
-            LogUtil.e("the new view's width = " + view.getLayoutParams().width);
+            LogUtil.d("the new view's width = " + view.getLayoutParams().width);
             this.scrollTo(this.getScrollX() + tmpwidth, 0);
 
             return true;
@@ -400,7 +400,7 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
          * @return
          */
         private View createExampleView(int index) {
-            LogUtil.e("index=" + index);
+            LogUtil.d("index=" + index);
             LayoutParams params = new LayoutParams(getWinWidth(), getWinHeight());
             ImageView imageView = new ImageView(context);
             imageView.setLayoutParams(params);

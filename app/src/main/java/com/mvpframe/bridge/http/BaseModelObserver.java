@@ -154,7 +154,7 @@ public abstract class BaseModelObserver<T> extends HttpObserver<T> {
      * 如果有特殊处理需重写
      */
     public void onCancel() {
-        LogUtil.e(App.getAppString(R.string.request_cancelled));
+        LogUtil.d(App.getAppString(R.string.request_cancelled));
     }
 
     /**
@@ -179,7 +179,7 @@ public abstract class BaseModelObserver<T> extends HttpObserver<T> {
         Type type = null;
         if (ptClass != null) {
             type = ptClass.getActualTypeArguments()[0];
-            LogUtil.e("当前类泛型:" + type);
+            LogUtil.d("当前类泛型:" + type);
         }
         return type;
     }
