@@ -1,8 +1,16 @@
 package com.mvpframe.ui;
 
+import android.content.Context;
+import android.graphics.Point;
+import android.os.Build;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.mvpframe.R;
 import com.mvpframe.bean.account.LoginModel;
@@ -13,9 +21,9 @@ import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.util.ToastUtil;
-import com.mvpframe.view.dialog.BaseDialogClickListenter;
-import com.mvpframe.view.dialog.CommonDialog;
+import com.mvpframe.util.DensityUtil;
+
+import static com.mvpframe.constant.Constants.logd;
 
 /**
  * <功能详细描述>
@@ -70,21 +78,6 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
         super.onClick(v);
         switch (v.getId()) {
             case R.id.bt:
-//                List<PermissionsModel> list = new ArrayList<>();
-//                list.add(new PermissionsModel().setPermissions(Manifest.permission.SEND_SMS).setTitle("权限").setContent("录音权限"));
-//                list.add(new PermissionsModel().setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE).setContent("读写权限"));
-//                setPermissions(list);
-//                setPermissions(getNoGrantedPermission(mContext));
-                new CommonDialog().setTitleMsg("安徽")
-                        .setContentMsg("已禁用权限")
-                        .setButtonOk("立即开启")
-                        .shows(this)
-                        .setClickListenter(new BaseDialogClickListenter() {
-                            @Override
-                            public void dialogTipsOk() {
-                                ToastUtil.makeCenterToast(mContext, "ads");
-                            }
-                        });
                 break;
         }
     }

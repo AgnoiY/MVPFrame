@@ -1,8 +1,13 @@
 package com.mvpframe.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
+import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 /**
  * <像素转换>
@@ -11,6 +16,9 @@ import android.util.DisplayMetrics;
  * @author yong
  */
 public class DensityUtil {
+
+    private static final String TAG = "DensityUtil";
+
     /**
      * <将px值转换为dip或dp值，保证尺寸大小不变>
      *
@@ -82,5 +90,43 @@ public class DensityUtil {
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.heightPixels;
+    }
+
+    /**
+     * 获取屏幕真实高度（全面屏幕）
+     *
+     * @param context
+     * @return
+     */
+    public static int[] getScreenSize(Context context) {
+        int[] size = new int[2];
+
+        WindowManager w = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display d = w.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        d.getMetrics(metrics);
+        // since SDK_INT = 1;
+        int widthPixels = metrics.widthPixels;
+        int heightPixels = metrics.heightPixels;
+        try {
+            // includes window decorations (statusbar bar/menu bar)
+            if (Build.VERSION.SDK_INT >= 14 && Build.VERSION.SDK_INT < 17) {
+                widthPixels = (Integer) Display.class.getMethod("getRawWidth").invoke(d);
+                heightPixels = (Integer) Display.class.getMethod("getRawHeight").invoke(d);
+            }
+
+            // includes window decorations (statusbar bar/menu bar)
+            if (Build.VERSION.SDK_INT >= 17) {
+                Point realSize = new Point();
+                Display.class.getMethod("getRealSize", Point.class).invoke(d, realSize);
+                widthPixels = realSize.x;
+                heightPixels = realSize.y;
+            }
+        } catch (Exception ignored) {
+            LogUtil.w(TAG, ignored);
+        }
+        size[0] = widthPixels;
+        size[1] = heightPixels;
+        return size;
     }
 }

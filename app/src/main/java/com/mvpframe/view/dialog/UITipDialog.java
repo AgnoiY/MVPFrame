@@ -21,13 +21,13 @@ import android.widget.TextView;
 
 import com.mvpframe.R;
 import com.mvpframe.util.DensityUtil;
+import com.mvpframe.util.LogUtil;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -39,7 +39,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class UITipDialog extends Dialog {
 
-    private static UITipDialog tipDialog;
+    private static final String TAG = "UITipDialog";
+    public static UITipDialog tipDialog;
 
     public UITipDialog(Context context) {
         this(context, R.style.TipDialog);
@@ -85,30 +86,31 @@ public class UITipDialog extends Dialog {
         if (tipDialog == null) return;
         Observable.timer(1000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        tipDialog.dismiss();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
+                .subscribe(aLong -> {
+                    tipDialog.dismiss();
+                }, throwable -> {
+                    LogUtil.w(TAG, throwable);
                 });
     }
 
     public static void showFall(Context context, String info) {
-        if (tipDialog != null) {
-            tipDialog.dismiss();
-        }
-        tipDialog = new UITipDialog.Builder(context)
-                .setIconType(Builder.ICON_TYPE_FAIL)
-                .setTipWord(info)
-                .create();
+        try {
+            if (tipDialog != null) {
+                tipDialog.dismiss();
+            }
+            if (context == null) {
+                return;
+            }
+            tipDialog = new UITipDialog.Builder(context)
+                    .setIconType(Builder.ICON_TYPE_FAIL)
+                    .setTipWord(info)
+                    .create();
 
-        tipDialog.show();
-        timerDismiss();
+            tipDialog.show();
+            timerDismiss();
+        } catch (Exception e) {
+            LogUtil.w(TAG, e);
+        }
     }
 
     public static void showInfo(Context context, String info) {

@@ -53,6 +53,7 @@
 
         <activity
             android:name=".ui.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask" />
 
         <activity android:name=".ui.view.account.activity.LoginActivity" />

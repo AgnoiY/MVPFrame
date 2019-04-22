@@ -1,5 +1,6 @@
 package com.mvpframe.ui.base.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -56,6 +57,11 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      */
     protected static Context mContext;
 
+    /**
+     * Activity对象
+     */
+    protected static Activity mActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +73,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
 
         setContentView(savedInstanceState);
         mContext = this;
+        mActivity = this;
         getWindow().setBackgroundDrawableResource(R.color.transparent);//移除布局根背景
         App.getApp().addActivity(this);
         EventBus.getDefault().register(this);
