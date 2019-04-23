@@ -1,16 +1,8 @@
 package com.mvpframe.ui;
 
-import android.content.Context;
-import android.graphics.Point;
-import android.os.Build;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import com.mvpframe.R;
 import com.mvpframe.bean.account.LoginModel;
@@ -21,9 +13,7 @@ import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.util.DensityUtil;
-
-import static com.mvpframe.constant.Constants.logd;
+import com.mvpframe.ui.view.account.activity.LoginActivity;
 
 /**
  * <功能详细描述>
@@ -78,6 +68,7 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
         super.onClick(v);
         switch (v.getId()) {
             case R.id.bt:
+                startActivity(LoginActivity.class,null);
                 break;
         }
     }

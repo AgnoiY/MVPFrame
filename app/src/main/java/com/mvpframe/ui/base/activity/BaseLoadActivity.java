@@ -35,7 +35,7 @@ import static com.mvpframe.constant.Constants.logi;
  * @author yong
  */
 public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
-        extends BasePermissionsActivity<T>
+        extends BaseHandlerActivity<T>
         implements LoadCreateClickListener {
 
     protected ActivityBaseLoadBinding mBaseBinding;
@@ -300,9 +300,13 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     protected void onDestroy() {
         super.onDestroy();
         if (Tools.isNotNullOrZeroSize(listRefreshHelper)) {
-            for (RefreshHelper helper : listRefreshHelper) {
-                if (helper != null)
-                    helper.onDestroy();
+            for (int i = 0; i < listRefreshHelper.size(); i++) {
+                if (listRefreshHelper.get(i) != null) {
+                    listRefreshHelper.get(i).onDestroy();
+                }
+                if (i == listRefreshHelper.size() - 1) {
+                    listRefreshHelper.clear();
+                }
             }
         }
     }

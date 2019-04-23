@@ -3,12 +3,15 @@ package com.mvpframe.ui.base.fragment;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.ui.base.activity.BaseHandlerActivity;
+import com.mvpframe.ui.base.activity.BaseHandlerActivity.BaseHandler;
 import com.mvpframe.ui.base.interfaces.LazyCreateInit;
 import com.mvpframe.util.Tools;
 import com.mvpframe.view.recyclerView.RefreshHelper;
@@ -44,6 +47,8 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      * Fragment第一次加载数据
      */
     private boolean isStartFragmenData = false;
+
+    protected BaseHandler mHandler;
 
     @Override
     public View initView(LayoutInflater inflater) {
@@ -84,10 +89,11 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      * 获取传递的Bundle
      */
     private void getBundle() {
-        if (getArguments() != null)
+        if (getArguments() != null) {
             mBundle = getArguments();
-        else
+        } else {
             log(mBundle, logd);
+        }
 
         lazyLoad();
     }
@@ -153,16 +159,42 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
         return initRefreshHelper(refreshLayout, recyclerView, 0);
     }
 
+    /**
+     * 创建 Handler
+     */
+    protected BaseHandler createHandler() {
+        mHandler = ((BaseHandlerActivity) mActivity).createHandler(this);
+        return mHandler;
+    }
+
+    @Override
+    public void handleMessage(Message msg, Object tag) {
+        log("BaseHandler:" + tag, logd);
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
         isStartFragmen = false;
         isStartFragmenData = false;
         if (Tools.isNotNullOrZeroSize(listRefreshHelper)) {
-            for (RefreshHelper helper : listRefreshHelper) {
-                if (helper != null)
-                    helper.onDestroy();
+            for (int i = 0; i < listRefreshHelper.size(); i++) {
+                if (listRefreshHelper.get(i) != null) {
+                    listRefreshHelper.get(i).onDestroy();
+                }
+                if (i == listRefreshHelper.size() - 1) {
+                    listRefreshHelper.clear();
+                }
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler = null;
         }
     }
 }

@@ -165,7 +165,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
      */
     @Override
     public void log(Object... msg) {
-        if (msg.length > 1)
+        if (msg.length > 1) {
             switch ((String) msg[1]) {
                 case "e":
                     LogUtil.e(TAG, msg[0]);
@@ -186,8 +186,9 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
                     LogUtil.e(TAG, msg[0]);
                     break;
             }
-        else if (msg.length == 1)
+        } else if (msg.length == 1) {
             LogUtil.e(TAG, msg[0]);
+        }
 
     }
 

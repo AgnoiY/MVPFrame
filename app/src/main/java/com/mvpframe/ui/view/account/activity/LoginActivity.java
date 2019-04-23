@@ -7,7 +7,6 @@ import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.util.ToastUtil;
 
 /**
  * 账号登录
@@ -28,7 +27,7 @@ public class LoginActivity extends BaseLoadActivity<LoginModel, ActivityLoginBin
     @Override
     public void onSuccess(String action, LoginModel data) {
         super.onSuccess(action, data);
-        ToastUtil.makeCenterToast(this,data.getUserId()+"");
+        showToast(data.getUserId() + "");
     }
 
     @Override
@@ -39,7 +38,7 @@ public class LoginActivity extends BaseLoadActivity<LoginModel, ActivityLoginBin
 
     @Override
     public void initData() {
-        presenter.login("15713802736", "123456");
+        presenter.login("15713802736", "a123456");
     }
 
     @Override

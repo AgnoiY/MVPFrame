@@ -5,7 +5,6 @@ import com.mvpframe.capabilities.http.interceptor.HttpLoggingInterceptor;
 import com.mvpframe.capabilities.http.utils.RequestUtils;
 import com.mvpframe.util.LogUtil;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -139,44 +138,35 @@ public class RetrofitUtils {
      */
     public OkHttpClient getOkHttpClientBase(final Map<String, Object> headerMap) {
         //日志拦截器
-        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                LogUtil.i("okHttp:" + message);
-            }
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(message -> {
+            LogUtil.i("okHttp:" + message);
         });
         //must
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
         //Header 拦截器
-        Interceptor headerInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Request.Builder requestBuilder = request.newBuilder();
-                //统一设置 Header
-                if (headerMap != null && headerMap.size() > 0) {
-                    for (String key : headerMap.keySet()) {
-                        requestBuilder.addHeader(key, String.valueOf(RequestUtils.getHeaderValueEncoded(headerMap.get(key))));
-                    }
+        Interceptor headerInterceptor = chain -> {
+            Request request = chain.request();
+            Request.Builder requestBuilder = request.newBuilder();
+            //统一设置 Header
+            if (headerMap != null && headerMap.size() > 0) {
+                for (String key : headerMap.keySet()) {
+                    requestBuilder.addHeader(key, String.valueOf(RequestUtils.getHeaderValueEncoded(headerMap.get(key))));
                 }
-                return chain.proceed(requestBuilder.build());
             }
+            return chain.proceed(requestBuilder.build());
         };
         //网络请求拦截器
-        Interceptor httpInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Response response;
-                try {
-                    response = chain.proceed(request);
-                } catch (final Exception e) {
-                    //httpObserver.onCanceled();
-                    throw e;
-                }
-                return response;
+        Interceptor httpInterceptor = chain -> {
+            Request request = chain.request();
+            Response response;
+            try {
+                response = chain.proceed(request);
+            } catch (final Exception e) {
+                //httpObserver.onCanceled();
+                throw e;
             }
+            return response;
         };
 
         Interceptor[] interceptorArray = new Interceptor[]{logInterceptor, headerInterceptor, httpInterceptor};

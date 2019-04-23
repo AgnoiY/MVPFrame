@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 带空页面，错误页面显示的BaseActivity 通过BaseActivity界面操作封装成View而来
+ * 动态权限的申请
  * Data：2018/12/18
  *
  * @author yong
