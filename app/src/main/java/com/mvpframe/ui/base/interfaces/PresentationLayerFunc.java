@@ -52,7 +52,7 @@ public interface PresentationLayerFunc<T> {
      *
      * @param delay
      */
-    void postDelayed(long delay);
+    void postDelayed(Object... delay);
 
     /**
      * 打印日志

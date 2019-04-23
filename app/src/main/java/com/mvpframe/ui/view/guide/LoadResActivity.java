@@ -1,4 +1,4 @@
-package com.mvpframe.ui;
+package com.mvpframe.ui.view.guide;
 
 
 import android.app.Activity;
@@ -23,6 +23,7 @@ import android.widget.ScrollView;
 
 import com.mvpframe.R;
 import com.mvpframe.app.App;
+import com.mvpframe.ui.MainActivity;
 import com.mvpframe.util.DensityUtil;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.view.textview.ButtonTextView;

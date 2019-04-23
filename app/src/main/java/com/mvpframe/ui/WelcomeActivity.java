@@ -9,10 +9,10 @@ import com.mvpframe.databinding.ActivityWelcomeBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
+import com.mvpframe.ui.view.guide.LoadResActivity;
 import com.mvpframe.util.DownTime;
 
 import static com.mvpframe.constant.Constants.logd;
-import static com.mvpframe.constant.Constants.loge;
 
 /**
  * <欢迎页>
@@ -93,7 +93,7 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
     }
 
     @Override
-    public void nextStep(Long l) {
+    public void nextStep(Long l, Object... delay) {
         super.nextStep(l);
         skipLoadMain();
     }

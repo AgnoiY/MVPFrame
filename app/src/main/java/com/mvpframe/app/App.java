@@ -16,7 +16,7 @@ import android.support.multidex.MultiDex;
 
 import com.mvpframe.bridge.BridgeFactory;
 import com.mvpframe.bridge.BridgeLifeCycleSetKeeper;
-import com.mvpframe.ui.LoadResActivity;
+import com.mvpframe.ui.view.guide.LoadResActivity;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.ToastUtil;
 

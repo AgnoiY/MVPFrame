@@ -65,7 +65,7 @@ public interface CreateInit<V extends IMvpView, P extends Presenter> extends Bas
      *
      * @param l
      */
-    void nextStep(Long l);
+    void nextStep(Long l, Object... delay);
 
 }
 

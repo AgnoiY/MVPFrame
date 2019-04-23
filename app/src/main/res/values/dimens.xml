@@ -2,64 +2,28 @@
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="distance_48">48dp</dimen>
-    <dimen name="distance_20">20dp</dimen>
-    <dimen name="distance_16">16dp</dimen>
-    <dimen name="distance_15">15dp</dimen>
-    <dimen name="distance_12">12dp</dimen>
-    <dimen name="distance_10">10dp</dimen>
-    <dimen name="distance_8">8dp</dimen>
-    <dimen name="distance_6">6dp</dimen>
 
     <!-- 字体大小 -->
-    <dimen name="text_10">10sp</dimen>
-    <dimen name="text_11">11sp</dimen>
-    <dimen name="text_12">12sp</dimen>
-    <dimen name="text_13">13sp</dimen>
     <dimen name="text_14">14sp</dimen>
-    <dimen name="text_15">15sp</dimen>
     <dimen name="text_16">16sp</dimen>
-    <dimen name="text_17">17sp</dimen>
-    <dimen name="text_18">18sp</dimen>
     <dimen name="text_20">20sp</dimen>
-    <dimen name="text_22">22sp</dimen>
 
     <!-- 距左侧边距 -->
-    <dimen name="left_distance_6">6dp</dimen>
-    <dimen name="left_distance_15">15dp</dimen>
-    <dimen name="left_distance_16">16dp</dimen>
-    <dimen name="left_distance_20">20dp</dimen>
 
     <!-- 距上侧边距 -->
-    <dimen name="top_distance_6">6dp</dimen>
     <dimen name="top_distance_15">15dp</dimen>
-    <dimen name="top_distance_16">16dp</dimen>
     <dimen name="top_distance_20">20dp</dimen>
 
     <!-- 距右侧边距 -->
-    <dimen name="right_distance_6">6dp</dimen>
-    <dimen name="right_distance_15">15dp</dimen>
     <dimen name="right_distance_16">16dp</dimen>
-    <dimen name="right_distance_20">20dp</dimen>
 
     <!-- 距下侧边距 -->
-    <dimen name="bottom_distance_6">6dp</dimen>
-    <dimen name="bottom_distance_15">15dp</dimen>
-    <dimen name="bottom_distance_16">16dp</dimen>
-    <dimen name="bottom_distance_20">20dp</dimen>
 
     <!-- 圆角 -->
-    <dimen name="radius_3">3dp</dimen>
     <dimen name="radius_5">5dp</dimen>
     <dimen name="radius_8">8dp</dimen>
-    <dimen name="radius_10">10dp</dimen>
-    <dimen name="radius_15">15dp</dimen>
-    <dimen name="radius_20">20dp</dimen>
-    <dimen name="radius_200">200dp</dimen>
 
     <!-- 边框线宽 -->
-    <dimen name="stroke_width">0.5dp</dimen>
-    <dimen name="stroke_width_1">1dp</dimen>
-    <dimen name="stroke_width_2">2dp</dimen>
 
     <!-- dialog -->
     <dimen name="dialog_tips_corner">16dp</dimen>
@@ -73,10 +37,7 @@
     <dimen name="title_height">45dp</dimen>
     <dimen name="title_img_right_width">20dp</dimen>
     <dimen name="title_img_right_height">20dp</dimen>
-    <dimen name="title_left_img_widht">12dp</dimen>
-    <dimen name="title_left_img_height">15dp</dimen>
     <dimen name="title_left">15dp</dimen>
     <dimen name="title_right">15dp</dimen>
-    <dimen name="top">15dp</dimen>
 
 </resources>

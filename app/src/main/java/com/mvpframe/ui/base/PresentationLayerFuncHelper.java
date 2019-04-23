@@ -143,15 +143,19 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
      * @param delay
      */
     @Override
-    public void postDelayed(long delay) {
-        disposable.add(Observable.timer(delay, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                    ((BaseActivity) activity).nextStep(aLong);
-                }, throwable -> {
-                    LogUtil.e(TAG, throwable.getMessage());
-                }));
+    public void postDelayed(Object... delay) {
+        if (delay.length > 0) {
+            disposable.add(Observable.timer((long) delay[0], TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(aLong -> {
+                        ((BaseActivity) activity).nextStep(aLong, delay);
+                    }, throwable -> {
+                        LogUtil.w(TAG, throwable);
+                    }));
+        } else {
+            LogUtil.d("延迟的时间为Null");
+        }
     }
 
     /**

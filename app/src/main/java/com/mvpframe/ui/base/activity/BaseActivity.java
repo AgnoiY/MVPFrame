@@ -203,7 +203,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      * @param delay
      */
     @Override
-    public void postDelayed(long delay) {
+    public void postDelayed(Object... delay) {
         helper.postDelayed(delay);
     }
 
@@ -213,7 +213,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      * @param l
      */
     @Override
-    public void nextStep(Long l) {
+    public void nextStep(Long l, Object... delay) {
         log(l, logd);
     }
 

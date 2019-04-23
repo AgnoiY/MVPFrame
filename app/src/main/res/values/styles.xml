@@ -39,10 +39,6 @@
     </style>
 
     <!--弹框styles设置-->
-    <style name="TipsDialog" parent="LoadingDialogLight">
-        <!-- 屏幕背景变暗 -->
-        <item name="android:backgroundDimEnabled">false</item>
-    </style>
 
     <!--长的分割线styles设置-->
     <style name="style_split_line">

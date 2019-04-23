@@ -11,25 +11,13 @@
 
     <!--透明度颜色-->
     <color name="transparent">#00000000</color>
-    <color name="translucent_white">#70ffffff</color>
     <color name="translucent_black">#70000000</color>
 
     <!--dialog-->
-    <color name="dialog_tips_content_txt">#444444</color>
-    <color name="dialog_tips_bg">#ffffff</color>
-    <color name="dialog_tips_title_txt">#030303</color>
-    <color name="dialog_tips_btn">#d6d6d6</color>
-    <color name="dialog_tips_line">#EAEAEA</color>
-    <color name="dialog_tips_negative_btn_txt">#0076ff</color>
-    <color name="dialog_tips_negative_btn_txt_red">#fe3824</color>
-    <color name="dialog_tips_positive_btn_txt">#0076ff</color>
-    <color name="dialog_tips_select_btn">#ffc602</color>
 
     <!--字体-->
     <color name="text_three">#333333</color>
     <color name="text_six">#666666</color>
-    <color name="text_eight">#888888</color>
-    <color name="text_nine">#999999</color>
 
     <!--分割线-->
     <color name="line_gray_cd">#dedede</color>
