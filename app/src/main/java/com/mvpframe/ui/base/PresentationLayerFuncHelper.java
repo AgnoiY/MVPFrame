@@ -154,7 +154,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
                         LogUtil.w(TAG, throwable);
                     }));
         } else {
-            LogUtil.d("延迟的时间为Null");
+            log("延迟的时间为Null");
         }
     }
 
@@ -183,11 +183,11 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
                         LogUtil.w(TAG, (Throwable) msg[0]);
                     break;
                 default:
-                    LogUtil.e(TAG, msg[0]);
+                    LogUtil.d(TAG, msg[0]);
                     break;
             }
         } else if (msg.length == 1) {
-            LogUtil.e(TAG, msg[0]);
+            LogUtil.d(TAG, msg[0]);
         }
 
     }
