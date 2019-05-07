@@ -34,14 +34,14 @@ public abstract class BasePermissionsActivity<T> extends BaseActivity<T, IMvpVie
     private int settingCode = 321;
     private int permissionsCode = 123;
     // 要申请的权限
-    private List<String> permissionslList;
+    private List<String> permissionsList;
 
     private void initPermissions() {
         // 版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // 检查该权限是否已经获取
-            for (int i = 0; i < permissionslList.size(); i++) {
-                int pId = ContextCompat.checkSelfPermission(this, permissionslList.get(i));
+            for (int i = 0; i < permissionsList.size(); i++) {
+                int pId = ContextCompat.checkSelfPermission(this, permissionsList.get(i));
                 // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                 if (pId != PackageManager.PERMISSION_GRANTED) {
                     // 如果没有授予该权限，就去提示用户请求
@@ -59,8 +59,8 @@ public abstract class BasePermissionsActivity<T> extends BaseActivity<T, IMvpVie
      * 开始提交请求权限
      */
     private void startRequestPermission() {
-        if (!permissionslList.isEmpty())
-            ActivityCompat.requestPermissions(this, permissionslList.toArray(new String[0]), permissionsCode);
+        if (!permissionsList.isEmpty())
+            ActivityCompat.requestPermissions(this, permissionsList.toArray(new String[0]), permissionsCode);
         else
             initPermissionSuccess();
     }
@@ -129,9 +129,9 @@ public abstract class BasePermissionsActivity<T> extends BaseActivity<T, IMvpVie
         if (requestCode == settingCode) {
 
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                for (int i = 0; i < permissionslList.size(); i++) {
+                for (int i = 0; i < permissionsList.size(); i++) {
                     // 检查该权限是否已经获取
-                    int pId = ContextCompat.checkSelfPermission(this, permissionslList.get(i));
+                    int pId = ContextCompat.checkSelfPermission(this, permissionsList.get(i));
                     // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                     if (pId != PackageManager.PERMISSION_GRANTED) {
                         // 提示用户应该去应用设置界面手动开启权限
@@ -186,7 +186,7 @@ public abstract class BasePermissionsActivity<T> extends BaseActivity<T, IMvpVie
      * @param permissionslList
      */
     public void setPermissions(@NonNull List<String> permissionslList) {
-        this.permissionslList = permissionslList;
+        this.permissionsList = permissionslList;
         initPermissions();
     }
 
@@ -196,17 +196,17 @@ public abstract class BasePermissionsActivity<T> extends BaseActivity<T, IMvpVie
      * @param permissionsl
      */
     public void setPermissions(@NonNull String permissionsl) {
-        if (permissionslList == null) {
-            permissionslList = new ArrayList<>();
+        if (permissionsList == null) {
+            permissionsList = new ArrayList<>();
         }
 
-        for (String s : permissionslList) {
+        for (String s : permissionsList) {
             if (s.equals(permissionsl)) {
-                permissionslList.remove(s);
+                permissionsList.remove(s);
                 break;
             }
         }
-        permissionslList.add(permissionsl);
+        permissionsList.add(permissionsl);
         initPermissions();
     }
 }
