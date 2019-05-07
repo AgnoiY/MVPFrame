@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.mvpframe.R;
 import com.mvpframe.presenter.base.BasePresenter;
@@ -45,8 +46,12 @@ public abstract class BasePermissionsActivity<T> extends BaseActivity<T, IMvpVie
                 if (pId != PackageManager.PERMISSION_GRANTED) {
                     // 如果没有授予该权限，就去提示用户请求
                     startRequestPermission();
+                } else {
+                    initPermissionSuccess();
                 }
             }
+        } else {
+            initPermissionSuccess();
         }
     }
 
@@ -191,10 +196,17 @@ public abstract class BasePermissionsActivity<T> extends BaseActivity<T, IMvpVie
      * @param permissionsl
      */
     public void setPermissions(@NonNull String permissionsl) {
-        if (permissionslList == null)
+        if (permissionslList == null) {
             permissionslList = new ArrayList<>();
+        }
+
+        for (String s : permissionslList) {
+            if (s.equals(permissionsl)) {
+                permissionslList.remove(s);
+                break;
+            }
+        }
         permissionslList.add(permissionsl);
         initPermissions();
     }
-
 }
