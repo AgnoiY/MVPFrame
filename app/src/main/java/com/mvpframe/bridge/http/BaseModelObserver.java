@@ -37,6 +37,11 @@ public abstract class BaseModelObserver<T> extends HttpObserver<T> {
         this.mPresenter = presenter;
     }
 
+    /**
+     * @param presenter
+     * @param isDialog    是否显示加载进度对话框
+     * @param isCabcelble 当返回键按下是否关闭加载进度对话框
+     */
     public BaseModelObserver(BasePresenter presenter, boolean isDialog, boolean isCabcelble) {
         super((Context) presenter.getMvpView(), isDialog, isCabcelble);
         this.mPresenter = presenter;
