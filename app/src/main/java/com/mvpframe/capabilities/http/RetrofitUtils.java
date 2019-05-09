@@ -1,5 +1,6 @@
 package com.mvpframe.capabilities.http;
 
+import com.mvpframe.BuildConfig;
 import com.mvpframe.bridge.http.RetrofitHttp;
 import com.mvpframe.capabilities.http.interceptor.HttpLoggingInterceptor;
 import com.mvpframe.capabilities.http.utils.RequestUtils;
@@ -142,7 +143,7 @@ public class RetrofitUtils {
             LogUtil.i("okHttp:" + message);
         });
         //must
-        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        logInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BASIC : HttpLoggingInterceptor.Level.NONE);
 
         //Header 拦截器
         Interceptor headerInterceptor = chain -> {
