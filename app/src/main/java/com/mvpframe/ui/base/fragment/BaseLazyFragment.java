@@ -91,8 +91,6 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
     private void getBundle() {
         if (getArguments() != null) {
             mBundle = getArguments();
-        } else {
-            log(mBundle, logd);
         }
 
         lazyLoad();
