@@ -16,22 +16,25 @@ import com.mvpframe.databinding.EmptyViewBinding;
  * @author yong
  */
 
-public abstract class BaseRefreshCallBack<T> implements RefreshInterface<T> {
+public abstract class BaseRefreshCallBack<T> implements RefreshInterface<T>, View.OnClickListener {
 
     private EmptyViewBinding emptyViewBinding;
 
-    private Activity context;
+    private Activity mActivity;
+    private RefreshHelper mHelper;
 
-    public BaseRefreshCallBack(Activity context) {
-        this.context = context;
+
+    public BaseRefreshCallBack(RefreshHelper mHelper, Activity mActivity) {
+        this.mHelper = mHelper;
+        this.mActivity = mActivity;
     }
 
     @Override
     public View getEmptyView() {
-        if (context == null) {
+        if (mActivity == null) {
             return null;
         }
-        emptyViewBinding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.empty_view, null, false);
+        emptyViewBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.empty_view, null, false);
         return emptyViewBinding.getRoot();
     }
 
@@ -46,28 +49,31 @@ public abstract class BaseRefreshCallBack<T> implements RefreshInterface<T> {
             return;
         }
         emptyViewBinding.getRoot().setVisibility(View.VISIBLE);
-        emptyViewBinding.tv.setText(errorMsg);
-        if (errorImg <= 0) {
-            emptyViewBinding.img.setVisibility(View.GONE);
+        if (TextUtils.isEmpty(errorMsg)) {
+            emptyViewBinding.emptyTv.setVisibility(View.GONE);
         } else {
-            emptyViewBinding.img.setImageResource(errorImg);
-            emptyViewBinding.img.setVisibility(View.VISIBLE);
+            emptyViewBinding.emptyTv.setText(errorMsg);
+            emptyViewBinding.emptyTv.setVisibility(View.VISIBLE);
+            emptyViewBinding.emptyTv.setOnClickListener(this);
+        }
+        if (errorImg <= 0) {
+            emptyViewBinding.emptyImg.setVisibility(View.GONE);
+        } else {
+            emptyViewBinding.emptyImg.setImageResource(errorImg);
+            emptyViewBinding.emptyImg.setVisibility(View.VISIBLE);
         }
 
     }
 
     @Override
-    public void onRefresh(int pageindex, int limit) {
-
-    }
-
-    @Override
-    public void onLoadMore(int pageindex, int limit) {
-
+    public void onClick(View v) {
+        if (v.getId() == R.id.empty_tv) {
+            getListDataRequest(false, mHelper.getTag(), 1, mHelper.getLimit());
+        }
     }
 
     @Override
     public void onDestroy() {
-        context = null;
+        mActivity = null;
     }
 }

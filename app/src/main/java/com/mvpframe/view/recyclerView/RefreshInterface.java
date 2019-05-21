@@ -24,11 +24,7 @@ public interface RefreshInterface<T> {
 
     void showEmptyState(String errorMsg, @DrawableRes int errorImg);
 
-    void onRefresh(int pageindex, int limit);
-
-    void onLoadMore(int pageindex, int limit);
-
-    void getListDataRequest(String tag, int pageindex, int limit);
+    void getListDataRequest(boolean isRefresh, String tag, int pageindex, int limit);
 
     void onDestroy();
 

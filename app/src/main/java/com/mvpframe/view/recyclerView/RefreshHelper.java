@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.mvpframe.R;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
@@ -52,27 +51,31 @@ public class RefreshHelper<T> {
 
     private boolean isEnableLoadmore = true;
 
-    public int getmPageIndex() {
+    public int getPageIndex() {
         return mPageIndex;
     }
 
-    public int getmLimit() {
+    public int getLimit() {
         return mLimit;
     }
 
-    public List<T> getmDataList() {
+    public String getTag() {
+        return tag;
+    }
+
+    public List<T> getDataList() {
         return mDataList;
     }
 
-    public BaseQuickAdapter getmAdapter() {
+    public BaseQuickAdapter getAdapter() {
         return mAdapter;
     }
 
-    public SmartRefreshLayout getmRefreshLayout() {
+    public SmartRefreshLayout getRefreshLayout() {
         return mRefreshLayout;
     }
 
-    public RecyclerView getmRecyclerView() {
+    public RecyclerView getRecyclerView() {
         return mRecyclerView;
     }
 
@@ -85,7 +88,7 @@ public class RefreshHelper<T> {
 
         if (recyclerView == null) return;
 
-        this.mRefreshInterface = new BaseRefreshCallBack((Activity) mS.get()) {
+        this.mRefreshInterface = new BaseRefreshCallBack(this, (Activity) mS.get()) {
             @Override
             public View getRefreshLayout() {
                 return refreshLayout;
@@ -102,8 +105,8 @@ public class RefreshHelper<T> {
             }
 
             @Override
-            public void getListDataRequest(String tag, int pageindex, int limit) {
-                recyclerInterface.getDataRequest(tag, pageindex, limit);
+            public void getListDataRequest(boolean isRefresh, String tag, int pageindex, int limit) {
+                recyclerInterface.getDataRequest(isRefresh, tag, pageindex, limit);
             }
         };
     }
@@ -192,9 +195,6 @@ public class RefreshHelper<T> {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) { //刷新
                 onMRefresh(1, mLimit);
-                if (mRefreshInterface != null) {
-                    mRefreshInterface.onRefresh(1, mLimit);
-                }
 
             }
 
@@ -204,9 +204,6 @@ public class RefreshHelper<T> {
                     mPageIndex++;
                 }
                 onMLoadMore(mPageIndex, mLimit);
-                if (mRefreshInterface != null) {
-                    mRefreshInterface.onLoadMore(mPageIndex, mLimit);
-                }
             }
         });
     }
@@ -221,7 +218,7 @@ public class RefreshHelper<T> {
         mRefreshLayout.setEnableLoadmore(isEnableLoadmore);//开启加载更多
 
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(tag, mPageIndex, mLimit);
+            mRefreshInterface.getListDataRequest(false, tag, mPageIndex, mLimit);
         }
         return this;
     }
@@ -237,7 +234,7 @@ public class RefreshHelper<T> {
             mPageIndex++;
         }
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(tag, mPageIndex, mLimit);
+            mRefreshInterface.getListDataRequest(false, tag, mPageIndex, mLimit);
         }
         return this;
     }
@@ -247,7 +244,7 @@ public class RefreshHelper<T> {
         mPageIndex = pageindex;
         mLimit = limit;
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(tag, pageindex, limit);
+            mRefreshInterface.getListDataRequest(true, tag, pageindex, limit);
         }
 
     }
@@ -257,7 +254,7 @@ public class RefreshHelper<T> {
         mPageIndex = pageIndex;
         mLimit = limit;
         if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(tag, pageIndex, limit);
+            mRefreshInterface.getListDataRequest(true, tag, pageIndex, limit);
         }
     }
 
@@ -311,7 +308,7 @@ public class RefreshHelper<T> {
      * @param datas
      */
     public void setData(List<T> datas, int noDataImg) {
-        setData(datas, mContext.getString(R.string.noData), noDataImg);
+        setData(datas, "", noDataImg);
     }
 
     /**

@@ -24,10 +24,11 @@ public interface RecyclerInterface<T> {
     /**
      * 添加数据源
      *
+     * @param isRefresh 刷新时不加载弹窗
      * @param tag       RecyclerView的ID+设置的Tag
      * @param pageindex 页数
      * @param limit     每页数量
      */
-    void getDataRequest(String tag, int pageindex, int limit);
+    void getDataRequest(boolean isRefresh, String tag, int pageindex, int limit);
 
 }
