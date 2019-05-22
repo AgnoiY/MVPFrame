@@ -2,7 +2,6 @@ package com.mvpframe.ui;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.mvpframe.R;
 import com.mvpframe.bean.account.LoginModel;
@@ -13,7 +12,6 @@ import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.ui.view.account.activity.LoginActivity;
 
 /**
  * <功能详细描述>
@@ -40,7 +38,6 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
         super.onSuccess(action, data);
         mLoadBinding.text.setText(SharedPrefManager.getUser().getString(SharedPrefUser.USER_NAME, ""));
         mLoadBinding.text1.setText(((LoginModel) data).getToken());
-//        mLoadBinding.text1.setText(data.getToken());
         mLoadBinding.bt.setText(action);
     }
 
@@ -61,16 +58,6 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
     @Override
     public BasePresenter<IMvpView<Object>>[] getPresenterArray() {
         return new BasePresenter[]{presenter};
-    }
-
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.bt:
-                startActivity(LoginActivity.class,null);
-                break;
-        }
     }
 
     @Override

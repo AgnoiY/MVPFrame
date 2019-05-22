@@ -1,5 +1,6 @@
 package com.mvpframe.ui.base.activity;
 
+import android.databinding.ViewDataBinding;
 import android.os.Handler;
 import android.os.Message;
 
@@ -18,7 +19,7 @@ import static com.mvpframe.constant.Constants.logd;
  *
  * @author yong
  */
-public abstract class BaseHandlerActivity<T> extends BasePermissionsActivity<T> {
+public abstract class BaseHandlerActivity<T, B extends ViewDataBinding> extends BaseLoadActivity<T, B> {
 
     private static List<BaseHandler> mHandlerList;
 

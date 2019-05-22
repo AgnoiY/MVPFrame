@@ -5,17 +5,15 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
+import android.databinding.ViewDataBinding;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import com.mvpframe.R;
-import com.mvpframe.presenter.base.BasePresenter;
-import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.view.dialog.BaseDialogClickListenter;
 import com.mvpframe.view.dialog.CommonDialog;
 
@@ -29,7 +27,7 @@ import java.util.List;
  *
  * @author yong
  */
-public abstract class BasePermissionsActivity<T> extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>> {
+public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> extends BaseLoadActivity<T, B> {
 
     private int settingCode = 321;
     private int permissionsCode = 123;

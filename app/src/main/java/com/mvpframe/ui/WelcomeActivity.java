@@ -67,10 +67,8 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.btv_down_time:
-                skipLoadMain();
-                break;
+        if (v.getId() == R.id.btv_down_time) {
+            skipLoadMain();
         }
     }
 

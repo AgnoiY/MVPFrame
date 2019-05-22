@@ -6,6 +6,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import com.mvpframe.R;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
+import com.mvpframe.presenter.base.BasePresenter;
+import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
 import com.mvpframe.util.NetUtils;
 import com.mvpframe.util.ToastUtil;
@@ -35,7 +38,7 @@ import static com.mvpframe.constant.Constants.logi;
  * @author yong
  */
 public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
-        extends BaseHandlerActivity<T>
+        extends BaseActivity<T, IMvpView<T>, BasePresenter<IMvpView<T>>>
         implements LoadCreateClickListener {
 
     protected ActivityBaseLoadBinding mBaseBinding;
@@ -80,15 +83,13 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      * 初始化标题View
      */
     private void initTitleView() {
-        mBaseBinding.titleView.setVisibility(canLoadTopTitleView() ? View.VISIBLE : View.GONE);
-        mBaseBinding.viewV.setVisibility(canLoadTopTitleView() ? View.VISIBLE : View.GONE);
+        mBaseBinding.titleView.setVisibility(View.VISIBLE);
+        mBaseBinding.viewV.setVisibility(View.VISIBLE);
 
-        if (canLoadTopTitleView()) {
-            mBaseBinding.titleView.setLeftFraClickListener(this);
-            mBaseBinding.titleView.setRightFraClickListener(this);
+        mBaseBinding.titleView.setLeftFraClickListener(this);
+        mBaseBinding.titleView.setRightFraClickListener(this);
 
-            setTitleBg();
-        }
+        setTitleBg();
 
         mBaseBinding.contentView.setEmptyTextClickListener(this);
     }
@@ -126,15 +127,6 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
             //设置一个状态栏颜色为半透明,
             StatusBarUtil.setStatusBarColor(this, 0x50000000);
         }
-    }
-
-    /**
-     * 加载标题
-     *
-     * @return
-     */
-    private boolean canLoadTopTitleView() {
-        return true;
     }
 
     /**
@@ -254,6 +246,11 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         log("权限申请成功", logd);
     }
 
+    @Override
+    public void handleMessage(Message msg, Object tag) {
+
+    }
+
     /**
      * 初始化刷新相关
      *
@@ -292,6 +289,8 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
                 break;
             case R.id.tv_empty:
                 onEmptyTextClickListeners();
+                break;
+            default:
                 break;
         }
     }
