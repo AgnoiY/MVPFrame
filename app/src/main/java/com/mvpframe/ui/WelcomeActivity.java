@@ -4,7 +4,7 @@ import android.os.Build;
 import android.view.View;
 
 import com.mvpframe.R;
-import com.mvpframe.app.App;
+import com.mvpframe.application.App;
 import com.mvpframe.databinding.ActivityWelcomeBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;

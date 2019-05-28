@@ -2,14 +2,11 @@ package com.mvpframe.util;
 
 import android.content.Context;
 import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mvpframe.R;
-import com.mvpframe.app.App;
+import com.mvpframe.application.App;
 
 /**
  * <提示公共类>

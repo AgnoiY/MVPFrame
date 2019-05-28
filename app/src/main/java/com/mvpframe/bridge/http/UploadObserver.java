@@ -3,7 +3,7 @@ package com.mvpframe.bridge.http;
 import android.content.Context;
 
 import com.mvpframe.R;
-import com.mvpframe.app.App;
+import com.mvpframe.application.App;
 import com.mvpframe.capabilities.http.interfaces.UploadProgressCallback;
 import com.mvpframe.capabilities.http.observer.HttpObserver;
 import com.mvpframe.util.LogUtil;

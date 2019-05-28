@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.mvpframe.R;
-import com.mvpframe.app.App;
+import com.mvpframe.application.App;
 import com.mvpframe.bean.base.BaseResponseListModel;
 import com.mvpframe.bean.base.BaseResponseModel;
 import com.mvpframe.capabilities.http.observer.HttpObserver;

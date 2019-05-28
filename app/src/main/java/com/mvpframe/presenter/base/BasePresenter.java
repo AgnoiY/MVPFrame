@@ -3,7 +3,7 @@ package com.mvpframe.presenter.base;
 import android.support.annotation.UiThread;
 
 import com.mvpframe.R;
-import com.mvpframe.app.App;
+import com.mvpframe.application.App;
 import com.mvpframe.bridge.BridgeFactory;
 import com.mvpframe.bridge.Bridges;
 import com.mvpframe.bridge.http.RetrofitHttp;
@@ -13,8 +13,6 @@ import com.mvpframe.util.LogUtil;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 /**
  * <基础业务类>

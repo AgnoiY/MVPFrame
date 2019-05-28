@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.mvpframe.R;
-import com.mvpframe.app.App;
+import com.mvpframe.application.App;
 import com.mvpframe.ui.MainActivity;
 import com.mvpframe.util.DensityUtil;
 import com.mvpframe.util.LogUtil;

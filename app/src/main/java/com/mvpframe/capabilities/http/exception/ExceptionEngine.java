@@ -3,7 +3,7 @@ package com.mvpframe.capabilities.http.exception;
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.MalformedJsonException;
 import com.mvpframe.R;
-import com.mvpframe.app.App;
+import com.mvpframe.application.App;
 
 import org.json.JSONException;
 

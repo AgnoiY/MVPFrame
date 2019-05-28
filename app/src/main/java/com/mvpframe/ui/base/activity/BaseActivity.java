@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mvpframe.R;
-import com.mvpframe.app.App;
+import com.mvpframe.application.App;
 import com.mvpframe.bean.event.BaseEventModel;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;

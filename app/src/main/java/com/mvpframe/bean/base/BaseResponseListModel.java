@@ -1,6 +1,5 @@
 package com.mvpframe.bean.base;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
  * @author yong
  */
 
-public class BaseResponseListModel<T> implements Serializable {
+public class BaseResponseListModel<T> {
 
     /**
      * 数据对象/成功返回对象

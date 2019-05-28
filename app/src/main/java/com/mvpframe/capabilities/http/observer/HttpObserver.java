@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.mvpframe.R;
-import com.mvpframe.app.App;
+import com.mvpframe.application.App;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.capabilities.http.interfaces.ParseHelper;

@@ -1,7 +1,5 @@
 package com.mvpframe.bean.base;
 
-import java.io.Serializable;
-
 /**
  * <功能详细描述>
  * <p>
@@ -11,8 +9,7 @@ import java.io.Serializable;
  */
 
 
-public class BaseResponseModel<T> implements Serializable {
-
+public class BaseResponseModel<T> {
 
     /**
      * 数据对象/成功返回对象
@@ -66,28 +63,6 @@ public class BaseResponseModel<T> implements Serializable {
 
     public BaseResponseModel<T> setSuccess(boolean success) {
         this.success = success;
-        return this;
-    }
-
-
-    private String loginState;
-    private T userInfo;
-
-    public String getLoginState() {
-        return loginState;
-    }
-
-    public BaseResponseModel<T> setLoginState(String loginState) {
-        this.loginState = loginState;
-        return this;
-    }
-
-    public T getUserInfo() {
-        return userInfo;
-    }
-
-    public BaseResponseModel<T> setUserInfo(T userInfo) {
-        this.userInfo = userInfo;
         return this;
     }
 }

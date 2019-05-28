@@ -1,4 +1,4 @@
-package com.mvpframe.app;
+package com.mvpframe.application;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -47,7 +47,7 @@ public class App extends Application {
     /**
      * 本地activity栈
      */
-    public static List<Activity> activitys = new ArrayList<Activity>();
+    public static List<Activity> activitys = new ArrayList<>();
 
     /**
      * 当前avtivity名称
@@ -70,10 +70,10 @@ public class App extends Application {
      * 初始化数据
      */
     private void initData() {
-        mApp = this;
         BridgeFactory.init(this);
         BridgeLifeCycleSetKeeper.getInstance().initOnApplicationCreate(getApplicationContext());
         EventBus.builder().throwSubscriberException(isDebug).installDefaultEventBus();
+        mApp = this;
     }
 
     /**
@@ -259,6 +259,7 @@ public class App extends Application {
                 }
                 Thread.sleep(200);
             } catch (InterruptedException e) {
+                LogUtil.w(e);
                 e.printStackTrace();
             }
         }
