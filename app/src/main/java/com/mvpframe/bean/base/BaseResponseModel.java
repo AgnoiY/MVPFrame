@@ -23,12 +23,6 @@ public class BaseResponseModel<T> {
      * 描述信息
      */
     private String msg;
-    /**
-     * 是否成功
-     *
-     * @return
-     */
-    private boolean success = true;
 
     public T getData() {
         return data;
@@ -54,15 +48,6 @@ public class BaseResponseModel<T> {
 
     public BaseResponseModel<T> setMsg(String msg) {
         this.msg = msg;
-        return this;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public BaseResponseModel<T> setSuccess(boolean success) {
-        this.success = success;
         return this;
     }
 }

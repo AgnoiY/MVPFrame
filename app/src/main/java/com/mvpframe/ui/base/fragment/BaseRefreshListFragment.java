@@ -2,8 +2,8 @@ package com.mvpframe.ui.base.fragment;
 
 import com.mvpframe.R;
 import com.mvpframe.databinding.LayoutRecyclerRefreshBinding;
-import com.mvpframe.view.recyclerView.RecyclerInterface;
-import com.mvpframe.view.recyclerView.RefreshHelper;
+import com.mvpframe.view.recyclerview.RecyclerInterface;
+import com.mvpframe.view.recyclerview.RefreshHelper;
 
 /**
  * 公用刷新

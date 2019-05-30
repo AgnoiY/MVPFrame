@@ -63,10 +63,7 @@ public class BridgeFactory {
      * 网络请求管理类
      */
     private void initOkHttpManager(Application application) {
-        RetrofitHttp.Configure.get().baseUrl(UrlConstans.BASESERVER)
-                .addHeader(SharedPrefUser.USER_TOKEN, SharedPrefManager.getUser()
-                        .getString(SharedPrefUser.USER_TOKEN, ""))
-                .init(application);
+        RetrofitHttp.Configure.get().baseUrl(UrlConstans.BASESERVER).init(application);
         RetrofitHttp.Builder builder = new RetrofitHttp.Builder().getInstanc();
         model.mBridges.put(Bridges.HTTP, builder);
         BridgeLifeCycleSetKeeper.getInstance().trustBridgeLifeCycle(builder);

@@ -10,8 +10,12 @@ import java.util.Calendar;
  */
 public class GeneralUtils {
 
-    public static int minClickDelayTime = 500;
+    private static int minClickDelayTime = 500;
     private static long lastClickTime = 0;
+
+    GeneralUtils() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * 防止重复点击

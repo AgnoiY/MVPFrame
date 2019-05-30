@@ -9,6 +9,7 @@ import com.mvpframe.application.App;
 import com.mvpframe.bridge.sharePref.SharedPrefManager;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.capabilities.http.interfaces.ParseHelper;
+import com.mvpframe.ui.MainActivity;
 import com.mvpframe.ui.view.account.activity.LoginActivity;
 import com.mvpframe.util.ToastUtil;
 
@@ -51,7 +52,7 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
     @Override
     public void inSuccess(String action, T value) {
         T result = parse((String) value);
-        if (callSuccess && isBusinessOk() && result != null) {
+        if (callSuccess && result != null) {
             onSuccess(action, result);
         }
     }
@@ -69,8 +70,8 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
     @Override
     public void isLoginToken() {
         SharedPrefManager.getUser().clear();
-        Activity activity = App.getApp().activitys.get(App.getApp().activitys.size() - 1);
-        App.getApp().clearAllAcitity();
+        Activity activity = App.getActivitys().get(App.getActivitys().size() - 1);
+        App.clearAllAcitity();
         activity.startActivity(new Intent(activity, LoginActivity.class));
         ToastUtil.makeCenterToast(activity, App.getAppString(R.string.login_elsewhere));
     }

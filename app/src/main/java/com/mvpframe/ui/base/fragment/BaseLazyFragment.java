@@ -14,7 +14,7 @@ import com.mvpframe.ui.base.activity.BaseHandlerActivity;
 import com.mvpframe.ui.base.activity.BaseHandlerActivity.BaseHandler;
 import com.mvpframe.ui.base.interfaces.LazyCreateInit;
 import com.mvpframe.util.Tools;
-import com.mvpframe.view.recyclerView.RefreshHelper;
+import com.mvpframe.view.recyclerview.RefreshHelper;
 
 import java.util.ArrayList;
 import java.util.List;

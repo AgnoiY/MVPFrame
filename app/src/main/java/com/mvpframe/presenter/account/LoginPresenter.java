@@ -28,6 +28,25 @@ public class LoginPresenter extends BasePresenter<IMvpView> {
 
         getRetrofitHttp().post().apiUrl(UrlConstans.LOGIN)
                 .addParameter(map).build()
-                .request(new BaseModelObserver<LoginModel>(this){});
+                .request(new BaseModelObserver<LoginModel>(this) {
+                });
     }
+
+
+    /**
+     * 短信记录列表搜索查询
+     */
+    public void getSmsRecord(boolean isRefresh, String keyword, int pageNum, int pageSize) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("pageNo", pageNum);
+        map.put("pageSize", pageSize);
+
+        getRetrofitHttp().post().apiUrl(UrlConstans.list)
+                .addParameter(map).build()
+                .request(new BaseModelObserver<LoginModel>(this, isRefresh) {
+                });
+
+    }
+
 }

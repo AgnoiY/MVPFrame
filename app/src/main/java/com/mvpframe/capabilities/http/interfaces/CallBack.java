@@ -53,13 +53,6 @@ public interface CallBack<T> {
     void onCancel();
 
     /**
-     * 业务逻辑是否成功
-     *
-     * @return
-     */
-    boolean isBusinessOk();
-
-    /**
      * 数据转换/解析数据
      *
      * @param data

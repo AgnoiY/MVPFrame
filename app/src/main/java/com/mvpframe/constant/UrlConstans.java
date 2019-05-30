@@ -22,4 +22,5 @@ public class UrlConstans {
      * 用户登陆
      */
     public static final String LOGIN = "user/loginByUserNamePassword";
+    public static final String list = "messageCenter/listMessage";
 }

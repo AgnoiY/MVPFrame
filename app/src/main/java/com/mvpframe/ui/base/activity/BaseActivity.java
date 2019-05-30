@@ -75,7 +75,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
         mContext = this;
         mActivity = this;
         getWindow().setBackgroundDrawableResource(R.color.transparent);//移除布局根背景
-        App.getApp().addActivity(this);
+        App.addActivity(this);
         EventBus.getDefault().register(this);
 
         initData();
@@ -138,7 +138,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
 
     @Override
     protected void onResume() {
-        App.getApp().currentActivityName = this.getClass().getName();
+        App.setCurrentActivityName(this.getClass().getName());
         getMvpDelegate().onResume();
         super.onResume();
     }
@@ -230,7 +230,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     @Override
     protected void onDestroy() {
         getMvpDelegate().onDestroy();
-        App.getApp().deleteActivity(this);
+        App.deleteActivity(this);
         EventBus.getDefault().unregister(this);
         ToastUtil.destory();
         if (disposable != null) {

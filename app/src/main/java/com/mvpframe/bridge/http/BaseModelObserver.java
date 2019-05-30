@@ -32,19 +32,24 @@ public abstract class BaseModelObserver<T> extends HttpObserver<T> {
     private BaseResponseModel response;
     private BaseResponseListModel responseList;
 
-    public BaseModelObserver(BasePresenter presenter) {
+    public BaseModelObserver(BasePresenter mPresenter) {
         super();
-        this.mPresenter = presenter;
+        this.mPresenter = mPresenter;
+    }
+
+    public BaseModelObserver(BasePresenter mPresenter, boolean isDialog) {
+        super((Context) mPresenter.getMvpView(), isDialog, false);
+        this.mPresenter = mPresenter;
     }
 
     /**
-     * @param presenter
+     * @param mPresenter
      * @param isDialog    是否显示加载进度对话框
      * @param isCabcelble 当返回键按下是否关闭加载进度对话框
      */
-    public BaseModelObserver(BasePresenter presenter, boolean isDialog, boolean isCabcelble) {
-        super((Context) presenter.getMvpView(), isDialog, isCabcelble);
-        this.mPresenter = presenter;
+    public BaseModelObserver(BasePresenter mPresenter, boolean isDialog, boolean isCabcelble) {
+        super((Context) mPresenter.getMvpView(), isDialog, isCabcelble);
+        this.mPresenter = mPresenter;
     }
 
     @Override
@@ -58,79 +63,55 @@ public abstract class BaseModelObserver<T> extends HttpObserver<T> {
         T tBase = new Gson().fromJson(data, getTypeClass());
         if (tBase instanceof BaseResponseModel) {
             response = (BaseResponseModel) tBase;
-            return convertModel(response);
+            return convertModel(true);
         } else if (tBase instanceof BaseResponseListModel) {
             responseList = (BaseResponseListModel) tBase;
-            return convertListModel(responseList);
+            return convertModel(false);
         }
-
         return null;
     }
 
     /**
      * 业务逻辑
      *
-     * @param response
+     * @param isResponse
      * @return T
      */
-    private T convertModel(BaseResponseModel response) {
-        T t = null;
+    private T convertModel(boolean isResponse) {
 
-        int code = response.getCode();
-        String msg = response.getMsg();
+        T t = null;
+        List<T> tList = null;
+        int code;
+        String msg;
+
+        if (isResponse) {
+            code = response.getCode();
+            msg = response.getMsg();
+        } else {
+            code = responseList.getCode();
+            msg = responseList.getMsg();
+        }
 
         switch (code) {
             case 0://成功
-                if (response.isSuccess()) {//与服务器约定成功逻辑
+                if (isResponse) {
                     t = (T) response.getData();
                     if (t == null || t instanceof String) {
                         t = (T) response;
                     }
                 } else {
-                    onError(getTag(), code, App.getAppString(R.string.server_agreement_error));
+                    tList = (List<T>) responseList.getData();
                 }
                 break;
-            case 101://token过期，跳转登录页面重新登录
+            case 401://token过期，跳转登录页面重新登录
                 isLoginToken();
                 break;
             default://统一为错误处理
                 onError(getTag(), code, msg);
                 break;
         }
-        return t;
+        return isResponse ? t : (T) tList;
     }
-
-    /**
-     * 业务逻辑
-     *
-     * @param responseList
-     * @return List<T>
-     */
-    private T convertListModel(BaseResponseListModel responseList) {
-        List<T> t = null;
-        int code = responseList.getCode();
-        String msg = responseList.getMsg();
-
-        switch (code) {
-            case 0:
-                if (responseList.isSuccess()) {//与服务器约定成功逻辑
-                    t = responseList.getData();
-                } else {//统一为错误处理
-                    onError(getTag(), code, App.getAppString(R.string.server_agreement_error));
-                }
-                break;
-            case 101://token过期，跳转登录页面重新登录
-                isLoginToken();
-                break;
-            case 102://系统公告
-                break;
-            default:
-                onError(getTag(), code, msg);
-                break;
-        }
-        return (T) t;
-    }
-
 
     /**
      * 网络请求的错误信息
@@ -160,20 +141,6 @@ public abstract class BaseModelObserver<T> extends HttpObserver<T> {
      */
     public void onCancel() {
         LogUtil.d(App.getAppString(R.string.request_cancelled));
-    }
-
-    /**
-     * 业务逻辑是否成功
-     *
-     * @return
-     */
-    @Override
-    public boolean isBusinessOk() {
-        if (response != null)
-            return response.isSuccess();
-        else if (responseList != null)
-            return responseList.isSuccess();
-        return false;
     }
 
     /**

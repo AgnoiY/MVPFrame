@@ -238,6 +238,18 @@ public final class Tools {
     }
 
     /**
+     * 去除小数点后的 0
+     *
+     * @param rate
+     * @return
+     */
+    public static String removeZero(String rate) {
+        rate = rate.replaceAll("0+?$", "");//去掉多余的0
+        rate = rate.replaceAll("[.]$", "");//如最后一位是.则去掉
+        return rate;
+    }
+
+    /**
      * <将YYYYMMDDHHmmss 转换为 YYYY-MM-DD> <功能详细描述>
      *
      * @param str

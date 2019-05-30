@@ -1,15 +1,12 @@
 package com.mvpframe.ui;
 
-import android.os.Build;
 import android.view.View;
 
 import com.mvpframe.R;
-import com.mvpframe.application.App;
 import com.mvpframe.databinding.ActivityWelcomeBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.ui.view.guide.LoadResActivity;
 import com.mvpframe.util.DownTime;
 
 import static com.mvpframe.constant.Constants.logd;
@@ -38,20 +35,7 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
     @Override
     protected void onResume() {
         super.onResume();
-        switch (((App) getApplication()).needFinishWelCome(getApplication())) {
-            case 1:
-                if (App.getApp().needFinishWelCome(this) == 1)
-                    waitLoadMain();
-                break;
-            case 2:
-                ((App) getApplication()).installFinishWelCome(getApplication(), 1);
-                finish();
-                break;
-            default:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    waitLoadMain();
-                break;
-        }
+        waitLoadMain();
     }
 
     @Override
@@ -100,10 +84,10 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
      * 跳转到主界面或引导页
      */
     private void skipLoadMain() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && App.getApp().needWait(this)) {
-            startActivity(LoadResActivity.class, null);
-        } else
-            startActivity(MainActivity.class, null);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && App.getApp().needWait(this)) {
+//            startActivity(LoadResActivity.class, null);
+//        } else
+        startActivity(MainActivity.class, null);
 
         finish();
     }

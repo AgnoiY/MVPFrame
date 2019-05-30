@@ -15,7 +15,12 @@ import com.mvpframe.application.App;
  * @author yong
  */
 public final class ToastUtil {
+
     private static Toast toast;
+
+    ToastUtil() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * <显示toast提示>
@@ -25,7 +30,7 @@ public final class ToastUtil {
      * @see [类、类#方法、类#成员]
      */
     public static void makeTextShort(Context context, String msg) {
-        if (App.currentActivityName.equals(context.getClass().getName())) {
+        if (App.getCurrentActivityName().equals(context.getClass().getName())) {
             if (toast == null) {
                 toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
             } else {
@@ -43,7 +48,7 @@ public final class ToastUtil {
      * @see [类、类#方法、类#成员]
      */
     public static void makeTextLong(Context context, String msg) {
-        if (App.currentActivityName.equals(context.getClass().getName())) {
+        if (App.getCurrentActivityName().equals(context.getClass().getName())) {
             if (toast == null) {
                 toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
             } else {
@@ -60,7 +65,7 @@ public final class ToastUtil {
      * @see [类、类#方法、类#成员]
      */
     public static void makeCenterToast(Context context, String msg) {
-        if (App.currentActivityName.equals(context.getClass().getName())) {
+        if (App.getCurrentActivityName().equals(context.getClass().getName())) {
             if (toast == null) {
                 toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);

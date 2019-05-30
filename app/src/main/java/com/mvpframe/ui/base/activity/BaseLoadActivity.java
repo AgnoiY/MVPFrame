@@ -22,7 +22,7 @@ import com.mvpframe.util.NetUtils;
 import com.mvpframe.util.ToastUtil;
 import com.mvpframe.util.Tools;
 import com.mvpframe.util.statusbar.StatusBarUtil;
-import com.mvpframe.view.recyclerView.RefreshHelper;
+import com.mvpframe.view.recyclerview.RefreshHelper;
 
 import java.util.ArrayList;
 import java.util.List;

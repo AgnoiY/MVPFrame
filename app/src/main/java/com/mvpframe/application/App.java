@@ -1,22 +1,13 @@
 package com.mvpframe.application;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.support.annotation.StringRes;
 import android.support.multidex.MultiDex;
 
 import com.mvpframe.bridge.BridgeFactory;
 import com.mvpframe.bridge.BridgeLifeCycleSetKeeper;
-import com.mvpframe.ui.view.guide.LoadResActivity;
 import com.mvpframe.util.LogUtil;
 import com.mvpframe.util.ToastUtil;
 
@@ -24,10 +15,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.jar.Attributes;
-import java.util.jar.JarFile;
-import java.util.jar.Manifest;
 
 import static com.mvpframe.constant.Constants.isDebug;
 
@@ -42,27 +29,32 @@ public class App extends Application {
     /**
      * app实例
      */
-    private static App mApp;
+    private static App mApplication;
 
     /**
-     * 本地activity栈
+     * 本地Activity栈
      */
-    public static List<Activity> activitys = new ArrayList<>();
+    private static List<Activity> activitys;
 
     /**
-     * 当前avtivity名称
+     * 当前Avtivity名称
      */
-    public static String currentActivityName = "";
+    private static String currentActivityName;
 
-    public static final String KEY_DEX2_SHA1 = "dex2-SHA1-Digest";
-    public static final String WELCOME = "welcome";
+    /**
+     * dex文件太大不能运行问题
+     *
+     * @param base
+     */
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        if (quickStart()) {
-            return;
-        }
         initData();
     }
 
@@ -70,29 +62,14 @@ public class App extends Application {
      * 初始化数据
      */
     private void initData() {
+        setApp(this);
         BridgeFactory.init(this);
         BridgeLifeCycleSetKeeper.getInstance().initOnApplicationCreate(getApplicationContext());
         EventBus.builder().throwSubscriberException(isDebug).installDefaultEventBus();
-        mApp = this;
     }
 
-    /**
-     * dex文件太大，5.0以下不能运行问题
-     *
-     * @param base
-     */
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        LogUtil.d("App attachBaseContext ");
-        if (!quickStart() && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {//>=5.0的系统默认对dex进行oat优化
-            if (needWait(base)) {
-                waitForDexopt(base);
-            }
-            MultiDex.install(this);
-        } else {
-            return;
-        }
+    private static void setApp(App mApp) {
+        mApplication = mApp;
     }
 
     @Override
@@ -104,10 +81,14 @@ public class App extends Application {
     /**
      * 退出应用，清理内存
      */
-    private void onDestory() {
+    private static void onDestory() {
         BridgeLifeCycleSetKeeper.getInstance().clearOnApplicationQuit();
         BridgeFactory.destroy();
         ToastUtil.destory();
+        if (activitys != null) {
+            activitys.clear();
+            activitys = null;
+        }
     }
 
 
@@ -117,7 +98,10 @@ public class App extends Application {
      * @param activity
      * @see [类、类#方法、类#成员]
      */
-    public void addActivity(Activity activity) {
+    public static void addActivity(Activity activity) {
+        if (activitys == null) {
+            activitys = new ArrayList<>();
+        }
         activitys.add(activity);
     }
 
@@ -128,7 +112,7 @@ public class App extends Application {
      * @param o
      * @see [类、类#方法、类#成员]
      */
-    public void deleteActivity(Object o) {
+    public static void deleteActivity(Object o) {
         if (o != null)
             if (o instanceof Activity) {
                 Activity activity = ((Activity) o);
@@ -141,15 +125,17 @@ public class App extends Application {
                     activity.finish();
                 } catch (Exception e) {
                     LogUtil.w(e);
-                    e.printStackTrace();
                 }
             }
     }
 
     /**
-     * finish全部Activity
+     * Finish全部Activity
      */
-    public void clearAllAcitity() {
+    public static void clearAllAcitity() {
+
+        if (activitys == null) return;
+
         for (Activity activity : activitys) {
             if (!activity.isFinishing()) {
                 activity.finish();
@@ -158,148 +144,23 @@ public class App extends Application {
         activitys.clear();
     }
 
-    public static App getApp() {
-        return mApp;
-    }
-
     public static String getAppString(@StringRes int resId) {
-        return mApp.getString(resId);
+        return mApplication.getString(resId);
     }
 
-    public boolean quickStart() {
-        if (getCurProcessName(this).contains(":mini")) {
-            LogUtil.d(":mini start!");
-            return true;
-        }
-        return false;
+    public static App getApplication() {
+        return mApplication;
     }
 
-    public static String getCurProcessName(Context context) {
-        try {
-            int pid = android.os.Process.myPid();
-            ActivityManager mActivityManager = (ActivityManager) context
-                    .getSystemService(Context.ACTIVITY_SERVICE);
-            for (ActivityManager.RunningAppProcessInfo appProcess : mActivityManager
-                    .getRunningAppProcesses()) {
-                if (appProcess.pid == pid) {
-                    return appProcess.processName;
-                }
-            }
-        } catch (Exception e) {
-            // ignore
-        }
-        return null;
+    public static List<Activity> getActivitys() {
+        return activitys;
     }
 
-    /**
-     * 是否需要等待dexopt
-     *
-     * @param context
-     * @return
-     */
-    public boolean needWait(Context context) {
-        String flag = get2thDexSHA1(context);
-        LogUtil.i("dex2-sha1=" + flag);
-        SharedPreferences sp = context.getSharedPreferences(
-                getPackageInfo(context).versionName, MODE_MULTI_PROCESS);
-        String saveValue = sp.getString(KEY_DEX2_SHA1, "");
-        return !flag.equals(saveValue);
+    public static String getCurrentActivityName() {
+        return currentActivityName;
     }
 
-    public PackageInfo getPackageInfo(Context context) {
-        PackageManager pm = context.getPackageManager();
-        try {
-            return pm.getPackageInfo(context.getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            LogUtil.w(e);
-        }
-        return new PackageInfo();
+    public static void setCurrentActivityName(String currentActivityName) {
+        App.currentActivityName = currentActivityName;
     }
-
-    /**
-     * 获取classes.dex文件签名
-     *
-     * @param context
-     * @return
-     */
-    private String get2thDexSHA1(Context context) {
-        ApplicationInfo ai = context.getApplicationInfo();
-        String source = ai.sourceDir;
-        try {
-            JarFile jar = new JarFile(source);
-            Manifest mf = jar.getManifest();
-            Map<String, Attributes> map = mf.getEntries();
-            Attributes a = map.get("classes2.dex");
-            return a.getValue("SHA1-Digest");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void waitForDexopt(Context base) {
-        Intent intent = new Intent();
-        ComponentName componentName = new
-                ComponentName("com.mvpframe", LoadResActivity.class.getName());
-        intent.setComponent(componentName);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        base.startActivity(intent);
-        long startWait = System.currentTimeMillis();
-        long waitTime = 10 * 1000;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR1) {
-            waitTime = 20 * 1000;//实测发现某些场景下有些2.3版本有可能10s都不能完成optdex
-        }
-        while (needWait(base)) {
-            try {
-                long nowWait = System.currentTimeMillis() - startWait;
-                LogUtil.d("wait ms :" + nowWait);
-                if (nowWait >= waitTime) {
-                    LogUtil.d("加载完成");
-                    return;
-                }
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                LogUtil.w(e);
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * optDex finish
-     *
-     * @param context
-     */
-    public void installFinish(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(
-                getPackageInfo(context).versionName, MODE_MULTI_PROCESS);
-        sp.edit().putString(KEY_DEX2_SHA1, get2thDexSHA1(context)).commit();
-    }
-
-
-    /**
-     * get finish WelcomeActivity
-     *
-     * @param context
-     * @return
-     */
-    public int needFinishWelCome(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(
-                getPackageInfo(context).versionName, MODE_MULTI_PROCESS);
-        return sp.getInt(WELCOME, 0);
-
-    }
-
-    /**
-     * put finish WelcomeActivity
-     *
-     * @param context
-     * @param isFinish 0:等待状态、1:点击进入应用结束、2:返回键结束
-     */
-    public void installFinishWelCome(Context context, int isFinish) {
-        SharedPreferences sp = context.getSharedPreferences(
-                getPackageInfo(context).versionName, MODE_MULTI_PROCESS);
-        sp.edit().putInt(WELCOME, isFinish).commit();
-    }
-
 }

@@ -24,12 +24,6 @@ public class BaseResponseListModel<T> {
      * 描述信息
      */
     private String msg;
-    /**
-     * 是否成功
-     *
-     * @return
-     */
-    private boolean success = true;
 
     public int getCode() {
         return code;
@@ -47,14 +41,6 @@ public class BaseResponseListModel<T> {
     public BaseResponseListModel<T> setMsg(String msg) {
         this.msg = msg;
         return this;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 
     public List<T> getData() {

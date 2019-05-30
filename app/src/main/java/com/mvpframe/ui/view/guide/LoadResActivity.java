@@ -104,7 +104,6 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
             try {
                 MultiDex.install(getApplication());
                 LogUtil.d("install finish");
-                ((App) getApplication()).installFinish(getApplication());
             } catch (Exception e) {
                 LogUtil.w(e.getLocalizedMessage());
             }
@@ -148,7 +147,6 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
      * @param installFinishWelCome
      */
     private void installFinishWelCome(int installFinishWelCome) {
-        ((App) getApplication()).installFinishWelCome(getApplication(), installFinishWelCome);
     }
 
     /**
