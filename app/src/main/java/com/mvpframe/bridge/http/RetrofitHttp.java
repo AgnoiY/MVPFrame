@@ -155,10 +155,10 @@ public class RetrofitHttp {
             int index = 1;
             File file;
             RequestBody requestBody;
-            for (String key : fileMap.keySet()) {
-                file = fileMap.get(key);
+            for (Map.Entry<String, File> entry : fileMap.entrySet()) {
+                file = entry.getValue();
                 requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                MultipartBody.Part part = MultipartBody.Part.createFormData(key, file.getName(), new UploadRequestBody(requestBody, file, index, size, uploadCallback));
+                MultipartBody.Part part = MultipartBody.Part.createFormData(entry.getKey(), file.getName(), new UploadRequestBody(requestBody, file, index, size, uploadCallback));
                 fileList.add(part);
                 index++;
             }
@@ -207,8 +207,8 @@ public class RetrofitHttp {
 
         if (!header.isEmpty()) {
             //处理header中文或者换行符出错问题
-            for (String key : header.keySet()) {
-                header.put(key, RequestUtils.getHeaderValueEncoded(header.get(key)));
+            for (Map.Entry<String, Object> entry : header.entrySet()) {
+                header.put(entry.getKey(), RequestUtils.getHeaderValueEncoded(entry.getValue()));
             }
         }
 
@@ -291,11 +291,11 @@ public class RetrofitHttp {
 
 
         public static Configure get() {
-            return Configure.Holder.holder;
+            return Configure.Holder.holders;
         }
 
         private static class Holder {
-            private static Configure holder = new Configure();
+            private static Configure holders = new Configure();
         }
 
         private Configure() {
@@ -390,6 +390,25 @@ public class RetrofitHttp {
 
     }
 
+    private static volatile Builder instance;
+
+    public static Builder getInstance() {
+        Builder builder = instance;
+        if (builder == null) {
+            synchronized (RetrofitHttp.class) {
+                builder = instance;
+                if (builder == null) {
+                    instance = builder = new Builder();
+                }
+            }
+        }
+        return builder;
+    }
+
+    public static void setInstance(Builder instance) {
+        RetrofitHttp.instance = instance;
+    }
+
     /**
      * Builder
      * 构造Request所需参数，按需设置
@@ -419,18 +438,6 @@ public class RetrofitHttp {
         String bodyString;
         /*是否强制JSON格式*/
         boolean isJson;
-        private Builder instance;
-
-        public Builder getInstanc() {
-            if (instance == null) {
-                synchronized (RetrofitHttp.class) {
-                    if (instance == null) {
-                        instance = new Builder();
-                    }
-                }
-            }
-            return instance;
-        }
 
         /*GET*/
         public RetrofitHttp.Builder get() {
@@ -558,9 +565,9 @@ public class RetrofitHttp {
             if (fileMap == null) {
                 fileMap = new IdentityHashMap();
             }
-            if (fileList != null && fileList.size() > 0) {
+            if (fileList != null && !fileList.isEmpty()) {
                 for (File file : fileList) {
-                    fileMap.put(new String(key), file);
+                    fileMap.put(key, file);
                 }
             }
             return this;
@@ -578,18 +585,19 @@ public class RetrofitHttp {
             this.apiUrl = "";
             this.bodyString = "";
             this.isJson = false;
-            this.instance = null;
+            setInstance(null);
             return this;
         }
 
         public RetrofitHttp build() {
+
             return new RetrofitHttp(this);
         }
 
 
         @Override
         public void initOnApplicationCreate(Context context) {
-
+            //开始进入Applicattion
         }
 
         @Override
