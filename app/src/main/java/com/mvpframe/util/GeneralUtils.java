@@ -14,7 +14,7 @@ public class GeneralUtils {
     private static long lastClickTime = 0;
 
     GeneralUtils() {
-        throw new UnsupportedOperationException();
+        throw new IllegalStateException("GeneralUtils class");
     }
 
     /**

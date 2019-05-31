@@ -60,7 +60,6 @@ public class LoadResActivity extends Activity implements View.OnClickListener {
      * 初始化控件
      */
     private void initView() {
-        new DensityUtil();
         FrameLayout flayout = findViewById(R.id.flayout);
         FrameLayout flSkip = findViewById(R.id.fl_skip);
         llPage = findViewById(R.id.ll_page);

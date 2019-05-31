@@ -15,6 +15,10 @@ public class LogUtil {
 
     private static final String TAG = "log_yong";
 
+    LogUtil() {
+        throw new IllegalStateException("LogUtil class");
+    }
+
     /**
      * 输出debug调试信息
      *

@@ -32,6 +32,10 @@ import java.util.regex.Pattern;
  */
 public final class Tools {
 
+    Tools() {
+        throw new IllegalStateException("Tools class");
+    }
+
     /**
      * 判断对象是否为null , 为null返回true,否则返回false
      *
@@ -39,7 +43,7 @@ public final class Tools {
      * @return boolean
      */
     public static boolean isNull(Object obj) {
-        return (null == obj) ? true : false;
+        return null == obj;
     }
 
     /**
@@ -59,7 +63,7 @@ public final class Tools {
      * @return boolean
      */
     public static boolean isNullOrZeroLenght(String str) {
-        return (null == str || "".equals(str.trim())) ? true : false;
+        return null == str || "".equals(str.trim());
     }
 
     /**
@@ -102,7 +106,7 @@ public final class Tools {
      */
     public static boolean isNullOrZero(Number number) {
         if (Tools.isNotNull(number)) {
-            return (number.intValue() != 0) ? false : true;
+            return number.intValue() == 0;
         }
         return true;
     }
@@ -143,7 +147,7 @@ public final class Tools {
         try {
             return dateFormat.parse(dateFormat.format(date));
         } catch (ParseException e) {
-            e.printStackTrace();
+            LogUtil.w(e);
             return null;
         }
     }
@@ -401,7 +405,7 @@ public final class Tools {
      * @return
      * @see [类、类#方法、类#成员]
      */
-    public static boolean IsPassword(String password) {
+    public static boolean isPassword(String password) {
         String str = "^[A-Za-z0-9_]{6,20}$";
         Pattern p = Pattern.compile(str);
         Matcher m = p.matcher(password);
@@ -416,7 +420,7 @@ public final class Tools {
      * @return
      * @see [类、类#方法、类#成员]
      */
-    public static boolean IsPasswordDigit(String password) {
+    public static boolean isPasswordDigit(String password) {
         String str = "^[^ ]{6,20}$";
         Pattern p = Pattern.compile(str);
         Matcher m = p.matcher(password);
@@ -431,7 +435,7 @@ public final class Tools {
      * @return
      * @see [类、类#方法、类#成员]
      */
-    public static boolean Iscertificate(String certificate) {
+    public static boolean iscertificate(String certificate) {
         String str = "[0-9]{17}([0-9]|[xX])";
         Pattern p = Pattern.compile(str);
         Matcher m = p.matcher(certificate);
@@ -478,7 +482,7 @@ public final class Tools {
     }
 
     // 去除textview的排版问题
-    public static String ToDBC(String input) {
+    public static String toDBC(String input) {
         char[] c = input.toCharArray();
         for (int i = 0; i < c.length; i++) {
             if (c[i] == 12288) {
@@ -511,9 +515,9 @@ public final class Tools {
         try {
             PackageManager packageManager = context.getPackageManager();
             PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-            String version = packInfo.versionName;
-            return version;
+            return packInfo.versionName;
         } catch (NameNotFoundException e) {
+            LogUtil.w(e);
         }
         return "";
     }

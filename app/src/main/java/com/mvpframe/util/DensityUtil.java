@@ -19,6 +19,10 @@ public class DensityUtil {
 
     private static final String TAG = "DensityUtil";
 
+    DensityUtil(){
+        throw new IllegalStateException("DensityUtil class");
+    }
+
     /**
      * <将px值转换为dip或dp值，保证尺寸大小不变>
      *
@@ -105,7 +109,6 @@ public class DensityUtil {
         Display d = w.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
         d.getMetrics(metrics);
-        // since SDK_INT = 1;
         int widthPixels = metrics.widthPixels;
         int heightPixels = metrics.heightPixels;
         try {

@@ -55,6 +55,6 @@ public class LoginActivity extends BaseRefreshListActivity<LoginModel> {
 
     @Override
     public void getDataRequest(boolean isRefresh, String tag, int pageindex, int limit) {
-        mPresenter.getSmsRecord(isRefresh, null, pageindex, limit);
+        mPresenter.getSmsRecord(isRefresh, pageindex, limit);
     }
 }

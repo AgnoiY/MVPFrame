@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.mvpframe.util.LogUtil;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
@@ -24,9 +26,9 @@ import java.lang.reflect.Method;
  * @author yong
  */
 public class StatusBarUtil {
-    public final static int TYPE_MIUI = 0;
-    public final static int TYPE_FLYME = 1;
-    public final static int TYPE_M = 3;//6.0
+    public static final int TYPE_MIUI = 0;
+    public static final int TYPE_FLYME = 1;
+    public static final int TYPE_M = 3;//6.0
 
     @IntDef({TYPE_MIUI, TYPE_FLYME, TYPE_M})
     @Retention(RetentionPolicy.SOURCE)
@@ -68,14 +70,11 @@ public class StatusBarUtil {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
             //导航栏颜色也可以正常设置
-//            window.setNavigationBarColor(Color.TRANSPARENT);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = activity.getWindow();
             WindowManager.LayoutParams attributes = window.getAttributes();
             int flagTranslucentStatus = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
             attributes.flags |= flagTranslucentStatus;
-            //int flagTranslucentNavigation = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
-            //attributes.flags |= flagTranslucentNavigation;
             window.setAttributes(attributes);
         }
     }
@@ -176,7 +175,7 @@ public class StatusBarUtil {
             window.setAttributes(lp);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtil.w(e);
             return false;
         }
     }
@@ -198,7 +197,7 @@ public class StatusBarUtil {
             }
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtil.w(e);
             return false;
         }
     }

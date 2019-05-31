@@ -59,10 +59,8 @@ public class NetUtils {
         if (null != connectivity) {
 
             NetworkInfo info = connectivity.getActiveNetworkInfo();
-            if (null != info && info.isConnected()) {
-                if (info.getState() == NetworkInfo.State.CONNECTED) {
-                    return true;
-                }
+            if (null != info && info.isConnected() && info.getState() == NetworkInfo.State.CONNECTED) {
+                return true;
             }
         }
         return false;
@@ -145,8 +143,7 @@ public class NetUtils {
                 checkConnectState(context);
                 return isDataEnabled;
             } catch (Exception e) {
-                LogUtil.w("移动数据设置错误: " , e);
-                e.printStackTrace();
+                LogUtil.w("移动数据设置错误: ", e);
             }
             return isDataEnabled;
         }
@@ -175,8 +172,7 @@ public class NetUtils {
             LogUtil.d("移动数据开启状态：" + isDataEnabled);
             return isDataEnabled;
         } catch (Exception e) {
-            LogUtil.w("移动数据设置错误: " , e);
-            e.printStackTrace();
+            LogUtil.w("移动数据设置错误: ", e);
         }
         return isDataEnabled;
     }

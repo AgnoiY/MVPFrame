@@ -3,6 +3,8 @@ package com.mvpframe.util.statusbar;
 import android.os.Build;
 import android.text.TextUtils;
 
+import com.mvpframe.util.LogUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +16,10 @@ import java.io.InputStreamReader;
  * @author yong
  */
 public class OSUtils {
+
+    OSUtils() {
+        throw new IllegalStateException("OSUtils class");
+    }
 
     public static final String ROM_MIUI = "MIUI";
     public static final String ROM_EMUI = "EMUI";
@@ -79,15 +85,15 @@ public class OSUtils {
             return sName.equals(rom);
         }
 
-        if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_MIUI))) {
+        if (!TextUtils.isEmpty(setSVersion(KEY_VERSION_MIUI))) {
             sName = ROM_MIUI;
-        } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_EMUI))) {
+        } else if (!TextUtils.isEmpty(setSVersion(KEY_VERSION_EMUI))) {
             sName = ROM_EMUI;
-        } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_OPPO))) {
+        } else if (!TextUtils.isEmpty(setSVersion(KEY_VERSION_OPPO))) {
             sName = ROM_OPPO;
-        } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_VIVO))) {
+        } else if (!TextUtils.isEmpty(setSVersion(KEY_VERSION_VIVO))) {
             sName = ROM_VIVO;
-        } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_SMARTISAN))) {
+        } else if (!TextUtils.isEmpty(setSVersion(KEY_VERSION_SMARTISAN))) {
             sName = ROM_SMARTISAN;
         } else {
             sVersion = Build.DISPLAY;
@@ -101,8 +107,13 @@ public class OSUtils {
         return sName.equals(rom);
     }
 
+    private static String setSVersion(String keyVersion) {
+        sVersion = getProp(keyVersion);
+        return sVersion;
+    }
+
     public static String getProp(String name) {
-        String line = null;
+        String line;
         BufferedReader input = null;
         try {
             Process p = Runtime.getRuntime().exec("getprop " + name);
@@ -110,15 +121,15 @@ public class OSUtils {
             line = input.readLine();
             input.close();
         } catch (IOException ex) {
-            return null;
-        } finally {
+            LogUtil.w(ex);
             if (input != null) {
                 try {
                     input.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LogUtil.w(e);
                 }
             }
+            return null;
         }
         return line;
     }
