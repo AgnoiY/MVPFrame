@@ -10,19 +10,23 @@ import com.mvpframe.BuildConfig;
  */
 public class Constants {
 
+    Constants() {
+        throw new IllegalStateException("Constants class");
+    }
+
     /**
      * 打开日志打开日志
      */
-    public static final boolean isDebug = BuildConfig.DEBUG;
-    public static final String loge = "e";
-    public static final String logi = "i";
-    public static final String logd = "d";
-    public static final String logw = "w";
+    public static final boolean IS_DEBUG = BuildConfig.DEBUG;
+    public static final String LOG_E = "e";
+    public static final String LOG_I = "i";
+    public static final String LOG_D = "d";
+    public static final String LOG_W = "w";
 
     /**
      * 超时时长: 默认60秒
      */
-    public static final long timeOut = 60;
+    public static final long TIME_OUT = 60;
 
     /**
      * 数据缓存时间

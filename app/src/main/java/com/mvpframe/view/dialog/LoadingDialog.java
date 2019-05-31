@@ -20,7 +20,7 @@ import com.mvpframe.constant.Constants;
  */
 public final class LoadingDialog extends ProgressDialog {
 
-    private long delayMillis = Constants.timeOut * 1000;
+    private long delayMillis = Constants.TIME_OUT * 1000;
     private int mWidth;
     private int mHeight;
     private LoadingView mLoadingView;

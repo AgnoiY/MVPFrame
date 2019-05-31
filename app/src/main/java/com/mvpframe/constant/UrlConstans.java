@@ -10,11 +10,15 @@ import com.mvpframe.BuildConfig;
  */
 public class UrlConstans {
 
+    UrlConstans() {
+        throw new IllegalStateException("UrlConstans class");
+    }
+
     /**
      * 服务器地址
      */
-    private static String DEF_TEST_SERVER = "http://183.129.178.44:8320/klApp/";//测试环境
-    private static String DEF_RELEASE_SERVER = "http://183.129.178.44:8320/klApp/";//正式环境
+    private static final String DEF_TEST_SERVER = "http://183.129.178.44:8320/klApp/";//测试环境
+    private static final String DEF_RELEASE_SERVER = "http://183.129.178.44:8320/klApp/";//正式环境
 
     public static final String BASESERVER = BuildConfig.DEBUG ? DEF_TEST_SERVER : DEF_RELEASE_SERVER;
 
@@ -22,5 +26,5 @@ public class UrlConstans {
      * 用户登陆
      */
     public static final String LOGIN = "user/loginByUserNamePassword";
-    public static final String list = "messageCenter/listMessage";
+    public static final String LIST = "messageCenter/listMessage";
 }

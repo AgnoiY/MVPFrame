@@ -2,7 +2,7 @@ package com.mvpframe.util;
 
 import android.util.Log;
 
-import static com.mvpframe.constant.Constants.isDebug;
+import static com.mvpframe.constant.Constants.IS_DEBUG;
 
 
 /**
@@ -21,7 +21,7 @@ public class LogUtil {
      * @param msg
      */
     public static void d(String msg) {
-        if (isDebug) {
+        if (IS_DEBUG) {
             Log.d(TAG, msg);
         }
     }
@@ -36,7 +36,7 @@ public class LogUtil {
      * @param msg
      */
     public static void i(String msg) {
-        if (isDebug) {
+        if (IS_DEBUG) {
             Log.i(TAG, msg);
         }
     }
@@ -51,7 +51,7 @@ public class LogUtil {
      * @param msg
      */
     public static void e(String msg) {
-        if (isDebug) {
+        if (IS_DEBUG) {
             Log.e(TAG, msg);
         }
     }
@@ -66,19 +66,19 @@ public class LogUtil {
      * @param msg
      */
     public static void w(String msg) {
-        if (isDebug) {
+        if (IS_DEBUG) {
             Log.w(TAG, msg);
         }
     }
 
     public static void w(Throwable tr) {
-        if (isDebug) {
+        if (IS_DEBUG) {
             Log.w(TAG, tr);
         }
     }
 
     public static void w(String msg, Throwable tr) {
-        if (isDebug) {
+        if (IS_DEBUG) {
             Log.w(TAG, msg, tr);
         }
     }
@@ -92,7 +92,7 @@ public class LogUtil {
     }
 
     public static void biglog(String responseInfo) {
-        if (!isDebug) {
+        if (!IS_DEBUG) {
             return;
         }
         if (responseInfo.length() > 3000) {

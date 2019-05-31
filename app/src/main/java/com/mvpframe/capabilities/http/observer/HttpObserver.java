@@ -6,10 +6,9 @@ import android.content.Intent;
 
 import com.mvpframe.R;
 import com.mvpframe.application.App;
-import com.mvpframe.bridge.sharePref.SharedPrefManager;
+import com.mvpframe.bridge.sharepref.SharedPrefManager;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.capabilities.http.interfaces.ParseHelper;
-import com.mvpframe.ui.MainActivity;
 import com.mvpframe.ui.view.account.activity.LoginActivity;
 import com.mvpframe.util.ToastUtil;
 

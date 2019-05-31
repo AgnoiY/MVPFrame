@@ -15,12 +15,12 @@ public class SecurityManager implements BridgeLifeCycleListener {
 
     @Override
     public void initOnApplicationCreate(Context context) {
-
+        //开始进入Applicattion
     }
 
     @Override
     public void clearOnApplicationQuit() {
-
+        //退出App清理数据
     }
 
     /**

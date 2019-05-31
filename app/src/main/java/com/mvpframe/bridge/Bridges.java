@@ -8,6 +8,11 @@ package com.mvpframe.bridge;
  * @author yong
  */
 public class Bridges {
+
+    private Bridges() {
+        throw new IllegalStateException("Bridges class");
+    }
+
     /**
      * 本地缓存(sd卡存储和手机内部存储)
      */

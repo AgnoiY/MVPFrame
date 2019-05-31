@@ -26,7 +26,10 @@ public class BridgeLifeCycleSetKeeper implements BridgeLifeCycleListener {
     private List<BridgeLifeCycleListener> mBridgeLiftCycleListenerSet;
 
     public static BridgeLifeCycleSetKeeper getInstance() {
-        return instance == null ? instance = new BridgeLifeCycleSetKeeper() : instance;
+        if (instance == null) {
+            instance = new BridgeLifeCycleSetKeeper();
+        }
+        return instance;
     }
 
     /**

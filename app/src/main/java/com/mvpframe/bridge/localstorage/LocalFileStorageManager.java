@@ -16,27 +16,27 @@ import java.io.File;
  */
 public class LocalFileStorageManager implements BridgeLifeCycleListener {
 
-    private static String FILE_ROOT_NAME = "MVPFrame";
+    private static final String FILE_ROOT_NAME = "MVPFrame";
 
     /**
      * 列表页面图片缓存目录
      */
-    private static String FOLDER_NAME_IMAGE = "image";
+    private static final String FOLDER_NAME_IMAGE = "image";
 
     /**
      * 用户头像缓存目录
      */
-    private static String FOLDER_NAME_HEAD = "head";
+    private static final String FOLDER_NAME_HEAD = "head";
 
     /**
      * 版本更新的目录
      */
-    private static String FOLDER_NAME_VERSION_UPDATE = "update";
+    private static final String FOLDER_NAME_VERSION_UPDATE = "update";
 
     /**
      * 下载文件存放目录
      */
-    private static String FOLDER_NAME_DOWNLOAD = "download";
+    private static final String FOLDER_NAME_DOWNLOAD = "download";
 
     @Override
     public void initOnApplicationCreate(Context context) {
@@ -86,7 +86,7 @@ public class LocalFileStorageManager implements BridgeLifeCycleListener {
      * @return
      */
     public static String getUserHeadPath(Context context, String userId) {
-        return FileUtil.createNewFile(getCacheFilePath(context) + FOLDER_NAME_IMAGE + File.separator + userId + File.separator);
+        return FileUtil.createNewFile(getCacheFilePath(context) + FOLDER_NAME_HEAD + File.separator + userId + File.separator);
     }
 
     /**
@@ -113,6 +113,6 @@ public class LocalFileStorageManager implements BridgeLifeCycleListener {
 
     @Override
     public void clearOnApplicationQuit() {
-
+        //退出App清理数据
     }
 }

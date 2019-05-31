@@ -1,16 +1,14 @@
 package com.mvpframe.presenter.base;
 
 import android.support.annotation.UiThread;
-import android.view.View;
 
 import com.mvpframe.R;
 import com.mvpframe.application.App;
 import com.mvpframe.bridge.BridgeFactory;
 import com.mvpframe.bridge.Bridges;
 import com.mvpframe.bridge.http.RetrofitHttp;
-import com.mvpframe.bridge.sharePref.SharedPrefManager;
-import com.mvpframe.bridge.sharePref.SharedPrefUser;
-import com.mvpframe.ui.base.activity.BaseActivity;
+import com.mvpframe.bridge.sharepref.SharedPrefManager;
+import com.mvpframe.bridge.sharepref.SharedPrefUser;
 import com.mvpframe.util.LogUtil;
 import com.trello.rxlifecycle2.LifecycleProvider;
 

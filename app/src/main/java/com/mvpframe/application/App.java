@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mvpframe.constant.Constants.isDebug;
+import static com.mvpframe.constant.Constants.IS_DEBUG;
 
 /**
  * <应用初始化> <功能详细描述>
@@ -65,7 +65,7 @@ public class App extends Application {
         setApp(this);
         BridgeFactory.init(this);
         BridgeLifeCycleSetKeeper.getInstance().initOnApplicationCreate(getApplicationContext());
-        EventBus.builder().throwSubscriberException(isDebug).installDefaultEventBus();
+        EventBus.builder().throwSubscriberException(IS_DEBUG).installDefaultEventBus();
     }
 
     private static void setApp(App mApp) {

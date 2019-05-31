@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mvpframe.constant.Constants.logd;
+import static com.mvpframe.constant.Constants.LOG_D;
 
 /**
  * Handler
@@ -76,7 +76,7 @@ public abstract class BaseHandlerActivity<T, B extends ViewDataBinding> extends 
 
     @Override
     public void handleMessage(Message msg, Object tag) {
-        log("BaseHandler:" + tag, logd);
+        log("BaseHandler:" + tag, LOG_D);
     }
 
     @Override

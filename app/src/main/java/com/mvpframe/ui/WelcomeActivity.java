@@ -9,7 +9,7 @@ import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
 import com.mvpframe.util.DownTime;
 
-import static com.mvpframe.constant.Constants.logd;
+import static com.mvpframe.constant.Constants.LOG_D;
 
 /**
  * <欢迎页>
@@ -66,7 +66,7 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
      */
     private void waitLoadMain() {
 
-        log("等待时间：" + delayMillis + "s", logd);
+        log("等待时间：" + delayMillis + "s", LOG_D);
 
         postDelayed(delayMillis);
 

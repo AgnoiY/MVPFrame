@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-import static com.mvpframe.constant.Constants.logd;
+import static com.mvpframe.constant.Constants.LOG_D;
 
 
 /**
@@ -205,7 +205,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
 
     @Override
     public void nextStep(Long l, Object... delay) {
-        log(l, logd);
+        log(l, LOG_D);
     }
 
     @Override

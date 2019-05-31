@@ -19,9 +19,9 @@ import com.mvpframe.view.recyclerview.RefreshHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mvpframe.constant.Constants.logd;
-import static com.mvpframe.constant.Constants.loge;
-import static com.mvpframe.constant.Constants.logi;
+import static com.mvpframe.constant.Constants.LOG_D;
+import static com.mvpframe.constant.Constants.LOG_E;
+import static com.mvpframe.constant.Constants.LOG_I;
 
 /**
  * Fragment 懒加载 防止fragment初始化时加载大量数据
@@ -106,7 +106,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      */
     @Override
     public void onError(String action, int code, String msg) {
-        log("url=" + action + ";  code=" + code + ";  msg=" + msg, loge);
+        log("url=" + action + ";  code=" + code + ";  msg=" + msg, LOG_E);
     }
 
     /**
@@ -117,7 +117,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, T data) {
-        log("url=" + action + ";  data=" + data, logi);
+        log("url=" + action + ";  data=" + data, LOG_I);
     }
 
     /**
@@ -128,7 +128,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, List<T> data) {
-        log("url=" + action + ";  data=" + data, logi);
+        log("url=" + action + ";  data=" + data, LOG_I);
     }
 
     /**
@@ -167,7 +167,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
 
     @Override
     public void handleMessage(Message msg, Object tag) {
-        log("BaseHandler:" + tag, logd);
+        log("BaseHandler:" + tag, LOG_D);
     }
 
     @Override

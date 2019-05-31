@@ -27,9 +27,9 @@ import com.mvpframe.view.recyclerview.RefreshHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mvpframe.constant.Constants.logd;
-import static com.mvpframe.constant.Constants.loge;
-import static com.mvpframe.constant.Constants.logi;
+import static com.mvpframe.constant.Constants.LOG_D;
+import static com.mvpframe.constant.Constants.LOG_E;
+import static com.mvpframe.constant.Constants.LOG_I;
 
 /**
  * 带空页面，错误页面显示的BaseActivity 通过BaseActivity界面操作封装成View而来
@@ -190,7 +190,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     @Override
     public void onError(String action, int code, String msg) {
-        log("url=" + action + ";  code=" + code + ";  msg=" + msg, loge);
+        log("url=" + action + ";  code=" + code + ";  msg=" + msg, LOG_E);
         if (code == ExceptionEngine.CONNECT_ERROR) {//网络连接失败
             mBaseBinding.contentView.setShowText(msg);
             mBaseBinding.contentView.setShowImage(R.mipmap.ic_launcher);
@@ -205,7 +205,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, T data) {
-        log("url=" + action + ";  data=" + data, logi);
+        log("url=" + action + ";  data=" + data, LOG_I);
         mBaseBinding.contentView.hindEmptyAll();
     }
 
@@ -217,7 +217,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     @Override
     public void onSuccess(String action, List<T> data) {
-        log("url=" + action + ";  data=" + data, logi);
+        log("url=" + action + ";  data=" + data, LOG_I);
         mBaseBinding.contentView.hindEmptyAll();
     }
 
@@ -225,7 +225,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      * 错误布局，显示信息点击监听
      */
     private void onEmptyTextClickListeners() {
-        log("错误布局，显示信息点击监听", logd);
+        log("错误布局，显示信息点击监听", LOG_D);
         if (!NetUtils.isConnected(mContext)) {//网络连接失败
             ToastUtil.makeCenterToast(mContext, getString(R.string.no_netwoek));
         } else
@@ -243,7 +243,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     @Override
     public void initPermissionSuccess() {
         ToastUtil.makeCenterToast(mContext, "权限申请成功");
-        log("权限申请成功", logd);
+        log("权限申请成功", LOG_D);
     }
 
     @Override

@@ -1,5 +1,5 @@
 
-package com.mvpframe.bridge.sharePref;
+package com.mvpframe.bridge.sharepref;
 
 import android.content.Context;
 
@@ -27,7 +27,7 @@ public class SharedPrefManager implements BridgeLifeCycleListener {
     /**
      * 用户信息缓存
      */
-    private static SharedPrefUser mSharedPrefUser;
+    private SharedPrefUser mSharedPrefUser;
 
     /**
      * 设置信息缓存
@@ -47,6 +47,7 @@ public class SharedPrefManager implements BridgeLifeCycleListener {
 
     @Override
     public void clearOnApplicationQuit() {
+        //退出App清理数据
     }
 
 
@@ -56,26 +57,30 @@ public class SharedPrefManager implements BridgeLifeCycleListener {
      * @return
      */
     public SharedPrefUser getKDPreferenceUserInfo() {
-        return mSharedPrefUser == null ? mSharedPrefUser = new SharedPrefUser(
-                mApplicationContext, PREF_NAME_USERINFO) : mSharedPrefUser;
+        if (mSharedPrefUser == null) {
+            mSharedPrefUser = new SharedPrefUser(mApplicationContext, PREF_NAME_USERINFO);
+        }
+        return mSharedPrefUser;
     }
 
     /**
      * 设置信息缓存
      */
     public SharedPrefSetting getKDPreferenceTestSetting() {
-        return mSharedPrefSetting == null ? mSharedPrefSetting = new SharedPrefSetting(
-                mApplicationContext, PREF_NAME_SETTING)
-                : mSharedPrefSetting;
+        if (mSharedPrefSetting == null) {
+            mSharedPrefSetting = new SharedPrefSetting(mApplicationContext, PREF_NAME_SETTING);
+        }
+        return mSharedPrefSetting;
     }
 
     /**
      * 设置信息缓存
      */
     public SharedPrefOthers getKDPreferenceOthers() {
-        return mSharedPrefOthers == null ? mSharedPrefOthers = new SharedPrefOthers(
-                mApplicationContext, PREF_NAME_OTHERS)
-                : mSharedPrefOthers;
+        if (mSharedPrefOthers == null) {
+            mSharedPrefOthers = new SharedPrefOthers(mApplicationContext, PREF_NAME_OTHERS);
+        }
+        return mSharedPrefOthers;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.mvpframe.bridge.sharePref;
+package com.mvpframe.bridge.sharepref;
 
 import android.content.Context;
 

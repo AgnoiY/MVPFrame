@@ -21,8 +21,6 @@ public class LoginPresenter extends BasePresenter<IMvpView> {
     public void login(String userid, String pwd) {
 
         Map<String, Object> map = new HashMap<>();
-//        map.put("userid", userid);
-//        map.put("pwd", pwd);
         map.put("mobile", userid);
         map.put("password", pwd);
 
@@ -36,13 +34,13 @@ public class LoginPresenter extends BasePresenter<IMvpView> {
     /**
      * 短信记录列表搜索查询
      */
-    public void getSmsRecord(boolean isRefresh, String keyword, int pageNum, int pageSize) {
+    public void getSmsRecord(boolean isRefresh, int pageNum, int pageSize) {
 
         Map<String, Object> map = new HashMap<>();
         map.put("pageNo", pageNum);
         map.put("pageSize", pageSize);
 
-        getRetrofitHttp().post().apiUrl(UrlConstans.list)
+        getRetrofitHttp().post().apiUrl(UrlConstans.LIST)
                 .addParameter(map).build()
                 .request(new BaseModelObserver<LoginModel>(this, isRefresh) {
                 });

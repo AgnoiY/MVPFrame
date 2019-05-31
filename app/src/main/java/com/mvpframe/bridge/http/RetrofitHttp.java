@@ -299,7 +299,7 @@ public class RetrofitHttp {
         }
 
         private Configure() {
-            timeout = Constants.timeOut;//默认60秒
+            timeout = Constants.TIME_OUT;//默认60秒
             timeUnit = TimeUnit.SECONDS;//默认秒
             showLog = true;//默认打印LOG
         }
