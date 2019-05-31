@@ -63,7 +63,7 @@ public class BridgeFactory {
      */
     private void initOkHttpManager(Application application) {
         RetrofitHttp.Configure.get().baseUrl(UrlConstans.BASESERVER).init(application);
-        RetrofitHttp.Builder builder = RetrofitHttp.getInstance();
+        RetrofitHttp.Builder builder = new RetrofitHttp.Builder().getInstance();
         model.mBridges.put(Bridges.HTTP, builder);
         BridgeLifeCycleSetKeeper.getInstance().trustBridgeLifeCycle(builder);
     }

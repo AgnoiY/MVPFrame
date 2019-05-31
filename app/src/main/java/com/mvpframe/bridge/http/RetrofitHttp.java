@@ -390,25 +390,6 @@ public class RetrofitHttp {
 
     }
 
-    private static volatile Builder instance;
-
-    public static Builder getInstance() {
-        Builder builder = instance;
-        if (builder == null) {
-            synchronized (RetrofitHttp.class) {
-                builder = instance;
-                if (builder == null) {
-                    instance = builder = new Builder();
-                }
-            }
-        }
-        return builder;
-    }
-
-    public static void setInstance(Builder instance) {
-        RetrofitHttp.instance = instance;
-    }
-
     /**
      * Builder
      * 构造Request所需参数，按需设置
@@ -438,6 +419,21 @@ public class RetrofitHttp {
         String bodyString;
         /*是否强制JSON格式*/
         boolean isJson;
+
+        private volatile Builder instance;
+
+        public Builder getInstance() {
+            Builder builder = instance;
+            if (builder == null) {
+                synchronized (RetrofitHttp.class) {
+                    builder = instance;
+                    if (builder == null) {
+                        instance = builder = new Builder();
+                    }
+                }
+            }
+            return builder;
+        }
 
         /*GET*/
         public RetrofitHttp.Builder get() {
@@ -585,7 +581,7 @@ public class RetrofitHttp {
             this.apiUrl = "";
             this.bodyString = "";
             this.isJson = false;
-            setInstance(null);
+            this.instance = null;
             return this;
         }
 
