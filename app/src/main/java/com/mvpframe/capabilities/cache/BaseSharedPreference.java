@@ -3,6 +3,8 @@ package com.mvpframe.capabilities.cache;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.mvpframe.util.LogUtil;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -168,10 +170,9 @@ public class BaseSharedPreference {
     /**
      * 返回所有的键值对
      *
-     * @param context
      * @return
      */
-    public Map<String, ?> getAll(Context context) {
+    public Map<String, ?> getAll() {
         SharedPreferences sp = getSharedPreferences();
         return sp.getAll();
     }
@@ -195,6 +196,7 @@ public class BaseSharedPreference {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
+                LogUtil.w(e);
             }
 
             return null;
@@ -211,9 +213,8 @@ public class BaseSharedPreference {
                     sApplyMethod.invoke(editor);
                     return;
                 }
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
+            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                LogUtil.w(e);
             }
             editor.commit();
         }
