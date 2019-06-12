@@ -70,9 +70,9 @@ public class HttpObservable {
                 if (activityEvent != null) {
                     return map().compose(lifecycle.bindUntilEvent(activityEvent));
                 }
-                if (fragmentEvent != null) {
-                    return map().compose(lifecycle.bindUntilEvent(fragmentEvent));
-                }
+
+                return map().compose(lifecycle.bindUntilEvent(fragmentEvent));
+
             } else {
                 return map().compose(lifecycle.bindToLifecycle());
             }
@@ -88,9 +88,7 @@ public class HttpObservable {
     /*doOnDispose*/
     private Observable doOnDispose() {
         if (observer != null) {
-            return onErrorResumeNext().doOnDispose(() -> {
-                observer.onCanceled();
-            });
+            return onErrorResumeNext().doOnDispose(() -> observer.onCanceled());
         }
         return onErrorResumeNext();
     }

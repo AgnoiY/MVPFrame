@@ -1,5 +1,7 @@
 package com.mvpframe.capabilities.http.interfaces;
 
+import org.json.JSONException;
+
 /**
  * <请求返回状态>
  * <p>
@@ -58,7 +60,7 @@ public interface CallBack<T> {
      * @param data
      * @return
      */
-    T onConvert(String data) throws Exception;
+    T onConvert(String data) throws JSONException;
 
     /**
      * token过期，跳转登录页面重新登录

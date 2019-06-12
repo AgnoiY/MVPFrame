@@ -75,10 +75,7 @@ public class FileUtil {
      * @return
      */
     public static boolean isFileExit(File file) {
-        if (file.exists()) {
-            return true;
-        }
-        return false;
+        return file.exists();
     }
 
     /**
@@ -113,7 +110,7 @@ public class FileUtil {
      */
     public static String getFileName(String path) {
         if (path != null && !"".equals(path.trim())) {
-            return path.substring(path.lastIndexOf("/"));
+            return path.substring(path.lastIndexOf('/'));
         }
 
         return "";
@@ -121,15 +118,15 @@ public class FileUtil {
 
     // 从asset中读取文件
     public static String getFromAssets(Context context, String fileName) throws IOException {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         String line;
 
         try (InputStreamReader inputReader = new InputStreamReader(context.getResources().getAssets().open(fileName));
              BufferedReader bufReader = new BufferedReader(inputReader)) {
 
             while ((line = bufReader.readLine()) != null)
-                result += line;
-            return result;
+                result.append(line);
+            return result.toString();
         }
     }
 
@@ -141,24 +138,22 @@ public class FileUtil {
      * @return 目录删除成功返回true，否则返回false
      */
     public static void deleteDirectory(String path) throws IOException {
-        File dirFile = new File(path);
-        File[] files = dirFile.listFiles();
-        if (files != null && files.length > 0) {
-            for (int i = 0; i < files.length; i++) {
-                // 删除子文件
-                if (files[i].isFile()) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        Files.delete(files[i].toPath());
-                    } else {
-                        if (!files[i].delete()) {
-                            LogUtil.d(files[i].getName() + ": 文件删除失败");
-                        }
+        File[] files = new File(path).listFiles();
+        if (files == null || files.length <= 0) {
+            return;
+        }
+        for (int i = 0; i < files.length; i++) {
+            // 删除子文件
+            if (files[i].isFile()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Files.delete(files[i].toPath());
+                } else {
+                    if (!files[i].delete()) {
+                        LogUtil.d(files[i].getName() + ": 文件删除失败");
                     }
                 }
-                // 删除子目录
-                else {
-                    deleteDirectory(files[i].getAbsolutePath());
-                }
+            } else { // 删除子目录
+                deleteDirectory(files[i].getAbsolutePath());
             }
         }
     }

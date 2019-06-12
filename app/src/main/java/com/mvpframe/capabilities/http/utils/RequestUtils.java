@@ -1,5 +1,7 @@
 package com.mvpframe.capabilities.http.utils;
 
+import com.mvpframe.util.LogUtil;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -18,14 +20,16 @@ public class RequestUtils {
     }
 
     public static RequestUtils get() {
-        if (instance == null) {
+        RequestUtils requestUtils = instance;
+        if (requestUtils == null) {
             synchronized (RequestUtils.class) {
-                if (instance == null) {
-                    instance = new RequestUtils();
+                requestUtils = instance;
+                if (requestUtils == null) {
+                    instance = requestUtils = new RequestUtils();
                 }
             }
         }
-        return instance;
+        return requestUtils;
     }
 
 
@@ -43,7 +47,7 @@ public class RequestUtils {
             head = url.substring(0, index + 3);
             url = url.substring(index + 3);
         }
-        index = url.indexOf("/");
+        index = url.indexOf('/');
         if (index != -1) {
             url = url.substring(0, index + 1);
         }
@@ -69,7 +73,7 @@ public class RequestUtils {
                     try {
                         return URLEncoder.encode(strValue, "UTF-8");//中文处理
                     } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                        LogUtil.w(e);
                         return "";
                     }
                 }

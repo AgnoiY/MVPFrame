@@ -10,6 +10,11 @@ import android.os.Looper;
  * @author yong
  */
 public class ThreadUtils {
+
+    ThreadUtils() {
+        throw new IllegalStateException("ThreadUtils class");
+    }
+
     /**
      * 是否主线程
      *

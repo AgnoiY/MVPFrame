@@ -62,8 +62,6 @@ public abstract class BaseObserver<T> implements Observer<T>, ProgressDialogObse
 
         hideProgressDialog();
 
-        e.printStackTrace();
-
         if (!TextUtils.isEmpty(mTag)) {
             RequestManagerImpl.getInstance().remove(mTag);
         }

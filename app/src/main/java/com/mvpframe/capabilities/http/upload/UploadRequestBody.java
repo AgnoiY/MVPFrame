@@ -107,12 +107,9 @@ public class UploadRequestBody extends RequestBody {
                 }
                 //回调接口
                 if (progressCallback != null) {
-                    RetrofitHttp.Configure.get().getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            float progress = (float) writtenBytesCount / (float) totalBytesCount;
-                            progressCallback.progress(file, writtenBytesCount, totalBytesCount, progress, current, totalFile);
-                        }
+                    RetrofitHttp.Configure.get().getHandler().post(() -> {
+                        float progress = (float) writtenBytesCount / (float) totalBytesCount;
+                        progressCallback.progress(file, writtenBytesCount, totalBytesCount, progress, current, totalFile);
                     });
                 }
             }

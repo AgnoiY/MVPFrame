@@ -8,8 +8,8 @@ package com.mvpframe.capabilities.http.exception;
  * @author yong
  */
 public class ServerException extends RuntimeException {
-    private int code;
-    private String msg;
+    private final int code;
+    private final String msg;
 
     public ServerException(int code, String msg) {
         this.code = code;

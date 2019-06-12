@@ -35,14 +35,16 @@ public class RetrofitUtils {
     }
 
     public static RetrofitUtils get() {
-        if (instance == null) {
+        RetrofitUtils retrofitUtils = instance;
+        if (retrofitUtils == null) {
             synchronized (RetrofitUtils.class) {
-                if (instance == null) {
-                    instance = new RetrofitUtils();
+                retrofitUtils = instance;
+                if (retrofitUtils == null) {
+                    instance = retrofitUtils = new RetrofitUtils();
                 }
             }
         }
-        return instance;
+        return retrofitUtils;
     }
 
     /**
@@ -139,11 +141,9 @@ public class RetrofitUtils {
      */
     public OkHttpClient getOkHttpClientBase(final Map<String, Object> headerMap) {
         //日志拦截器
-        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(message -> {
-            LogUtil.i("okHttp:" + message);
-        });
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(message -> LogUtil.i("okHttp:" + message));
         //must
-        logInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BASIC : HttpLoggingInterceptor.Level.NONE);
+        logInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
 
         //Header 拦截器
         Interceptor headerInterceptor = chain -> {

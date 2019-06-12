@@ -12,6 +12,8 @@ import com.mvpframe.capabilities.http.interfaces.ParseHelper;
 import com.mvpframe.ui.view.account.activity.LoginActivity;
 import com.mvpframe.util.ToastUtil;
 
+import org.json.JSONException;
+
 /**
  * Http请求回调
  * <p>
@@ -39,9 +41,8 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
         try {
             t = onConvert(data);
             callSuccess = true;
-        } catch (Exception e) {
+        } catch (JSONException e) {
             callSuccess = false;
-            e.printStackTrace();
             onError(getTag(), ExceptionEngine.ANALYTIC_CLIENT_DATA_ERROR, App.getAppString(R.string.data_parsing_error));
         }
         return t;

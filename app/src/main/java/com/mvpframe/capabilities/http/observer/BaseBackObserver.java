@@ -54,9 +54,7 @@ public abstract class BaseBackObserver<T> extends BaseObserver<T> implements Cal
      */
     private void onCanceledLogic() {
         if (!ThreadUtils.isMainThread()) {
-            RetrofitHttp.Configure.get().getHandler().post(() -> {
-                inCancel();
-            });
+            RetrofitHttp.Configure.get().getHandler().post(this::inCancel);
         } else {
             inCancel();
         }
