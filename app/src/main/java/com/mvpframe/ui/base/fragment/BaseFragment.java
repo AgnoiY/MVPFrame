@@ -27,6 +27,7 @@ import org.greenrobot.eventbus.Subscribe;
 import io.reactivex.disposables.CompositeDisposable;
 
 import static com.mvpframe.constant.Constants.LOG_D;
+import static com.mvpframe.constant.Constants.LOG_V;
 
 
 /**
@@ -165,6 +166,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     @Override
     public void onClick(View v) {
         if (GeneralUtils.isDoubleClick()) return;
+        log("", LOG_V);
     }
 
     @Override

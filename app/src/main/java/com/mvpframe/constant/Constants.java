@@ -18,6 +18,7 @@ public class Constants {
      * 打开日志打开日志
      */
     public static final boolean IS_DEBUG = BuildConfig.DEBUG;
+    public static final String LOG_V = "v";
     public static final String LOG_E = "e";
     public static final String LOG_I = "i";
     public static final String LOG_D = "d";
