@@ -6,17 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.presenter.base.Presenter;
-
 /**
  * Fragment生命周期
  *
- * @param <V>
- * @param <P> Data：2018/12/18
  * @author yong
+ * @data Data：2018/12/18
  */
-public interface FragmentMvpDelegate<V extends IMvpView, P extends Presenter<V>> {
+public interface FragmentMvpDelegate {
 
     /**
      * Must be called from {@link Fragment#onCreate(Bundle)}

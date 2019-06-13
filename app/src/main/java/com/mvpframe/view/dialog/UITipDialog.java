@@ -40,7 +40,7 @@ import io.reactivex.schedulers.Schedulers;
 public class UITipDialog extends Dialog {
 
     private static final String TAG = "UITipDialog";
-    public static UITipDialog tipDialog;
+    private static UITipDialog tipDialog;
 
     public UITipDialog(Context context) {
         this(context, R.style.TipDialog);
@@ -86,11 +86,7 @@ public class UITipDialog extends Dialog {
         if (tipDialog == null) return;
         Observable.timer(1000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
-                .subscribe(aLong -> {
-                    tipDialog.dismiss();
-                }, throwable -> {
-                    LogUtil.w(TAG, throwable);
-                });
+                .subscribe(aLong -> tipDialog.dismiss(), throwable -> LogUtil.w(TAG, throwable));
     }
 
     public static void showFall(Context context, String info) {

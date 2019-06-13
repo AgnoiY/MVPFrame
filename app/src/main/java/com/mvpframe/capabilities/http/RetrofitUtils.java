@@ -28,10 +28,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitUtils {
 
     private static RetrofitUtils instance = null;
-    private static Retrofit.Builder retrofit;
 
     private RetrofitUtils() {
-        retrofit = new Retrofit.Builder();
+
     }
 
     public static RetrofitUtils get() {
@@ -54,9 +53,9 @@ public class RetrofitUtils {
      * @return
      */
     public Retrofit getRetrofit(String baseUrl, Map<String, Object> headerMap) {
-        // Retrofit.Builder retrofit = new Retrofit.Builder();
-        retrofit
-                .client(getOkHttpClientBase(headerMap))
+        Retrofit.Builder retrofit = new Retrofit.Builder();
+
+        retrofit.client(getOkHttpClientBase(headerMap))
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
@@ -71,9 +70,9 @@ public class RetrofitUtils {
      * @return
      */
     public Retrofit getRetrofit(String baseUrl, OkHttpClient client) {
-        // Retrofit.Builder retrofit = new Retrofit.Builder();
-        retrofit
-                .client(client)
+        Retrofit.Builder retrofit = new Retrofit.Builder();
+
+        retrofit.client(client)
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
@@ -92,9 +91,9 @@ public class RetrofitUtils {
      */
     public OkHttpClient getOkHttpClient(boolean newClient, long timeout, TimeUnit timeUnit, Interceptor... interceptorArray) {
         OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
-        /*if (newClient) {
-            okHttpClient = new OkHttpClient.Builder();
-        }*/
+//        if (newClient) {
+//            okHttpClient = new OkHttpClient.Builder();
+//        }
         //超时设置
         okHttpClient.connectTimeout(timeout, timeUnit)
                 .writeTimeout(timeout, timeUnit)
@@ -151,8 +150,8 @@ public class RetrofitUtils {
             Request.Builder requestBuilder = request.newBuilder();
             //统一设置 Header
             if (headerMap != null && headerMap.size() > 0) {
-                for (String key : headerMap.keySet()) {
-                    requestBuilder.addHeader(key, String.valueOf(RequestUtils.getHeaderValueEncoded(headerMap.get(key))));
+                for (Map.Entry<String, Object> entry : headerMap.entrySet()) {
+                    requestBuilder.addHeader(entry.getKey(), String.valueOf(RequestUtils.getHeaderValueEncoded(entry.getValue())));
                 }
             }
             return chain.proceed(requestBuilder.build());
@@ -165,6 +164,7 @@ public class RetrofitUtils {
                 response = chain.proceed(request);
             } catch (final Exception e) {
                 //httpObserver.onCanceled();
+                LogUtil.w(e);
                 throw e;
             }
             return response;

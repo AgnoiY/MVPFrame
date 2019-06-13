@@ -50,26 +50,21 @@ public final class LoadingDialog extends ProgressDialog {
         setCanceledOnTouchOutside(isCanceledOnTouchOutside);  // 设置当点击对话框以外区域是否关闭对话框
         setCancelable(isCancelable);  // 设置当返回键按下是否关闭对话框
         if (isCancelable) {
-            setOnCancelListener(dialogInterface -> {
-                progressDialogObserver.onCancleProgress();
-            });
+            setOnCancelListener(dialogInterface -> progressDialogObserver.onCancleProgress());
         }
     }
 
     private void initView() {
-        mLoadingView = (LoadingView) findViewById(R.id.loadingview);
+        mLoadingView = findViewById(R.id.loadingview);
     }
 
     public void showDialog() {
 
         if (!isShowing()) {
             show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (isShowing()) {
-                        dismiss();
-                    }
+            new Handler().postDelayed(() -> {
+                if (isShowing()) {
+                    dismiss();
                 }
             }, delayMillis);
         }

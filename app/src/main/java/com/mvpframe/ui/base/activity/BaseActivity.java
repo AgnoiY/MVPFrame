@@ -19,7 +19,6 @@ import com.mvpframe.ui.base.delegate.ActivityMvpDelegateImpl;
 import com.mvpframe.ui.base.interfaces.CreateInit;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
-import com.mvpframe.util.GeneralUtils;
 import com.mvpframe.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -50,17 +49,17 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
 
     protected CompositeDisposable disposable;
 
-    public final String TAG = this.getClass().getSimpleName();
+    public static final String TAG = BaseActivity.class.getClass().getSimpleName();
 
     /**
      * Context对象
      */
-    protected static Context mContext;
+    protected Context mContext;
 
     /**
      * Activity对象
      */
-    protected static Activity mActivity;
+    protected Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +106,7 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      * @return
      */
     @NonNull
-    protected ActivityMvpDelegate<V, P> getMvpDelegate() {
+    protected ActivityMvpDelegate getMvpDelegate() {
         if (mvpDelegate == null) {
             mvpDelegate = new ActivityMvpDelegateImpl(this, this);
         }
@@ -122,18 +121,6 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
     @Override
     public P[] createPresenter() {
         return getPresenterArray();
-    }
-
-    /**
-     * 配合DataBinding点击事件监听
-     * 添加防止重复点击
-     * 有点击事件只需重写
-     *
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-        if (GeneralUtils.isDoubleClick()) return;
     }
 
     @Override
@@ -279,20 +266,16 @@ public abstract class BaseActivity<T, V extends IMvpView, P extends BasePresente
      * @return
      */
     private boolean isShouldHideKeyboard(View v, MotionEvent event) {
-        if (v != null && (v instanceof EditText)) {
+        if (v instanceof EditText) {
             int[] l = {0, 0};
             v.getLocationInWindow(l);
-            int left = l[0],
-                    top = l[1],
-                    bottom = top + v.getHeight(),
-                    right = left + v.getWidth();
-            if (event.getX() > left && event.getX() < right
-                    && event.getY() > top && event.getY() < bottom) {
-                // 点击EditText的事件，忽略它。
-                return false;
-            } else {
-                return true;
-            }
+            int left = l[0];
+            int top = l[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            boolean isEvent = event.getX() > left && event.getX() < right && event.getY() > top && event.getY() < bottom;
+            return !isEvent;
+
         }
         // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditText上，和用户用轨迹球选择其他的焦点
         return false;

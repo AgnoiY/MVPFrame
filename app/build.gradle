@@ -15,8 +15,6 @@ android {
         testInstrumentationRunner rootProject.ext.android.testInstrumentationRunner
 
         multiDexEnabled true
-        multiDexKeepFile file('multidex-config.txt')
-        multiDexKeepProguard file('multidex-config.pro')
 
     }
 

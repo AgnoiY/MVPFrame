@@ -12,32 +12,32 @@
             android:layout_height="wrap_content"
             android:background="@color/white" />
 
-        <com.mvpframe.view.linearLayout.StatusBarHeightView
+        <com.mvpframe.view.linearlayout.StatusBarHeightView
             android:id="@+id/status_bar_height_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.mvpframe.view.frameLayout.TopTitleLayout
+            <com.mvpframe.view.framelayout.TopTitleLayout
                 android:id="@+id/title_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </com.mvpframe.view.frameLayout.TopTitleLayout>
+            </com.mvpframe.view.framelayout.TopTitleLayout>
 
             <View
                 android:id="@+id/view_v"
                 style="@style/style_split_line"
                 android:visibility="gone" />
 
-            <com.mvpframe.view.frameLayout.ViewLoadLayout
+            <com.mvpframe.view.framelayout.ViewLoadLayout
                 android:id="@+id/content_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@color/bg_gray" />
 
-        </com.mvpframe.view.linearLayout.StatusBarHeightView>
+        </com.mvpframe.view.linearlayout.StatusBarHeightView>
 
     </android.support.constraint.ConstraintLayout>
 

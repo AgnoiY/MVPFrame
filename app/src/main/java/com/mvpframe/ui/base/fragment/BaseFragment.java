@@ -50,12 +50,12 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
 
     protected CompositeDisposable disposable;
 
-    public final String TAG = this.getClass().getSimpleName();
+    public static final String TAG = BaseFragment.class.getClass().getSimpleName();
 
     /**
      * Activity对象
      */
-    protected static Activity mActivity;
+    protected Activity mActivity;
 
     /**
      * 此方法可以得到上下文对象
@@ -73,8 +73,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = initView(inflater);
-        return view;
+        return initView(inflater);
     }
 
     /**
@@ -123,12 +122,12 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     }
 
     /**
-     * 关联Activity的生命周期
+     * 关联Fragment的生命周期
      *
      * @return
      */
     @NonNull
-    protected FragmentMvpDelegate<V, P> getMvpDelegate() {
+    protected FragmentMvpDelegate getMvpDelegate() {
         if (mvpDelegate == null) {
             mvpDelegate = new FragmentMvpDelegateImpl(this, this);
         }

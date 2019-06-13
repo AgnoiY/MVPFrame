@@ -20,11 +20,15 @@ import java.lang.ref.SoftReference;
  */
 public class CommonDialog extends BaseFragmentDialog<DialogTipsBinding> implements View.OnClickListener {
 
-    private String TAG = "CommonDialog";
+    private static final String TAG = "CommonDialog";
     private BaseDialogClickListenter mInterface;
     private BaseDialogClickListenter.Among mInterfaceAmong;
 
-    private String title, contentMsg, noMsg, amongMsg, okMsg;
+    private String title;
+    private String contentMsg;
+    private String noMsg;
+    private String amongMsg;
+    private String okMsg;
 
     @Override
     public int getLayoutId() {
@@ -170,6 +174,8 @@ public class CommonDialog extends BaseFragmentDialog<DialogTipsBinding> implemen
                     mInterfaceAmong.dialogTipsOk();
                 if (mInterface != null)
                     mInterface.dialogTipsOk();
+                break;
+            default:
                 break;
         }
     }

@@ -3,17 +3,13 @@ package com.mvpframe.ui.base.delegate;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.presenter.base.Presenter;
-
 /**
  * Activity生命周期
  *
- * @param <V>
- * @param <P> Data：2018/12/18
  * @author yong
+ * @data Data：2018/12/18
  */
-public interface ActivityMvpDelegate<V extends IMvpView, P extends Presenter<V>> {
+public interface ActivityMvpDelegate {
 
     /**
      * This method must be called from {@link Activity#onCreate(Bundle)}.

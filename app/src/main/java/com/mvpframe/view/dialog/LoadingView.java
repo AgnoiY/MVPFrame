@@ -44,17 +44,17 @@ public class LoadingView extends View {
         mSize = array.getDimensionPixelSize(R.styleable.LoadingView_loading_view_size, DensityUtil.dip2px(32));
         mPaintColor = array.getColor(R.styleable.LoadingView_loading_view_color, Color.WHITE);
         array.recycle();
-        initPaint(context);
+        initPaint();
     }
 
     public LoadingView(Context context, int size, int color) {
         super(context);
         mSize = size;
         mPaintColor = color;
-        initPaint(context);
+        initPaint();
     }
 
-    private void initPaint(Context context) {
+    private void initPaint() {
         mPaint = new Paint();
         mPaint.setColor(mPaintColor);
         mPaint.setAntiAlias(true);
@@ -104,7 +104,8 @@ public class LoadingView extends View {
     }
 
     private void drawLoading(Canvas canvas, int rotateDegrees) {
-        int width = mSize / 12, height = mSize / 6;
+        int width = mSize / 12;
+        int height = mSize / 6;
         mPaint.setStrokeWidth(width);
 
         canvas.rotate(rotateDegrees, mSize / 2, mSize / 2);

@@ -1,4 +1,4 @@
-package com.mvpframe.view.frameLayout;
+package com.mvpframe.view.framelayout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,8 +11,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.mvpframe.R;
 import com.mvpframe.databinding.LayoutEmptyBinding;
@@ -48,7 +46,7 @@ public class ViewLoadLayout extends FrameLayout {
      * 初始化
      */
     private void init() {
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()),R.layout.layout_empty,this,true);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_empty, this, true);
     }
 
 
@@ -126,6 +124,6 @@ public class ViewLoadLayout extends FrameLayout {
      * 设置显示文字的样式
      */
     public ButtonTextView getTextView() {
-       return mBinding.tvEmpty;
+        return mBinding.tvEmpty;
     }
 }

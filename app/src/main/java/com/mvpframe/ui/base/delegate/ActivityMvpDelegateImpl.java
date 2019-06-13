@@ -88,41 +88,41 @@ public class ActivityMvpDelegateImpl<V extends IMvpView, P extends Presenter<V>>
 
     @Override
     public void onPause() {
-
+        // 关联Activity的生命周期
     }
 
     @Override
     public void onResume() {
-
+        // 关联Activity的生命周期
     }
 
     @Override
     public void onStart() {
-
+        // 关联Activity的生命周期
     }
 
     @Override
     public void onStop() {
-
+        // 关联Activity的生命周期
     }
 
     @Override
     public void onRestart() {
-
+        // 关联Activity的生命周期
     }
 
     @Override
     public void onContentChanged() {
-
+        // 关联Activity的生命周期
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
+        // 关联Activity的生命周期
     }
 
     @Override
     public void onPostCreate(Bundle savedInstanceState) {
-
+        // 关联Activity的生命周期
     }
 }

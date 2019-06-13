@@ -118,8 +118,10 @@ public class RoundImageView extends ImageView {
         // 为了防止宽高不相等，造成圆形图片变形，因此截取长方形中处于中间位置最大的正方形图片
         int bmpWidth = bmp.getWidth();
         int bmpHeight = bmp.getHeight();
-        int squareWidth = 0, squareHeight = 0;
-        int x = 0, y = 0;
+        int squareWidth = 0;
+        int squareHeight = 0;
+        int x = 0;
+        int y = 0;
         Bitmap squareBitmap;
         if (bmpHeight > bmpWidth) {// 高大于宽
             squareWidth = squareHeight = bmpWidth;
@@ -164,12 +166,9 @@ public class RoundImageView extends ImageView {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(scaledSrcBmp, rect, rect, paint);
         // bitmap回收(recycle导致在布局文件XML看不到效果)
-        // bmp.recycle();
-        // squareBitmap.recycle();
-        // scaledSrcBmp.recycle();
-        bmp = null;
-        squareBitmap = null;
-        scaledSrcBmp = null;
+         bmp.recycle();
+         squareBitmap.recycle();
+         scaledSrcBmp.recycle();
         return output;
     }
 

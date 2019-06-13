@@ -1,4 +1,4 @@
-package com.mvpframe.view.linearLayout;
+package com.mvpframe.view.linearlayout;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,20 +23,20 @@ public class StatusBarHeightView extends LinearLayout {
 
     public StatusBarHeightView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        init(context);
     }
 
     public StatusBarHeightView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context);
     }
 
     public StatusBarHeightView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context);
     }
 
-    private void init(Context context, @Nullable AttributeSet attrs) {
+    private void init(Context context) {
 
         activity = (Activity) context;
 

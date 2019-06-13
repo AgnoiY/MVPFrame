@@ -40,8 +40,6 @@ public class RefreshHelper<T> {
 
     private int mPageIndex; //分页下标
 
-    private int mPages = 1;//分页的总页数
-
     private List<T> mDataList;//数据
 
     private Context mContext;
@@ -60,17 +58,6 @@ public class RefreshHelper<T> {
      */
     public int getPageIndex() {
         return mPageIndex;
-    }
-
-    /**
-     * 总的页数
-     *
-     * @param mPages
-     * @return
-     */
-    public RefreshHelper<T> setPages(int mPages) {
-        this.mPages = mPages;
-        return this;
     }
 
     /**
@@ -266,7 +253,7 @@ public class RefreshHelper<T> {
         mRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) { //刷新
-                onMRefresh(1, mLimit);
+                onRefreshLoadMore(1, mLimit);
 
             }
 
@@ -275,7 +262,7 @@ public class RefreshHelper<T> {
                 if (!mDataList.isEmpty()) {
                     mPageIndex++;
                 }
-                onMLoadMore(mPageIndex, mLimit);
+                onRefreshLoadMore(mPageIndex, mLimit);
             }
         });
     }
@@ -306,27 +293,12 @@ public class RefreshHelper<T> {
     }
 
     /**
-     * 刷新
-     *
-     * @param pageindex
-     * @param limit
-     */
-    private void onMRefresh(int pageindex, int limit) {
-        mPageIndex = pageindex;
-        mLimit = limit;
-        if (mRefreshInterface != null) {
-            mRefreshInterface.getListDataRequest(true, tag, pageindex, limit);
-        }
-
-    }
-
-    /**
-     * 加载更多
+     * 刷新/加载更多
      *
      * @param pageIndex
      * @param limit
      */
-    private void onMLoadMore(int pageIndex, int limit) {
+    private void onRefreshLoadMore(int pageIndex, int limit) {
         mPageIndex = pageIndex;
         mLimit = limit;
         if (mRefreshInterface != null) {

@@ -37,7 +37,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
 
     private Context context;
     private Activity activity;
-    private String TAG;
+    private String tag;
     private CompositeDisposable disposable;
 
 
@@ -45,7 +45,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
         SoftReference sofr = new SoftReference(o);
         this.context = (Context) sofr.get();
         this.activity = (Activity) sofr.get();
-        this.TAG = sofr.get().getClass().getSimpleName();
+        this.tag = sofr.get().getClass().getSimpleName();
         this.disposable = disposable;
     }
 
@@ -104,7 +104,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
     public void onEventMainThread(BaseEventModel eventModel) {
         if (eventModel.getList() != null)
             for (Object nameClass : eventModel.getList()) {
-                if (TAG.equals(nameClass))
+                if (tag.equals(nameClass))
                     activity.finish();
             }
     }
@@ -148,11 +148,8 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
             disposable.add(Observable.timer((long) delay[0], TimeUnit.SECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(aLong -> {
-                        ((BaseActivity) activity).nextStep(aLong, delay);
-                    }, throwable -> {
-                        LogUtil.w(TAG, throwable);
-                    }));
+                    .subscribe(aLong -> ((BaseActivity) activity).nextStep(aLong, delay),
+                            throwable -> LogUtil.w(tag, throwable)));
         } else {
             log("延迟的时间为Null");
         }
@@ -168,26 +165,26 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
         if (msg.length > 1) {
             switch ((String) msg[1]) {
                 case "e":
-                    LogUtil.e(TAG, msg[0]);
+                    LogUtil.e(tag, msg[0]);
                     break;
                 case "i":
-                    LogUtil.i(TAG, msg[0]);
+                    LogUtil.i(tag, msg[0]);
                     break;
                 case "d":
-                    LogUtil.d(TAG, msg[0]);
+                    LogUtil.d(tag, msg[0]);
                     break;
                 case "w":
                     if (msg.length > 2)
-                        LogUtil.w(TAG, msg[2], (Throwable) msg[0]);
+                        LogUtil.w(tag, msg[2], (Throwable) msg[0]);
                     else
-                        LogUtil.w(TAG, (Throwable) msg[0]);
+                        LogUtil.w(tag, (Throwable) msg[0]);
                     break;
                 default:
-                    LogUtil.d(TAG, msg[0]);
+                    LogUtil.d(tag, msg[0]);
                     break;
             }
         } else if (msg.length == 1) {
-            LogUtil.d(TAG, msg[0]);
+            LogUtil.d(tag, msg[0]);
         }
 
     }
@@ -229,8 +226,8 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
     @Override
     public void setResultOk(Bundle bundle) {
         Intent intent = new Intent();
-        if (bundle != null) ;
-        intent.putExtras(bundle);
+        if (bundle != null)
+            intent.putExtras(bundle);
         activity.setResult(activity.RESULT_OK, intent);
         activity.finish();
     }

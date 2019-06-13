@@ -18,6 +18,7 @@ import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
+import com.mvpframe.util.GeneralUtils;
 import com.mvpframe.util.NetUtils;
 import com.mvpframe.util.ToastUtil;
 import com.mvpframe.util.Tools;
@@ -177,7 +178,6 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         mBaseBinding.titleView.setRightTitleColor(R.color.text_three);
         mBaseBinding.titleView.setMidTitleColor(R.color.text_three);
         mBaseBinding.titleView.setLeftImg(R.mipmap.back_black);
-//        mBaseBinding.titleView.setLeftTitle(getString(R.string.back));
     }
 
     /**
@@ -277,9 +277,18 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         return initRefreshHelper(refreshLayout, recyclerView, 0);
     }
 
+    /**
+     * 配合DataBinding点击事件监听
+     * 添加防止重复点击
+     * 有点击事件只需重写
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
-        super.onClick(v);
+
+        if (GeneralUtils.isDoubleClick()) return;
+
         switch (v.getId()) {
             case R.id.fram_img_back:
                 onTopTitleLeftClickListener();

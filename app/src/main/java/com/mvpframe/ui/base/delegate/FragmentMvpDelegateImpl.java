@@ -72,6 +72,7 @@ public class FragmentMvpDelegateImpl<V extends IMvpView, P extends Presenter<V>>
 
     @Override
     public void onCreate(Bundle saved) {
+        // 关联Fragment的生命周期
     }
 
     @Override
@@ -82,11 +83,9 @@ public class FragmentMvpDelegateImpl<V extends IMvpView, P extends Presenter<V>>
             P presenter;
             for (int i = 0; i < pArray.length; i++) {
                 presenter = pArray[i];
-                if (presenter != null) {
-                    if (!retainVPInstance(activity, fragment)) {
-                        //销毁 V & P 实例
-                        presenter.destroy();
-                    }
+                if (presenter != null && !retainVPInstance(activity, fragment)) {
+                    //销毁 V & P 实例
+                    presenter.destroy();
                 }
             }
         }
@@ -128,40 +127,41 @@ public class FragmentMvpDelegateImpl<V extends IMvpView, P extends Presenter<V>>
 
     @Override
     public void onPause() {
-
+        // 关联Fragment的生命周期
     }
 
     @Override
     public void onResume() {
-
+        // 关联Fragment的生命周期
     }
 
     @Override
     public void onStart() {
-
+        // 关联Fragment的生命周期
     }
 
     @Override
     public void onStop() {
-
+        // 关联Fragment的生命周期
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-
+        // 关联Fragment的生命周期
     }
 
     @Override
     public void onAttach(Activity activity) {
+        // 关联Fragment的生命周期
     }
 
     @Override
     public void onDetach() {
-
+        // 关联Fragment的生命周期
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
+        // 关联Fragment的生命周期
     }
 }

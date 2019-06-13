@@ -1,4 +1,4 @@
-package com.mvpframe.view.frameLayout;
+package com.mvpframe.view.framelayout;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
