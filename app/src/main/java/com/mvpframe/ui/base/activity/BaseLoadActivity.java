@@ -2,11 +2,9 @@ package com.mvpframe.ui.base.activity;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,6 +17,7 @@ import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
 import com.mvpframe.util.GeneralUtils;
+import com.mvpframe.util.HandlerUtils;
 import com.mvpframe.util.NetUtils;
 import com.mvpframe.util.ToastUtil;
 import com.mvpframe.util.Tools;
@@ -46,7 +45,9 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
 
     protected B mLoadBinding;
 
-    protected List<RefreshHelper> listRefreshHelper;
+    private List<RefreshHelper> listRefreshHelper;
+
+    protected HandlerUtils mHandlers;
 
     /**
      * 布局文件xml的resId,无需添加标题栏、加载、错误及空页面
@@ -59,10 +60,10 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
 
         initTitleView();
 
-        initNotify(this);
+        initNotify();
     }
 
-    public void initNotify(Context context) {
+    public void initNotify() {
 
     }
 
@@ -246,11 +247,6 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         log("权限申请成功", LOG_D);
     }
 
-    @Override
-    public void handleMessage(Message msg, Object tag) {
-
-    }
-
     /**
      * 初始化刷新相关
      *
@@ -264,6 +260,16 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         if (Tools.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
         listRefreshHelper.add(helper);
         return helper;
+    }
+
+    /**
+     * 创建Handler
+     *
+     * @return
+     */
+    protected HandlerUtils initHandler() {
+        mHandlers = new HandlerUtils(mActivity);
+        return mHandlers;
     }
 
     /**
@@ -307,6 +313,10 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if (mHandlers != null) {
+            mHandlers.clearHandler();
+        }
         if (Tools.isNotNullOrZeroSize(listRefreshHelper)) {
             for (int i = 0; i < listRefreshHelper.size(); i++) {
                 if (listRefreshHelper.get(i) != null) {

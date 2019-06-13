@@ -1,7 +1,6 @@
 package com.mvpframe.ui.base.interfaces;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -67,14 +66,6 @@ public interface CreateInit<V extends IMvpView, P extends Presenter> extends Bas
      * @param l
      */
     void nextStep(Long l, Object... delay);
-
-    /**
-     * 发送的Handler消息
-     *
-     * @param msg
-     * @param tag
-     */
-    void handleMessage(Message msg, Object tag);
 
 }
 

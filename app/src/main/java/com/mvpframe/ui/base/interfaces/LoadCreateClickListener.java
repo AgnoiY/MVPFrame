@@ -1,7 +1,5 @@
 package com.mvpframe.ui.base.interfaces;
 
-import android.content.Context;
-
 /**
  * <功能详细描述>
  * <p>
@@ -13,10 +11,8 @@ public interface LoadCreateClickListener {
 
     /**
      * 初始化操作
-     *
-     * @param context
      */
-    void initNotify(Context context);
+    void initNotify();
 
     /**
      * 标题返回点击事件监听

@@ -3,23 +3,20 @@ package com.mvpframe.ui.base.fragment;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
-import com.mvpframe.ui.base.activity.BaseHandlerActivity;
-import com.mvpframe.ui.base.activity.BaseHandlerActivity.BaseHandler;
 import com.mvpframe.ui.base.interfaces.LazyCreateInit;
+import com.mvpframe.util.HandlerUtils;
 import com.mvpframe.util.Tools;
 import com.mvpframe.view.recyclerview.RefreshHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mvpframe.constant.Constants.LOG_D;
 import static com.mvpframe.constant.Constants.LOG_E;
 import static com.mvpframe.constant.Constants.LOG_I;
 
@@ -39,6 +36,8 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
 
     protected Bundle mBundle;
 
+    protected HandlerUtils mHandlers;
+
     /**
      * Fragment第一次加载
      */
@@ -47,8 +46,6 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      * Fragment第一次加载数据
      */
     private boolean isStartFragmenData = false;
-
-    protected BaseHandler mHandler;
 
     @Override
     public View initView(LayoutInflater inflater) {
@@ -66,7 +63,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             isStartFragmen = true;
-            if (isStartFragmen && isStartFragmenData) {
+            if (isStartFragmenData) {
                 isStartFragmenData = false;
                 getBundle();
             }
@@ -158,16 +155,13 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
     }
 
     /**
-     * 创建 Handler
+     * 创建Handler
+     *
+     * @return
      */
-    protected BaseHandler createHandler() {
-        mHandler = ((BaseHandlerActivity) mActivity).createHandler(this);
-        return mHandler;
-    }
-
-    @Override
-    public void handleMessage(Message msg, Object tag) {
-        log("BaseHandler:" + tag, LOG_D);
+    protected HandlerUtils initHandler() {
+        mHandlers = new HandlerUtils(this);
+        return mHandlers;
     }
 
     @Override
@@ -190,9 +184,8 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mHandler != null) {
-            mHandler.removeCallbacksAndMessages(null);
-            mHandler = null;
+        if (mHandlers != null) {
+            mHandlers.clearHandler();
         }
     }
 }

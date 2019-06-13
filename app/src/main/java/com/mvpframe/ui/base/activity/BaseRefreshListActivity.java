@@ -1,7 +1,5 @@
 package com.mvpframe.ui.base.activity;
 
-import android.content.Context;
-
 import com.mvpframe.R;
 import com.mvpframe.databinding.LayoutRecyclerRefreshBinding;
 import com.mvpframe.view.recyclerview.RecyclerInterface;
@@ -34,8 +32,8 @@ public abstract class BaseRefreshListActivity<T> extends BaseLoadActivity<T, Lay
 
 
     @Override
-    public void initNotify(Context context) {
-        super.initNotify(context);
+    public void initNotify() {
+        super.initNotify();
         initRefreshHelper(setLimit());
     }
 

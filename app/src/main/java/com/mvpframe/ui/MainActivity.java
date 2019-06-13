@@ -38,7 +38,7 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
     @Override
     public void onSuccess(String action, Object data) {
         super.onSuccess(action, data);
-        SharedPrefManager.getUser().put(SharedPrefUser.USER_TOKEN,((LoginModel) data).getToken());
+        SharedPrefManager.getUser().put(SharedPrefUser.USER_TOKEN, ((LoginModel) data).getToken());
         mLoadBinding.text.setText(SharedPrefManager.getUser().getString(SharedPrefUser.USER_TOKEN, ""));
         mLoadBinding.text1.setText(((LoginModel) data).getToken());
         mLoadBinding.bt.setText(action);
@@ -72,8 +72,8 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        if (v.getId() == R.id.bt){
-            startActivity(LoginActivity.class,null);
+        if (v.getId() == R.id.bt) {
+            startActivity(LoginActivity.class, null);
         }
     }
 
