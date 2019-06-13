@@ -32,14 +32,6 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.view.guide.LoadResActivity"
-            android:alwaysRetainTaskState="false"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:process=":mini"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".ui.WelcomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">

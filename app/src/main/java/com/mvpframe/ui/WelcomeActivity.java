@@ -84,9 +84,6 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
      * 跳转到主界面或引导页
      */
     private void skipLoadMain() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && App.getApp().needWait(this)) {
-//            startActivity(LoadResActivity.class, null);
-//        } else
         startActivity(MainActivity.class, null);
 
         finish();

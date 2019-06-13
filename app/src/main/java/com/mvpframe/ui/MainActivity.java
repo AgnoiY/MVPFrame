@@ -86,7 +86,7 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
      */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        //
     }
 
     /**
@@ -96,7 +96,7 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
      */
     @Override
     public void onPageSelected(int position) {
-
+        //
     }
 
     /**
@@ -106,6 +106,6 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
      */
     @Override
     public void onPageScrollStateChanged(int state) {
-
+        //
     }
 }
