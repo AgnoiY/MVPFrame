@@ -485,7 +485,9 @@ public class RetrofitHttp {
             if (this.parameter == null) {
                 this.parameter = new TreeMap<>();
             }
-            this.parameter.put(key, parameter);
+            if (parameter != null) {
+                this.parameter.put(key, parameter);
+            }
             return this;
         }
 
