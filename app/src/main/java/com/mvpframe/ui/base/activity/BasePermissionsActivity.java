@@ -14,12 +14,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.mvpframe.R;
-import com.mvpframe.view.dialog.BaseDialogClickListenter;
 import com.mvpframe.view.dialog.CommonDialog;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+
+import static com.mvpframe.constant.Constants.LOG_W;
 
 /**
  * 动态权限的申请
@@ -32,14 +31,14 @@ public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> exte
     private int settingCode = 321;
     private int permissionsCode = 123;
     // 要申请的权限
-    private List<String> permissionsList;
+    private String[] permissions;
 
     private void initPermissions() {
         // 版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // 检查该权限是否已经获取
-            for (int i = 0; i < permissionsList.size(); i++) {
-                int pId = ContextCompat.checkSelfPermission(this, permissionsList.get(i));
+            for (int i = 0; i < permissions.length; i++) {
+                int pId = ContextCompat.checkSelfPermission(this, permissions[i]);
                 // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                 if (pId != PackageManager.PERMISSION_GRANTED) {
                     // 如果没有授予该权限，就去提示用户请求
@@ -57,8 +56,8 @@ public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> exte
      * 开始提交请求权限
      */
     private void startRequestPermission() {
-        if (!permissionsList.isEmpty())
-            ActivityCompat.requestPermissions(this, permissionsList.toArray(new String[0]), permissionsCode);
+        if (permissions.length > 0)
+            ActivityCompat.requestPermissions(this, permissions, permissionsCode);
         else
             initPermissionSuccess();
     }
@@ -74,20 +73,18 @@ public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> exte
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == this.permissionsCode) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                for (int i = 0; i < permissions.length; i++) {
-                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                        // 判断用户是否 点击了不再提醒。(检测该权限是否还可以申请)
-                        boolean b = shouldShowRequestPermissionRationale(permissions[i]);
-                        if (!b) {
-                            // 提示用户去应用设置界面手动开启权限
-                            showDialogTipUserGoToAppSettting();
-                        }
-
-                    } else {
-                        initPermissionSuccess();
+        if (requestCode == this.permissionsCode && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                    // 判断用户是否 点击了不再提醒。(检测该权限是否还可以申请)
+                    boolean b = shouldShowRequestPermissionRationale(permissions[i]);
+                    if (!b) {
+                        // 提示用户去应用设置界面手动开启权限
+                        showDialogTipUserGoToAppSettting();
                     }
+
+                } else {
+                    initPermissionSuccess();
                 }
             }
         }
@@ -101,13 +98,7 @@ public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> exte
                 .setContentMsg("请在应用设置中开启权限")
                 .setButtonOk(getString(R.string.permissions_open))
                 .shows(this)
-                .setClickListenter(new BaseDialogClickListenter() {
-                    @Override
-                    public void dialogTipsOk() {
-                        // 跳转到应用设置界面
-                        goToAppSetting();
-                    }
-                });
+                .setClickListenter(this::goToAppSetting);// 跳转到应用设置界面
     }
 
     // 跳转到当前应用的设置界面
@@ -124,19 +115,17 @@ public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> exte
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == settingCode) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                for (int i = 0; i < permissionsList.size(); i++) {
-                    // 检查该权限是否已经获取
-                    int pId = ContextCompat.checkSelfPermission(this, permissionsList.get(i));
-                    // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-                    if (pId != PackageManager.PERMISSION_GRANTED) {
-                        // 提示用户应该去应用设置界面手动开启权限
-                        showToast("权限未开启");
-                    } else {
-                        initPermissionSuccess();
-                    }
+        if (requestCode == settingCode && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            for (int i = 0; i < permissions.length; i++) {
+                // 检查该权限是否已经获取
+                int pId = ContextCompat.checkSelfPermission(this, permissions[i]);
+                // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+                if (pId != PackageManager.PERMISSION_GRANTED) {
+                    // 提示用户应该去应用设置界面手动开启权限
+                    showToast("权限未开启");
+                } else {
+                    initPermissionSuccess();
                 }
             }
         }
@@ -148,63 +137,42 @@ public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> exte
      * @param context
      * @return
      */
-    public List<String> getNoGrantedPermission(Context context) {
-        PackageInfo pi = null;
+    public String[] getNoGrantedPermission(Context context) {
+        PackageInfo pi;
         PackageManager packageManager = context.getPackageManager();
         try {
             pi = packageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            return Collections.emptyList();
+            return Collections.emptyList().toArray(new String[]{});
         }
-        List<String> permissions = new ArrayList<>();
+
+        String[] pms = {};
         for (int i = 0; i < pi.requestedPermissions.length; i++) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                if ((pi.requestedPermissionsFlags[i] & PackageInfo.REQUESTED_PERMISSION_GRANTED) == 0) {
-                    try {
-                        PermissionInfo permissionInfo = packageManager.getPermissionInfo(pi.requestedPermissions[i], PackageManager.GET_META_DATA);
-                        if (permissionInfo.protectionLevel != PermissionInfo.PROTECTION_DANGEROUS) {
-                            continue;
-                        }
-                    } catch (PackageManager.NameNotFoundException e) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && (pi.requestedPermissionsFlags[i] & PackageInfo.REQUESTED_PERMISSION_GRANTED) == 0) {
+                try {
+                    PermissionInfo permissionInfo = packageManager.getPermissionInfo(pi.requestedPermissions[i], PackageManager.GET_META_DATA);
+                    if (permissionInfo.protectionLevel != PermissionInfo.PROTECTION_DANGEROUS) {
                         continue;
                     }
-
-                    permissions.add(pi.requestedPermissions[i]);
+                } catch (PackageManager.NameNotFoundException e) {
+                    log(e, LOG_W);
                 }
+                pms[i] = pi.requestedPermissions[i];
             }
+
         }
-        return permissions;
+        return pms;
     }
 
 
     /**
      * 开启权限申请
      *
-     * @param permissionslList
+     * @param permissions
      */
-    public void setPermissions(@NonNull List<String> permissionslList) {
-        this.permissionsList = permissionslList;
-        initPermissions();
-    }
-
-    /**
-     * 开启权限申请
-     *
-     * @param permissionsl
-     */
-    public void setPermissions(@NonNull String permissionsl) {
-        if (permissionsList == null) {
-            permissionsList = new ArrayList<>();
-        }
-
-        for (String s : permissionsList) {
-            if (s.equals(permissionsl)) {
-                permissionsList.remove(s);
-                break;
-            }
-        }
-        permissionsList.add(permissionsl);
+    public void setPermissions(@NonNull String... permissions) {
+        this.permissions = permissions;
         initPermissions();
     }
 }
