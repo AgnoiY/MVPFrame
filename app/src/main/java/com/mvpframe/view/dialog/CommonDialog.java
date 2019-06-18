@@ -29,6 +29,7 @@ public class CommonDialog extends BaseFragmentDialog<DialogTipsBinding> implemen
     private String noMsg;
     private String amongMsg;
     private String okMsg;
+    private boolean isConfirmDismiss = true;
 
     @Override
     public int getLayoutId() {
@@ -139,6 +140,17 @@ public class CommonDialog extends BaseFragmentDialog<DialogTipsBinding> implemen
     }
 
     /**
+     * 确认后是否关闭Dialog--默认true：关闭
+     *
+     * @param isConfirmDismiss
+     * @return
+     */
+    public CommonDialog setConfirmDismiss(boolean isConfirmDismiss) {
+        this.isConfirmDismiss = isConfirmDismiss;
+        return this;
+    }
+
+    /**
      * 显示Dialog
      *
      * @param o
@@ -164,12 +176,14 @@ public class CommonDialog extends BaseFragmentDialog<DialogTipsBinding> implemen
                 dismiss();
                 break;
             case R.id.dialog_tips_among:
-                dismiss();
+                if (isConfirmDismiss)
+                    dismiss();
                 if (mInterfaceAmong != null)
                     mInterfaceAmong.dialogTipsAmong();
                 break;
             case R.id.dialog_tips_ok:
-                dismiss();
+                if (isConfirmDismiss)
+                    dismiss();
                 if (mInterfaceAmong != null)
                     mInterfaceAmong.dialogTipsOk();
                 if (mInterface != null)
