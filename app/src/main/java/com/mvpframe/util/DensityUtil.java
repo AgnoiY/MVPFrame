@@ -1,6 +1,5 @@
 package com.mvpframe.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
@@ -19,7 +18,7 @@ public class DensityUtil {
 
     private static final String TAG = "DensityUtil";
 
-    DensityUtil(){
+    DensityUtil() {
         throw new IllegalStateException("DensityUtil class");
     }
 
@@ -75,24 +74,26 @@ public class DensityUtil {
     /**
      * <获取屏幕像素x>
      *
-     * @param activity
+     * @param context
      * @return
      */
-    public static int getXScreenpx(Activity activity) {
+    public static int getXScreenpx(Context context) {
         DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        WindowManager w = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        w.getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
     }
 
     /**
      * <获取屏幕像素y>
      *
-     * @param activity
+     * @param context
      * @return
      */
-    public static int getYScreenpx(Activity activity) {
+    public static int getYScreenpx(Context context) {
         DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        WindowManager w = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        w.getDefaultDisplay().getMetrics(dm);
         return dm.heightPixels;
     }
 

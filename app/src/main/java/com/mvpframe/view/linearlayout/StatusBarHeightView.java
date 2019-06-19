@@ -18,8 +18,8 @@ import com.mvpframe.util.DensityUtil;
 
 public class StatusBarHeightView extends LinearLayout {
 
-    private Activity activity;
-    private int statusBarHeight;
+    private Context mContext;
+    private int mStatusBarHeight;
 
     public StatusBarHeightView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -38,26 +38,26 @@ public class StatusBarHeightView extends LinearLayout {
 
     private void init(Context context) {
 
-        activity = (Activity) context;
+        mContext = context;
 
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (resourceId > 0) {
-                statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+                mStatusBarHeight = getResources().getDimensionPixelSize(resourceId);
             }
         } else {
             //低版本 直接设置0
-            statusBarHeight = 0;
+            mStatusBarHeight = 0;
         }
 
-        setPadding(getPaddingLeft(), statusBarHeight, getPaddingRight(), getPaddingBottom());
+        setPadding(getPaddingLeft(), mStatusBarHeight, getPaddingRight(), getPaddingBottom());
 
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
-        if (getHeight() != DensityUtil.getYScreenpx(activity) && getHeight() == DensityUtil.getScreenSize(activity)[1]) {
+        if (getHeight() != DensityUtil.getYScreenpx(mContext) && getHeight() == DensityUtil.getScreenSize(mContext)[1]) {
             setPadding(getPaddingLeft(), 0, getPaddingRight(), getPaddingBottom());
         }
     }

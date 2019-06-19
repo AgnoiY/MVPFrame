@@ -56,10 +56,10 @@ public class RoundImageView extends ImageView {
         TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.RoundImageView);
         //边界的宽度
         mBorderThickness = a.getDimensionPixelSize(
-                R.styleable.RoundImageView_border_thickness, 0);
+                R.styleable.RoundImageView_borderThickness, 0);
         //内边界的颜色
         mBorderInsideColor = a.getColor(
-                R.styleable.RoundImageView_border_inside_color, defaultColor);
+                R.styleable.RoundImageView_borderInsideColor, defaultColor);
     }
 
     @Override
@@ -166,9 +166,9 @@ public class RoundImageView extends ImageView {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(scaledSrcBmp, rect, rect, paint);
         // bitmap回收(recycle导致在布局文件XML看不到效果)
-         bmp.recycle();
-         squareBitmap.recycle();
-         scaledSrcBmp.recycle();
+        bmp.recycle();
+        squareBitmap.recycle();
+        scaledSrcBmp.recycle();
         return output;
     }
 

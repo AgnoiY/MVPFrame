@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:maxLines="5"
             android:text="Hello World!"
-            android:textColor="#000000" />
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/text1"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:maxLines="5"
             android:text="Hello World!1"
-            android:textColor="#000000" />
+            android:textColor="@color/colorPrimary" />
 
         <com.mvpframe.view.textview.ButtonTextView
             android:id="@+id/bt"
@@ -40,8 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher"
-            app:border_inside_color="#50c0e9"
-            app:border_thickness="3dp" />
+            app:borderInsideColor="@color/colorPrimary"
+            app:borderThickness="3dp" />
 
     </LinearLayout>
 

@@ -71,9 +71,9 @@
     <!-- 圆形边框的ImageView -->
     <declare-styleable name="RoundImageView">
         <!--设置边框的宽度-->
-        <attr name="border_thickness" format="dimension" />
+        <attr name="borderThickness" format="dimension" />
         <!--设置外边框的颜色-->
-        <attr name="border_inside_color" format="color" />
+        <attr name="borderInsideColor" format="color" />
     </declare-styleable>
 
     <!--带边框的TextView-->
