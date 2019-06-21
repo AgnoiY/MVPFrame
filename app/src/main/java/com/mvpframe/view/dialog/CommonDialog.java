@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.mvpframe.R;
 import com.mvpframe.databinding.DialogBaseCommonBinding;
@@ -173,16 +174,7 @@ public class CommonDialog<B extends ViewDataBinding> implements BaseInterface, V
      * @return
      */
     public CommonDialog setTitle(Object title) {
-
-        setTitleVisibility(Tools.isNotNull(title));
-
-        if (title instanceof String) {
-            mCommonBing.dialogCommonTitle.setText((String) title);
-        } else if (title instanceof Integer) {
-            mCommonBing.dialogCommonTitle.setText((Integer) title);
-        } else {
-            mCommonBing.dialogCommonTitle.setVisibility(View.GONE);
-        }
+        setTitleVisibility(setText(mCommonBing.dialogCommonTitle, title));
         return this;
     }
 
@@ -204,16 +196,7 @@ public class CommonDialog<B extends ViewDataBinding> implements BaseInterface, V
      * @return
      */
     public CommonDialog setContent(Object content) {
-
-        setContentVisibility(Tools.isNotNull(content));
-
-        if (content instanceof String) {
-            mCommonBing.dialogCommonContentTv.setText((String) content);
-        } else if (content instanceof Integer) {
-            mCommonBing.dialogCommonContentTv.setText((Integer) content);
-        } else {
-            mCommonBing.dialogCommonContentTv.setVisibility(View.GONE);
-        }
+        setContentVisibility(setText(mCommonBing.dialogCommonContentTv, content));
         return this;
     }
 
@@ -348,19 +331,43 @@ public class CommonDialog<B extends ViewDataBinding> implements BaseInterface, V
     }
 
     /**
-     * 设置确定按钮
+     * 设置取消按钮文字
+     *
+     * @param noText
+     * @return
+     */
+    public CommonDialog setNoText(Object noText) {
+        setNoButtonVisibility(setText(mCommonBing.dialogCommonNo, noText));
+        return this;
+    }
+
+    /**
+     * 设置确定按钮文字
      *
      * @param okText
      * @return
      */
     public CommonDialog setOkText(Object okText) {
-
-        if (okText instanceof String) {
-            mCommonBing.dialogCommonOk.setText((String) okText);
-        } else if (okText instanceof Integer) {
-            mCommonBing.dialogCommonOk.setText((Integer) okText);
-        }
+        setText(mCommonBing.dialogCommonOk, okText);
         return this;
+    }
+
+    /**
+     * 设置TextView
+     *
+     * @param textView
+     * @param text
+     * @return
+     */
+    private boolean setText(TextView textView, Object text) {
+        if (text instanceof String && Tools.isNotNullOrZeroLenght((String) text)) {
+            textView.setText((String) text);
+        } else if (text instanceof Integer) {
+            textView.setText((Integer) text);
+        } else {
+            return false;
+        }
+        return true;
     }
 
     /**
