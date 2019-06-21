@@ -32,10 +32,9 @@ public final class ToastUtil {
     public static void makeTextShort(Context context, String msg) {
         if (App.getCurrentActivityName().equals(context.getClass().getName())) {
             if (toast == null) {
-                toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
-            } else {
-                toast.setText(msg);
+                toast = Toast.makeText(context, null, Toast.LENGTH_SHORT);
             }
+            toast.setText(msg);
             toast.show();
         }
     }
@@ -50,10 +49,9 @@ public final class ToastUtil {
     public static void makeTextLong(Context context, String msg) {
         if (App.getCurrentActivityName().equals(context.getClass().getName())) {
             if (toast == null) {
-                toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
-            } else {
-                toast.setText(msg);
+                toast = Toast.makeText(context, null, Toast.LENGTH_LONG);
             }
+            toast.setText(msg);
             toast.show();
         }
     }
@@ -67,19 +65,20 @@ public final class ToastUtil {
     public static void makeCenterToast(Context context, String msg) {
         if (App.getCurrentActivityName().equals(context.getClass().getName())) {
             if (toast == null) {
-                toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
+                toast = Toast.makeText(context, null, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 LinearLayout layout = (LinearLayout) toast.getView();
                 layout.setBackgroundResource(R.drawable.toast_bg);
-            } else {
-                toast.setText(msg);
-                toast.setDuration(Toast.LENGTH_LONG);
             }
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setText(msg);
             toast.show();
         }
     }
 
-
+    /**
+     * 清空Toast
+     */
     public static void destory() {
         if (toast != null)
             toast.cancel();
