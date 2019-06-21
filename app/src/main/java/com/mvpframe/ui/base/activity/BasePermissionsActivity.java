@@ -94,11 +94,11 @@ public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> exte
      * 提示用户去应用设置界面手动开启权限
      */
     private void showDialogTipUserGoToAppSettting() {
-        new CommonDialog().setTitleMsg("权限已禁用")
-                .setContentMsg("请在应用设置中开启权限")
-                .setButtonOk(getString(R.string.permissions_open))
-                .shows(this)
-                .setClickListenter(this::goToAppSetting);// 跳转到应用设置界面
+        new CommonDialog(mContext).setTitle("权限已禁用")
+                .setContent("请在应用设置中开启权限")
+                .setOkText(getString(R.string.permissions_open))
+                .setClickListenter(msg -> goToAppSetting())// 跳转到应用设置界面
+                .shows();
     }
 
     // 跳转到当前应用的设置界面

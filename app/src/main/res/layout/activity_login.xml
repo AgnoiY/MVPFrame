@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         tools:context=".ui.view.account.activity.LoginActivity">
 
-    </android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/dialog_common_content_et1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_45"
+            android:layout_marginLeft="@dimen/left_distance_16"
+            android:layout_marginTop="@dimen/top_distance_15"
+            android:layout_marginRight="@dimen/right_distance_16"
+            android:background="@drawable/dialog_et_white_bg"
+            android:maxLines="1"
+            android:textColor="@color/text_three"
+            android:textColorHint="@color/text_six"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_14" />
+
+        <EditText
+            android:id="@+id/dialog_common_content_et2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_45"
+            android:layout_marginLeft="@dimen/left_distance_16"
+            android:layout_marginTop="@dimen/top_distance_15"
+            android:layout_marginRight="@dimen/right_distance_16"
+            android:background="@drawable/dialog_et_white_bg"
+            android:maxLines="1"
+            android:textColor="@color/text_three"
+            android:textColorHint="@color/text_six"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_14" />
+
+    </LinearLayout>
 </layout>

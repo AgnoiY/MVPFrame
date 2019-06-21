@@ -2,15 +2,20 @@
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="distance_48">48dp</dimen>
+    <dimen name="distance_45">45dp</dimen>
 
     <!-- 字体大小 -->
     <dimen name="text_14">14sp</dimen>
     <dimen name="text_16">16sp</dimen>
+    <dimen name="text_18">18sp</dimen>
     <dimen name="text_20">20sp</dimen>
 
     <!-- 距左侧边距 -->
+    <dimen name="left_distance_16">16dp</dimen>
 
     <!-- 距上侧边距 -->
+    <dimen name="top_distance_5">5dp</dimen>
+    <dimen name="top_distance_10">10dp</dimen>
     <dimen name="top_distance_15">15dp</dimen>
     <dimen name="top_distance_20">20dp</dimen>
 
@@ -18,12 +23,17 @@
     <dimen name="right_distance_16">16dp</dimen>
 
     <!-- 距下侧边距 -->
+    <dimen name="bottom_distance_5">5dp</dimen>
+    <dimen name="bottom_distance_10">10dp</dimen>
+    <dimen name="bottom_distance_15">15dp</dimen>
+    <dimen name="bottom_distance_20">20dp</dimen>
 
     <!-- 圆角 -->
     <dimen name="radius_5">5dp</dimen>
     <dimen name="radius_8">8dp</dimen>
 
     <!-- 边框线宽 -->
+    <dimen name="width_distance_1">1dp</dimen>
 
     <!-- dialog -->
     <dimen name="dialog_tips_corner">16dp</dimen>

@@ -157,6 +157,9 @@
     public <init>(android.content.Context, android.util.AttributeSet, int);
 }
 
+#反射相关的类和方法
+-keep class com.mvpframe.bean.**{*;}
+
 #
 #----------------------------- WebView -----------------------------
 #

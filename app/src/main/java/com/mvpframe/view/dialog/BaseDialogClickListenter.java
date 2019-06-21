@@ -8,16 +8,8 @@ package com.mvpframe.view.dialog;
  * @author yong
  */
 public interface BaseDialogClickListenter {
-
-    interface Among extends BaseDialogClickListenter {
-        /**
-         * 中间的按钮
-         */
-        void dialogTipsAmong();
-    }
-
     /**
      * 确定按钮
      */
-    void dialogTipsOk();
+    void dialogComonOk(String... msg);
 }

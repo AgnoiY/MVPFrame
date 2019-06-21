@@ -18,6 +18,7 @@
     <!-- Dialog -->
     <string name="dialog_no">取消</string>
     <string name="dialog_ok">确定</string>
+    <string name="dialog_not_null">内容不能为空</string>
 
     <!-- 引导页 -->
     <string name="guide_skip">进入</string>

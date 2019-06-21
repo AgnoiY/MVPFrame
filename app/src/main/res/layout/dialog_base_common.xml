@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_white_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_common_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/top_distance_15"
+            android:gravity="center_horizontal"
+            android:textColor="@color/text_three"
+            android:textSize="@dimen/text_18"
+            tools:text="销售经理" />
+
+        <TextView
+            android:id="@+id/dialog_common_content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/top_distance_15"
+            android:gravity="center_horizontal"
+            android:textColor="@color/text_six"
+            android:textSize="@dimen/text_16"
+            android:visibility="gone"
+            tools:text="马化腾" />
+
+        <FrameLayout
+            android:id="@+id/dialog_common_add_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_distance_15"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/dialog_common_content_et"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_45"
+            android:layout_marginLeft="@dimen/left_distance_16"
+            android:layout_marginTop="@dimen/top_distance_15"
+            android:layout_marginRight="@dimen/right_distance_16"
+            android:background="@drawable/dialog_et_white_bg"
+            android:maxLines="1"
+            android:textColor="@color/text_three"
+            android:textColorHint="@color/text_six"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_14"
+            android:visibility="gone" />
+
+        <View
+            style="@style/style_split_line"
+            android:layout_marginTop="@dimen/top_distance_15" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.mvpframe.view.textview.ButtonTextView
+                android:id="@+id/dialog_common_no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="@dimen/top_distance_10"
+                android:paddingBottom="@dimen/bottom_distance_10"
+                android:text="@string/dialog_no"
+                android:textColor="@color/text_three"
+                android:textSize="@dimen/text_16"
+                app:cornerRadius="@dimen/radius_8" />
+
+            <View style="@style/style_split_vline" />
+
+            <com.mvpframe.view.textview.ButtonTextView
+                android:id="@+id/dialog_common_ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="@dimen/top_distance_10"
+                android:paddingBottom="@dimen/bottom_distance_10"
+                android:text="@string/dialog_ok"
+                android:textColor="@color/text_three"
+                android:textSize="@dimen/text_16"
+                app:cornerRadius="@dimen/radius_8" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -14,6 +14,8 @@ import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
 import com.mvpframe.ui.view.account.activity.LoginActivity;
+import com.mvpframe.util.ToastUtil;
+import com.mvpframe.view.dialog.CommonDialog;
 
 /**
  * <功能详细描述>
@@ -48,6 +50,7 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
     @Override
     public void initListeners() {
         mLoadBinding.bt.setOnClickListener(this);
+        mLoadBinding.text.setOnClickListener(this);
     }
 
 
@@ -74,6 +77,14 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
         super.onClick(v);
         if (v.getId() == R.id.bt) {
             startActivity(LoginActivity.class, null);
+        }
+        if (v.getId() == R.id.text) {
+            CommonDialog builder = new CommonDialog<>(mContext);
+            builder.setTitle(R.string.app_name);
+//            CommonDialog<ActivityMainBinding> builder = new CommonDialog<>(mContext, R.layout.activity_main, false);
+//            CommonDialog<ActivityLoginBinding> builder = new CommonDialog<>(mContext, R.layout.activity_login);
+            builder.setClickListenter(msg -> ToastUtil.makeCenterToast(mContext, "asd"));
+            builder.shows();
         }
     }
 
