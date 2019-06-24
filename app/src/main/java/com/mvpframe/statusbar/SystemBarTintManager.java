@@ -1,4 +1,4 @@
-package com.mvpframe.util.statusbar;
+package com.mvpframe.statusbar;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -19,7 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout.LayoutParams;
 
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -43,7 +43,7 @@ public class SystemBarTintManager {
                 m.setAccessible(true);
                 sNavBarOverride = (String) m.invoke(null, "qemu.hw.mainkeys");
             } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                LogUtil.w(e);
+                LogUtils.w(e);
                 sNavBarOverride = null;
             }
         }

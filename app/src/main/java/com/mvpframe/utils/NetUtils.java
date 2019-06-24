@@ -1,4 +1,4 @@
-package com.mvpframe.util;
+package com.mvpframe.utils;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -143,7 +143,7 @@ public class NetUtils {
                 checkConnectState(context);
                 return isDataEnabled;
             } catch (Exception e) {
-                LogUtil.w("移动数据设置错误: ", e);
+                LogUtils.w("移动数据设置错误: ", e);
             }
             return isDataEnabled;
         }
@@ -169,10 +169,10 @@ public class NetUtils {
         try {
             getMobileDataEnable = object.getClass().getMethod(methodName);
             isDataEnabled = (Boolean) getMobileDataEnable.invoke(object);
-            LogUtil.d("移动数据开启状态：" + isDataEnabled);
+            LogUtils.d("移动数据开启状态：" + isDataEnabled);
             return isDataEnabled;
         } catch (Exception e) {
-            LogUtil.w("移动数据设置错误: ", e);
+            LogUtils.w("移动数据设置错误: ", e);
         }
         return isDataEnabled;
     }

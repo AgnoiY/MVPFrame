@@ -12,8 +12,8 @@ import com.mvpframe.bean.event.BaseEventModel;
 import com.mvpframe.ui.base.activity.BaseActivity;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
-import com.mvpframe.util.LogUtil;
-import com.mvpframe.util.ToastUtil;
+import com.mvpframe.utils.LogUtils;
+import com.mvpframe.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,7 +56,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
      */
     @Override
     public void showToast(String msg) {
-        ToastUtil.makeCenterToast(context, msg);
+        ToastUtils.makeCenterToast(context, msg);
     }
 
     /**
@@ -149,7 +149,7 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(aLong -> ((BaseActivity) activity).nextStep(aLong, delay),
-                            throwable -> LogUtil.w(tag, throwable)));
+                            throwable -> LogUtils.w(tag, throwable)));
         } else {
             log("延迟的时间为Null");
         }
@@ -165,26 +165,26 @@ public class PresentationLayerFuncHelper<T> implements PresentationLayerFunc<T>,
         if (msg.length > 1) {
             switch ((String) msg[1]) {
                 case "e":
-                    LogUtil.e(tag, msg[0]);
+                    LogUtils.e(tag, msg[0]);
                     break;
                 case "i":
-                    LogUtil.i(tag, msg[0]);
+                    LogUtils.i(tag, msg[0]);
                     break;
                 case "d":
-                    LogUtil.d(tag, msg[0]);
+                    LogUtils.d(tag, msg[0]);
                     break;
                 case "w":
                     if (msg.length > 2)
-                        LogUtil.w(tag, msg[2], (Throwable) msg[0]);
+                        LogUtils.w(tag, msg[2], (Throwable) msg[0]);
                     else
-                        LogUtil.w(tag, (Throwable) msg[0]);
+                        LogUtils.w(tag, (Throwable) msg[0]);
                     break;
                 default:
-                    LogUtil.d(tag, msg[0]);
+                    LogUtils.d(tag, msg[0]);
                     break;
             }
         } else if (msg.length == 1) {
-            LogUtil.d(tag, msg[0]);
+            LogUtils.d(tag, msg[0]);
         }
 
     }

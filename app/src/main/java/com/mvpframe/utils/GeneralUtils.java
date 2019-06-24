@@ -1,4 +1,4 @@
-package com.mvpframe.util;
+package com.mvpframe.utils;
 
 import java.util.Calendar;
 

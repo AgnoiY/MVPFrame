@@ -9,7 +9,7 @@ import com.mvpframe.bridge.Bridges;
 import com.mvpframe.bridge.http.RetrofitHttp;
 import com.mvpframe.bridge.sharepref.SharedPrefManager;
 import com.mvpframe.bridge.sharepref.SharedPrefUser;
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.lang.ref.WeakReference;
@@ -90,7 +90,7 @@ public abstract class BasePresenter<V extends IMvpView> implements Presenter<V> 
     protected RetrofitHttp.Builder getRetrofitHttp() {
 
         if (!isViewAttached()) {
-            LogUtil.d(App.getAppString(R.string.view_add_error));
+            LogUtils.d(App.getAppString(R.string.view_add_error));
             return null;
         }
 

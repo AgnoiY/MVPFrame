@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.mvpframe.R;
-import com.mvpframe.util.DensityUtil;
+import com.mvpframe.utils.DensityUtils;
 
 /**
  * <按钮式textview，带边框样式>
@@ -67,8 +67,8 @@ public class ButtonTextView extends TextView {
 
     private void setCustomAttributes(Context context, AttributeSet attrs) {
         // 将DIP单位默认值转为PX
-        strokeWidth = DensityUtil.dip2px(DEFAULT_STROKE_WIDTH);
-        cornerRadius = DensityUtil.dip2px(DEFAULT_CORNER_RADIUS);
+        strokeWidth = DensityUtils.dip2px(DEFAULT_STROKE_WIDTH);
+        cornerRadius = DensityUtils.dip2px(DEFAULT_CORNER_RADIUS);
         // 读取属性值
         if (attrs != null) {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.BorderLabelTextView);
@@ -84,10 +84,10 @@ public class ButtonTextView extends TextView {
         mRectF = new RectF();
 
         // 如果使用时没有设置内边距, 设置默认边距
-        int paddingLeft = getPaddingLeft() == 0 ? DensityUtil.dip2px(DEFAULT_LR_PADDING) : getPaddingLeft();
-        int paddingRight = getPaddingRight() == 0 ? DensityUtil.dip2px(DEFAULT_LR_PADDING) : getPaddingRight();
-        int paddingTop = getPaddingTop() == 0 ? DensityUtil.dip2px(DEFAULT_TB_PADDING) : getPaddingTop();
-        int paddingBottom = getPaddingBottom() == 0 ? DensityUtil.dip2px(DEFAULT_TB_PADDING) : getPaddingBottom();
+        int paddingLeft = getPaddingLeft() == 0 ? DensityUtils.dip2px(DEFAULT_LR_PADDING) : getPaddingLeft();
+        int paddingRight = getPaddingRight() == 0 ? DensityUtils.dip2px(DEFAULT_LR_PADDING) : getPaddingRight();
+        int paddingTop = getPaddingTop() == 0 ? DensityUtils.dip2px(DEFAULT_TB_PADDING) : getPaddingTop();
+        int paddingBottom = getPaddingBottom() == 0 ? DensityUtils.dip2px(DEFAULT_TB_PADDING) : getPaddingBottom();
         setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
     }
 
@@ -119,10 +119,10 @@ public class ButtonTextView extends TextView {
 
         // 根据文本长度改变边距
         if (getText().length() > 2 && isTextNumPadding) {
-            int paddingLeft = DensityUtil.dip2px(DEFAULT_LR_PADDING * 1.5f);
-            int paddingRight = DensityUtil.dip2px((DEFAULT_LR_PADDING * 1.5f));
-            int paddingTop = DensityUtil.dip2px(DEFAULT_TB_PADDING * 2);
-            int paddingBottom = DensityUtil.dip2px(DEFAULT_TB_PADDING * 2);
+            int paddingLeft = DensityUtils.dip2px(DEFAULT_LR_PADDING * 1.5f);
+            int paddingRight = DensityUtils.dip2px((DEFAULT_LR_PADDING * 1.5f));
+            int paddingTop = DensityUtils.dip2px(DEFAULT_TB_PADDING * 2);
+            int paddingBottom = DensityUtils.dip2px(DEFAULT_TB_PADDING * 2);
             setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
         }
     }
@@ -133,7 +133,7 @@ public class ButtonTextView extends TextView {
      * @param size
      */
     public void setStrokeWidth(int size) {
-        strokeWidth = DensityUtil.dip2px(size);
+        strokeWidth = DensityUtils.dip2px(size);
         invalidate();
     }
 
@@ -153,7 +153,7 @@ public class ButtonTextView extends TextView {
      * @param radius
      */
     public void setCornerRadius(int radius) {
-        cornerRadius = DensityUtil.dip2px(radius);
+        cornerRadius = DensityUtils.dip2px(radius);
         invalidate();
     }
 

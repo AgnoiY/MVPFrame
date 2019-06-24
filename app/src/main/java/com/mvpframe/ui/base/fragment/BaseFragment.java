@@ -17,8 +17,8 @@ import com.mvpframe.ui.base.delegate.FragmentMvpDelegateImpl;
 import com.mvpframe.ui.base.interfaces.CreateInit;
 import com.mvpframe.ui.base.interfaces.PresentationLayerFunc;
 import com.mvpframe.ui.base.interfaces.PublishActivityCallBack;
-import com.mvpframe.util.GeneralUtils;
-import com.mvpframe.util.ToastUtil;
+import com.mvpframe.utils.GeneralUtils;
+import com.mvpframe.utils.ToastUtils;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -218,7 +218,7 @@ public abstract class BaseFragment<T, V extends IMvpView, P extends BasePresente
     public void onDestroyView() {
         super.onDestroyView();
         getMvpDelegate().onDestroyView();
-        ToastUtil.destory();
+        ToastUtils.destory();
         EventBus.getDefault().unregister(this);
         if (disposable != null) {
             disposable.dispose();

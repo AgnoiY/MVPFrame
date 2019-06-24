@@ -2,7 +2,7 @@ package com.mvpframe.capabilities.http.function;
 
 
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
@@ -19,7 +19,7 @@ public class HttpResultFunction<T> implements Function<Throwable, Observable<T>>
     @Override
     public Observable<T> apply(@NonNull Throwable throwable) throws Exception {
         //打印具体错误
-        LogUtil.w("HttpResultFunction:", throwable);
+        LogUtils.w("HttpResultFunction:", throwable);
         return Observable.error(ExceptionEngine.handleException(throwable));
     }
 }

@@ -1,6 +1,6 @@
 package com.mvpframe.capabilities.http.utils;
 
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -73,7 +73,7 @@ public class RequestUtils {
                     try {
                         return URLEncoder.encode(strValue, "UTF-8");//中文处理
                     } catch (UnsupportedEncodingException e) {
-                        LogUtil.w(e);
+                        LogUtils.w(e);
                         return "";
                     }
                 }

@@ -1,4 +1,4 @@
-package com.mvpframe.util;
+package com.mvpframe.utils;
 
 import android.os.CountDownTimer;
 import android.widget.TextView;
@@ -10,7 +10,7 @@ import android.widget.TextView;
  *
  * @author yong
  */
-public class DownTime extends CountDownTimer {
+public class DownTimeUtils extends CountDownTimer {
 
     /**
      * 开始倒计时控件
@@ -31,19 +31,19 @@ public class DownTime extends CountDownTimer {
      */
     private boolean isEnabled;
 
-    public DownTime(TextView view, long millisInFuture) {
+    public DownTimeUtils(TextView view, long millisInFuture) {
         this(view, millisInFuture, "s", "0s", false);
     }
 
-    public DownTime(TextView view, long millisInFuture, String endText) {
+    public DownTimeUtils(TextView view, long millisInFuture, String endText) {
         this(view, millisInFuture, "s", endText, false);
     }
 
-    public DownTime(TextView view, long millisInFuture, boolean isEnabled) {
+    public DownTimeUtils(TextView view, long millisInFuture, boolean isEnabled) {
         this(view, millisInFuture, "s", "0s", isEnabled);
     }
 
-    public DownTime(TextView view, long millisInFuture, String processText, String endText, boolean isEnabled) {
+    public DownTimeUtils(TextView view, long millisInFuture, String processText, String endText, boolean isEnabled) {
         super(millisInFuture * 1000, 999);
         this.view = view;
         this.processText = processText;
@@ -54,7 +54,7 @@ public class DownTime extends CountDownTimer {
 
     @Override
     public void onTick(long l) {
-        LogUtil.d("onTick: " + l);
+        LogUtils.d("onTick: " + l);
         view.setEnabled(isEnabled);
         view.setText(l / 1000 + processText);
     }

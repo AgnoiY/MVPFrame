@@ -1,4 +1,4 @@
-package com.mvpframe.util;
+package com.mvpframe.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -14,12 +14,12 @@ import android.view.WindowManager;
  *
  * @author yong
  */
-public class DensityUtil {
+public class DensityUtils {
 
-    private static final String TAG = "DensityUtil";
+    private static final String TAG = "DensityUtils";
 
-    DensityUtil() {
-        throw new IllegalStateException("DensityUtil class");
+    DensityUtils() {
+        throw new IllegalStateException("DensityUtils class");
     }
 
     /**
@@ -127,7 +127,7 @@ public class DensityUtil {
                 heightPixels = realSize.y;
             }
         } catch (Exception ignored) {
-            LogUtil.w(TAG, ignored);
+            LogUtils.w(TAG, ignored);
         }
         size[0] = widthPixels;
         size[1] = heightPixels;

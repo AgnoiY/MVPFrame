@@ -10,8 +10,8 @@ import android.view.View;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.interfaces.LazyCreateInit;
-import com.mvpframe.util.HandlerUtils;
-import com.mvpframe.util.Tools;
+import com.mvpframe.utils.HandlerUtils;
+import com.mvpframe.utils.ToolsUtils;
 import com.mvpframe.view.recyclerview.RefreshHelper;
 
 import java.util.ArrayList;
@@ -138,7 +138,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      */
     protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {
         RefreshHelper helper = new RefreshHelper<>(this, refreshLayout, recyclerView).init(limit);
-        if (Tools.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
+        if (ToolsUtils.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
         listRefreshHelper.add(helper);
         return helper;
     }
@@ -169,7 +169,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
         super.onDetach();
         isStartFragmen = false;
         isStartFragmenData = false;
-        if (Tools.isNotNullOrZeroSize(listRefreshHelper)) {
+        if (ToolsUtils.isNotNullOrZeroSize(listRefreshHelper)) {
             for (int i = 0; i < listRefreshHelper.size(); i++) {
                 if (listRefreshHelper.get(i) != null) {
                     listRefreshHelper.get(i).onDestroy();

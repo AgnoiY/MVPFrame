@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
 
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -149,7 +149,7 @@ public class FileUtil {
                     Files.delete(files[i].toPath());
                 } else {
                     if (!files[i].delete()) {
-                        LogUtil.d(files[i].getName() + ": 文件删除失败");
+                        LogUtils.d(files[i].getName() + ": 文件删除失败");
                     }
                 }
             } else { // 删除子目录
@@ -174,7 +174,7 @@ public class FileUtil {
                 Files.delete(f.toPath());
             } else {
                 if (!f.delete()) {
-                    LogUtil.d(fileName + ": 文件删除失败");
+                    LogUtils.d(fileName + ": 文件删除失败");
                 }
             }
         }

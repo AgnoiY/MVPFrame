@@ -4,7 +4,7 @@ import com.mvpframe.BuildConfig;
 import com.mvpframe.bridge.http.RetrofitHttp;
 import com.mvpframe.capabilities.http.interceptor.HttpLoggingInterceptor;
 import com.mvpframe.capabilities.http.utils.RequestUtils;
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -140,7 +140,7 @@ public class RetrofitUtils {
      */
     public OkHttpClient getOkHttpClientBase(final Map<String, Object> headerMap) {
         //日志拦截器
-        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(message -> LogUtil.i("okHttp:" + message));
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(message -> LogUtils.i("okHttp:" + message));
         //must
         logInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
 
@@ -164,7 +164,7 @@ public class RetrofitUtils {
                 response = chain.proceed(request);
             } catch (final Exception e) {
                 //httpObserver.onCanceled();
-                LogUtil.w(e);
+                LogUtils.w(e);
                 throw e;
             }
             return response;

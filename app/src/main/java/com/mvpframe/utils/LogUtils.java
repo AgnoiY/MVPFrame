@@ -1,4 +1,4 @@
-package com.mvpframe.util;
+package com.mvpframe.utils;
 
 import android.util.Log;
 
@@ -11,12 +11,12 @@ import static com.mvpframe.constant.Constants.IS_DEBUG;
  *
  * @author yong
  */
-public class LogUtil {
+public class LogUtils {
 
     private static final String TAG = "log_yong";
 
-    LogUtil() {
-        throw new IllegalStateException("LogUtil class");
+    LogUtils() {
+        throw new IllegalStateException("LogUtils class");
     }
 
     /**

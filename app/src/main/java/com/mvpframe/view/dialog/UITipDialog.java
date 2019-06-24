@@ -20,8 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mvpframe.R;
-import com.mvpframe.util.DensityUtil;
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.DensityUtils;
+import com.mvpframe.utils.LogUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -86,7 +86,7 @@ public class UITipDialog extends Dialog {
         if (tipDialog == null) return;
         Observable.timer(1000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
-                .subscribe(aLong -> tipDialog.dismiss(), throwable -> LogUtil.w(TAG, throwable));
+                .subscribe(aLong -> tipDialog.dismiss(), throwable -> LogUtils.w(TAG, throwable));
     }
 
     public static void showFall(Context context, String info) {
@@ -105,7 +105,7 @@ public class UITipDialog extends Dialog {
             tipDialog.show();
             timerDismiss();
         } catch (Exception e) {
-            LogUtil.w(TAG, e);
+            LogUtils.w(TAG, e);
         }
     }
 
@@ -214,7 +214,7 @@ public class UITipDialog extends Dialog {
             if (mCurrentIconType == ICON_TYPE_LOADING) {
                 LoadingView loadingView = new LoadingView(mContext);
                 loadingView.setColor(Color.WHITE);
-                loadingView.setSize(DensityUtil.dip2px(32));
+                loadingView.setSize(DensityUtils.dip2px(32));
                 LinearLayout.LayoutParams loadingViewLP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 loadingView.setLayoutParams(loadingViewLP);
                 contentWrap.addView(loadingView);
@@ -241,7 +241,7 @@ public class UITipDialog extends Dialog {
                 LinearLayout.LayoutParams tipViewLP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                 if (mCurrentIconType != ICON_TYPE_NOTHING) {
-                    tipViewLP.topMargin = DensityUtil.dip2px(12);
+                    tipViewLP.topMargin = DensityUtils.dip2px(12);
                 }
                 tipView.setLayoutParams(tipViewLP);
 

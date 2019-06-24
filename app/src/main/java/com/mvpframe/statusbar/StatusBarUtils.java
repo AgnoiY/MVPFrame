@@ -1,4 +1,4 @@
-package com.mvpframe.util.statusbar;
+package com.mvpframe.statusbar;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
  *
  * @author yong
  */
-public class StatusBarUtil {
+public class StatusBarUtils {
     public static final int TYPE_MIUI = 0;
     public static final int TYPE_FLYME = 1;
     public static final int TYPE_M = 3;//6.0
@@ -175,7 +175,7 @@ public class StatusBarUtil {
             window.setAttributes(lp);
             return true;
         } catch (Exception e) {
-            LogUtil.w(e);
+            LogUtils.w(e);
             return false;
         }
     }
@@ -197,7 +197,7 @@ public class StatusBarUtil {
             }
             return true;
         } catch (Exception e) {
-            LogUtil.w(e);
+            LogUtils.w(e);
             return false;
         }
     }

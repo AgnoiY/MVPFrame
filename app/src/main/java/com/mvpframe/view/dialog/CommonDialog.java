@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.mvpframe.R;
 import com.mvpframe.databinding.DialogBaseCommonBinding;
 import com.mvpframe.ui.base.interfaces.BaseInterface;
-import com.mvpframe.util.ToastUtil;
-import com.mvpframe.util.Tools;
+import com.mvpframe.utils.ToastUtils;
+import com.mvpframe.utils.ToolsUtils;
 
 /**
  * 提示框
@@ -149,7 +149,7 @@ public class CommonDialog<B extends ViewDataBinding> implements BaseInterface, V
 
         for (int i = 0; i < mEditContent.length; i++) {
             if (TextUtils.isEmpty(mEditContent[i]) && mEditContent.length <= mEditToast.length) {
-                ToastUtil.makeCenterToast(mContext, TextUtils.isEmpty(mEditToast[i]) ? dialogNotNull : mEditToast[i]);
+                ToastUtils.makeCenterToast(mContext, TextUtils.isEmpty(mEditToast[i]) ? dialogNotNull : mEditToast[i]);
                 return true;
             }
         }
@@ -219,7 +219,7 @@ public class CommonDialog<B extends ViewDataBinding> implements BaseInterface, V
      */
     public CommonDialog setEditHint(Object content) {
 
-        setEditVisibility(Tools.isNotNull(content));
+        setEditVisibility(ToolsUtils.isNotNull(content));
 
         if (content instanceof String) {
             mCommonBing.dialogCommonContentEt.setHint((String) content);
@@ -239,7 +239,7 @@ public class CommonDialog<B extends ViewDataBinding> implements BaseInterface, V
      */
     public CommonDialog setEditMaxLength(int maxLength) {
 
-        setEditVisibility(Tools.isNotNullOrZero(maxLength));
+        setEditVisibility(ToolsUtils.isNotNullOrZero(maxLength));
 
         mCommonBing.dialogCommonContentEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
 
@@ -360,7 +360,7 @@ public class CommonDialog<B extends ViewDataBinding> implements BaseInterface, V
      * @return
      */
     private boolean setText(TextView textView, Object text) {
-        if (text instanceof String && Tools.isNotNullOrZeroLenght((String) text)) {
+        if (text instanceof String && ToolsUtils.isNotNullOrZeroLenght((String) text)) {
             textView.setText((String) text);
         } else if (text instanceof Integer) {
             textView.setText((Integer) text);

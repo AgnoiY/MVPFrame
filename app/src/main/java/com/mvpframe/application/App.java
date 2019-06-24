@@ -8,8 +8,8 @@ import android.support.multidex.MultiDex;
 
 import com.mvpframe.bridge.BridgeFactory;
 import com.mvpframe.bridge.BridgeLifeCycleSetKeeper;
-import com.mvpframe.util.LogUtil;
-import com.mvpframe.util.ToastUtil;
+import com.mvpframe.utils.LogUtils;
+import com.mvpframe.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -84,7 +84,7 @@ public class App extends Application {
     private static void onDestory() {
         BridgeLifeCycleSetKeeper.getInstance().clearOnApplicationQuit();
         BridgeFactory.destroy();
-        ToastUtil.destory();
+        ToastUtils.destory();
         if (activitys != null) {
             activitys.clear();
             activitys = null;
@@ -124,7 +124,7 @@ public class App extends Application {
                     activitys.remove(activity);
                     activity.finish();
                 } catch (Exception e) {
-                    LogUtil.w(e);
+                    LogUtils.w(e);
                 }
             }
     }

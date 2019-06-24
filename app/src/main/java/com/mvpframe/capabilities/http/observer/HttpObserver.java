@@ -10,7 +10,7 @@ import com.mvpframe.bridge.sharepref.SharedPrefManager;
 import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.capabilities.http.interfaces.ParseHelper;
 import com.mvpframe.ui.view.account.activity.LoginActivity;
-import com.mvpframe.util.ToastUtil;
+import com.mvpframe.utils.ToastUtils;
 
 import org.json.JSONException;
 
@@ -73,6 +73,6 @@ public abstract class HttpObserver<T> extends BaseBackObserver<T> implements Par
         Activity activity = App.getActivitys().get(App.getActivitys().size() - 1);
         App.clearAllAcitity();
         activity.startActivity(new Intent(activity, LoginActivity.class));
-        ToastUtil.makeCenterToast(activity, App.getAppString(R.string.login_elsewhere));
+        ToastUtils.makeCenterToast(activity, App.getAppString(R.string.login_elsewhere));
     }
 }

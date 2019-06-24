@@ -7,7 +7,7 @@ import com.mvpframe.databinding.ActivityWelcomeBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
-import com.mvpframe.util.DownTime;
+import com.mvpframe.utils.DownTimeUtils;
 
 import static com.mvpframe.constant.Constants.LOG_D;
 
@@ -25,7 +25,7 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
      */
     private long delayMillis = 3;
 
-    private DownTime downTime;
+    private DownTimeUtils downTimeUtils;
 
     @Override
     public BasePresenter<IMvpView<Object>>[] getPresenterArray() {
@@ -71,7 +71,7 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
         postDelayed(delayMillis);
 
         mLoadBinding.btvDownTime.setText(delayMillis + "s");
-        downTime = new DownTime(mLoadBinding.btvDownTime, delayMillis, true);
+        downTimeUtils = new DownTimeUtils(mLoadBinding.btvDownTime, delayMillis, true);
     }
 
     @Override
@@ -93,9 +93,9 @@ public class WelcomeActivity extends BaseLoadActivity<Object, ActivityWelcomeBin
     protected void onDestroy() {
         super.onDestroy();
 
-        if (downTime != null) {
-            downTime.cancel();
-            downTime = null;
+        if (downTimeUtils != null) {
+            downTimeUtils.cancel();
+            downTimeUtils = null;
         }
     }
 }

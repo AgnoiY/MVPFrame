@@ -1,4 +1,4 @@
-package com.mvpframe.util;
+package com.mvpframe.utils;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -14,11 +14,11 @@ import com.mvpframe.application.App;
  *
  * @author yong
  */
-public final class ToastUtil {
+public final class ToastUtils {
 
     private static Toast toast;
 
-    ToastUtil() {
+    ToastUtils() {
         throw new UnsupportedOperationException();
     }
 

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.mvpframe.R;
-import com.mvpframe.util.DensityUtil;
+import com.mvpframe.utils.DensityUtils;
 
 /**
  * 用于显示 Loading 的 {@link View}，支持颜色和大小的设置。
@@ -41,7 +41,7 @@ public class LoadingView extends View {
     public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.LoadingView, defStyleAttr, 0);
-        mSize = array.getDimensionPixelSize(R.styleable.LoadingView_loading_view_size, DensityUtil.dip2px(32));
+        mSize = array.getDimensionPixelSize(R.styleable.LoadingView_loading_view_size, DensityUtils.dip2px(32));
         mPaintColor = array.getColor(R.styleable.LoadingView_loading_view_color, Color.WHITE);
         array.recycle();
         initPaint();

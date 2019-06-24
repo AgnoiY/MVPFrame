@@ -16,12 +16,12 @@ import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
-import com.mvpframe.util.GeneralUtils;
-import com.mvpframe.util.HandlerUtils;
-import com.mvpframe.util.NetUtils;
-import com.mvpframe.util.ToastUtil;
-import com.mvpframe.util.Tools;
-import com.mvpframe.util.statusbar.StatusBarUtil;
+import com.mvpframe.utils.GeneralUtils;
+import com.mvpframe.utils.HandlerUtils;
+import com.mvpframe.utils.NetUtils;
+import com.mvpframe.utils.ToastUtils;
+import com.mvpframe.utils.ToolsUtils;
+import com.mvpframe.statusbar.StatusBarUtils;
 import com.mvpframe.view.recyclerview.RefreshHelper;
 
 import java.util.ArrayList;
@@ -74,9 +74,9 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     public void initStatusBarDarkTheme() {
 
         //当FitsSystemWindows设置true时，会在屏幕最上方预留出状态栏高度的padding
-        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
+        StatusBarUtils.setRootViewFitsSystemWindows(this, false);
         //设置状态栏透明
-        StatusBarUtil.setTranslucentStatus(this);
+        StatusBarUtils.setTranslucentStatus(this);
 
         setStatusBarDarkTheme(true);
     }
@@ -117,17 +117,17 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     protected void setStatusBarDarkTheme(boolean dark) {
 
         ViewGroup.LayoutParams params = mBaseBinding.statusBar.getLayoutParams();
-        params.height = StatusBarUtil.getStatusBarHeight(this);
+        params.height = StatusBarUtils.getStatusBarHeight(this);
         mBaseBinding.statusBar.setBackgroundColor(mBaseBinding.titleView.getBackgroundColor());
         mBaseBinding.statusBar.setLayoutParams(params);
 
         //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
         //设置状态使用深色文字图标风格
-        if (!StatusBarUtil.setStatusBarDarkTheme(this, dark) &&
+        if (!StatusBarUtils.setStatusBarDarkTheme(this, dark) &&
                 mBaseBinding.titleView.getBackgroundColor() == ContextCompat.getColor(mContext, R.color.white) &&
                 mBaseBinding.titleView.getVisibility() == View.VISIBLE) {
             //设置一个状态栏颜色为半透明,
-            StatusBarUtil.setStatusBarColor(this, 0x50000000);
+            StatusBarUtils.setStatusBarColor(this, 0x50000000);
         }
     }
 
@@ -228,7 +228,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
     private void onEmptyTextClickListeners() {
         log("错误布局，显示信息点击监听", LOG_D);
         if (!NetUtils.isConnected(mContext)) {//网络连接失败
-            ToastUtil.makeCenterToast(mContext, getString(R.string.no_netwoek));
+            ToastUtils.makeCenterToast(mContext, getString(R.string.no_netwoek));
         } else
             onEmptyTextClickListener();
     }
@@ -243,7 +243,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
 
     @Override
     public void initPermissionSuccess() {
-        ToastUtil.makeCenterToast(mContext, "权限申请成功");
+        ToastUtils.makeCenterToast(mContext, "权限申请成功");
         log("权限申请成功", LOG_D);
     }
 
@@ -257,7 +257,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      */
     protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {
         RefreshHelper helper = new RefreshHelper<>(this, refreshLayout, recyclerView).init(limit);
-        if (Tools.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
+        if (ToolsUtils.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
         listRefreshHelper.add(helper);
         return helper;
     }
@@ -317,7 +317,7 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
         if (mHandlers != null) {
             mHandlers.clearHandler();
         }
-        if (Tools.isNotNullOrZeroSize(listRefreshHelper)) {
+        if (ToolsUtils.isNotNullOrZeroSize(listRefreshHelper)) {
             for (int i = 0; i < listRefreshHelper.size(); i++) {
                 if (listRefreshHelper.get(i) != null) {
                     listRefreshHelper.get(i).onDestroy();

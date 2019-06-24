@@ -14,7 +14,7 @@ import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
 import com.mvpframe.ui.base.activity.BaseLoadActivity;
 import com.mvpframe.ui.view.account.activity.LoginActivity;
-import com.mvpframe.util.ToastUtil;
+import com.mvpframe.utils.ToastUtils;
 import com.mvpframe.view.dialog.CommonDialog;
 
 /**
@@ -83,7 +83,7 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
             builder.setTitle(R.string.app_name);
 //            CommonDialog<ActivityMainBinding> builder = new CommonDialog<>(mContext, R.layout.activity_main, false);
 //            CommonDialog<ActivityLoginBinding> builder = new CommonDialog<>(mContext, R.layout.activity_login);
-            builder.setClickListenter(msg -> ToastUtil.makeCenterToast(mContext, "asd"));
+            builder.setClickListenter(msg -> ToastUtils.makeCenterToast(mContext, "asd"));
             builder.shows();
         }
     }

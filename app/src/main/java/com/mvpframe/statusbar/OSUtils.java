@@ -1,9 +1,9 @@
-package com.mvpframe.util.statusbar;
+package com.mvpframe.statusbar;
 
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -121,12 +121,12 @@ public class OSUtils {
             line = input.readLine();
             input.close();
         } catch (IOException ex) {
-            LogUtil.w(ex);
+            LogUtils.w(ex);
             if (input != null) {
                 try {
                     input.close();
                 } catch (IOException e) {
-                    LogUtil.w(e);
+                    LogUtils.w(e);
                 }
             }
             return null;

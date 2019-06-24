@@ -1,4 +1,4 @@
-package com.mvpframe.util;
+package com.mvpframe.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -30,10 +30,10 @@ import java.util.regex.Pattern;
  *
  * @author yong
  */
-public final class Tools {
+public final class ToolsUtils {
 
-    Tools() {
-        throw new IllegalStateException("Tools class");
+    ToolsUtils() {
+        throw new IllegalStateException("ToolsUtils class");
     }
 
     /**
@@ -105,7 +105,7 @@ public final class Tools {
      * @return boolean
      */
     public static boolean isNullOrZero(Number number) {
-        if (Tools.isNotNull(number)) {
+        if (ToolsUtils.isNotNull(number)) {
             return number.intValue() == 0;
         }
         return true;
@@ -147,7 +147,7 @@ public final class Tools {
         try {
             return dateFormat.parse(dateFormat.format(date));
         } catch (ParseException e) {
-            LogUtil.w(e);
+            LogUtils.w(e);
             return null;
         }
     }
@@ -517,7 +517,7 @@ public final class Tools {
             PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             return packInfo.versionName;
         } catch (NameNotFoundException e) {
-            LogUtil.w(e);
+            LogUtils.w(e);
         }
         return "";
     }

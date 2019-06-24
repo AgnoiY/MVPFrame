@@ -3,7 +3,7 @@ package com.mvpframe.capabilities.cache;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -196,7 +196,7 @@ public class BaseSharedPreference {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
-                LogUtil.w(e);
+                LogUtils.w(e);
             }
 
             return null;
@@ -214,7 +214,7 @@ public class BaseSharedPreference {
                     return;
                 }
             } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-                LogUtil.w(e);
+                LogUtils.w(e);
             }
             editor.commit();
         }

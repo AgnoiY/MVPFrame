@@ -1,4 +1,4 @@
-package com.mvpframe.util;
+package com.mvpframe.utils;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -84,7 +84,7 @@ public class HandlerUtils {
      * 移除Handler防止内存泄露
      */
     public void clearHandler() {
-        if (Tools.isNotNullOrZeroSize(mHandlerList)) {
+        if (ToolsUtils.isNotNullOrZeroSize(mHandlerList)) {
             for (int i = 0; i < mHandlerList.size(); i++) {
                 if (mHandlerList.get(i) != null) {
                     mHandlerList.get(i).removeCallbacksAndMessages(null);

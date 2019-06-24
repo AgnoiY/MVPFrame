@@ -6,7 +6,7 @@ import com.mvpframe.R;
 import com.mvpframe.application.App;
 import com.mvpframe.capabilities.http.interfaces.UploadProgressCallback;
 import com.mvpframe.capabilities.http.observer.HttpObserver;
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 import com.mvpframe.view.dialog.UITipDialog;
 
 import java.io.File;
@@ -67,7 +67,7 @@ public abstract class UploadObserver<T> extends HttpObserver<T> implements Uploa
      * 取消回调
      */
     public void onCancel() {
-        LogUtil.d(App.getAppString(R.string.request_cancelled));
+        LogUtils.d(App.getAppString(R.string.request_cancelled));
     }
 
 }

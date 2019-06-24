@@ -9,7 +9,7 @@ import com.mvpframe.bean.base.BaseResponseListModel;
 import com.mvpframe.bean.base.BaseResponseModel;
 import com.mvpframe.capabilities.http.observer.HttpObserver;
 import com.mvpframe.presenter.base.BasePresenter;
-import com.mvpframe.util.LogUtil;
+import com.mvpframe.utils.LogUtils;
 import com.mvpframe.view.dialog.UITipDialog;
 
 import java.lang.reflect.ParameterizedType;
@@ -140,7 +140,7 @@ public abstract class BaseModelObserver<T> extends HttpObserver<T> {
      * 如果有特殊处理需重写
      */
     public void onCancel() {
-        LogUtil.d(App.getAppString(R.string.request_cancelled));
+        LogUtils.d(App.getAppString(R.string.request_cancelled));
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class BaseModelObserver<T> extends HttpObserver<T> {
         Type type = null;
         if (ptClass != null) {
             type = ptClass.getActualTypeArguments()[0];
-            LogUtil.d("当前类泛型:" + type);
+            LogUtils.d("当前类泛型:" + type);
         }
         return type;
     }

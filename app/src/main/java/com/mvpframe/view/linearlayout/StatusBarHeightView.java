@@ -1,13 +1,12 @@
 package com.mvpframe.view.linearlayout;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import com.mvpframe.util.DensityUtil;
+import com.mvpframe.utils.DensityUtils;
 
 /**
  * 功能:状态栏高度View,用于沉浸占位
@@ -57,7 +56,7 @@ public class StatusBarHeightView extends LinearLayout {
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
-        if (getHeight() != DensityUtil.getYScreenpx(mContext) && getHeight() == DensityUtil.getScreenSize(mContext)[1]) {
+        if (getHeight() != DensityUtils.getYScreenpx(mContext) && getHeight() == DensityUtils.getScreenSize(mContext)[1]) {
             setPadding(getPaddingLeft(), 0, getPaddingRight(), getPaddingBottom());
         }
     }
