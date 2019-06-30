@@ -45,14 +45,6 @@ public abstract class UploadObserver<T> extends HttpObserver<T> implements Uploa
     public abstract void onProgress(File file, long currentSize, long totalSize, float progress, int currentIndex, int totalFile);
 
     /**
-     * 数据转换/解析数据
-     *
-     * @param data
-     * @return
-     */
-    public abstract T onConvert(String data);
-
-    /**
      * 失败回调
      *
      * @param action
