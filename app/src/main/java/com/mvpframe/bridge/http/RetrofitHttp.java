@@ -263,6 +263,8 @@ public class RetrofitHttp {
             case PUT:
                 apiObservable = apiService.put(disposeApiUrl(), parameter, header);
                 break;
+            default:
+                break;
         }
         return apiObservable;
     }
@@ -549,6 +551,15 @@ public class RetrofitHttp {
         /*tag*/
         public RetrofitHttp.Builder tag(String tag) {
             this.tag = tag;
+            return this;
+        }
+
+        /*文件*/
+        public RetrofitHttp.Builder file(String name, File file) {
+            if (fileMap == null) {
+                fileMap = new IdentityHashMap();
+            }
+            this.fileMap.put(name, file);
             return this;
         }
 
