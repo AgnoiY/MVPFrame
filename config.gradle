@@ -39,5 +39,6 @@ ext {
             design             : 'com.android.support:design:27.0.2',
             rxlifecycle        : 'com.trello.rxlifecycle2:rxlifecycle:2.1.0',
             components         : 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0',
+            autosize           : 'me.jessyan:autosize:1.1.2',
     ]
 }

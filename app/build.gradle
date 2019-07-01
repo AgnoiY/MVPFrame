@@ -50,6 +50,17 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    //输出包名自动追加版本号和版本名称
+    applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                //打包时间
+                def createTime = new Date().format("YYYYMMdd", TimeZone.getTimeZone("GMT+08:00"))
+                // app包名称
+                outputFileName = "mvpframe_" + buildType.name + "_v" + defaultConfig.versionName + "_" + createTime + ".apk"
+            }
+    }
 }
 
 dependencies {
@@ -81,4 +92,6 @@ dependencies {
     /*RxLifecycle基础库*/
     implementation rootProject.ext.dependencies.rxlifecycle
     implementation rootProject.ext.dependencies.components
+    /*屏幕适配*/
+    implementation rootProject.ext.dependencies.autosize
 }
