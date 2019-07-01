@@ -15,13 +15,13 @@ import com.mvpframe.capabilities.http.exception.ExceptionEngine;
 import com.mvpframe.databinding.ActivityBaseLoadBinding;
 import com.mvpframe.presenter.base.BasePresenter;
 import com.mvpframe.presenter.base.IMvpView;
+import com.mvpframe.statusbar.StatusBarUtils;
 import com.mvpframe.ui.base.interfaces.LoadCreateClickListener;
 import com.mvpframe.utils.GeneralUtils;
 import com.mvpframe.utils.HandlerUtils;
 import com.mvpframe.utils.NetUtils;
 import com.mvpframe.utils.ToastUtils;
 import com.mvpframe.utils.ToolsUtils;
-import com.mvpframe.statusbar.StatusBarUtils;
 import com.mvpframe.view.recyclerview.RefreshHelper;
 
 import java.util.ArrayList;
@@ -45,9 +45,11 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
 
     protected B mLoadBinding;
 
-    private List<RefreshHelper> listRefreshHelper;
+    private List<RefreshHelper<T>> listRefreshHelper;
 
     protected HandlerUtils mHandlers;
+
+    protected RefreshHelper<T> mHelper;
 
     /**
      * 布局文件xml的resId,无需添加标题栏、加载、错误及空页面
@@ -252,11 +254,11 @@ public abstract class BaseLoadActivity<T, B extends ViewDataBinding>
      *
      * @param refreshLayout
      * @param recyclerView
-     * @param limit         为0时默认是10条
+     * @param limit         为0时默认是20条
      * @return
      */
-    protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {
-        RefreshHelper helper = new RefreshHelper<>(this, refreshLayout, recyclerView).init(limit);
+    protected RefreshHelper<T> initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {
+        RefreshHelper<T> helper = new RefreshHelper<T>(this, refreshLayout, recyclerView).init(limit);
         if (ToolsUtils.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
         listRefreshHelper.add(helper);
         return helper;
