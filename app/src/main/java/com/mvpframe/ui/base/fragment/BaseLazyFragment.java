@@ -38,7 +38,7 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
 
     protected HandlerUtils mHandlers;
 
-    protected RefreshHelper<T> mHelper;
+    protected RefreshHelper<T> mLazyHelper;
 
     /**
      * Fragment第一次加载
@@ -138,8 +138,8 @@ public abstract class BaseLazyFragment<T, B extends ViewDataBinding>
      * @param limit         为0时默认是20条
      * @return
      */
-    protected RefreshHelper<T> initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {
-        RefreshHelper<T> helper = new RefreshHelper<T>(this, refreshLayout, recyclerView).init(limit);
+    protected RefreshHelper initRefreshHelper(View refreshLayout, RecyclerView recyclerView, int limit) {
+        RefreshHelper helper = new RefreshHelper<>(this, refreshLayout, recyclerView).init(limit);
         if (ToolsUtils.isNullOrZeroSize(listRefreshHelper)) listRefreshHelper = new ArrayList<>();
         listRefreshHelper.add(helper);
         return helper;
