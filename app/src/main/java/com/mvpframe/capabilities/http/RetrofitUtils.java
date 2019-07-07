@@ -2,12 +2,16 @@ package com.mvpframe.capabilities.http;
 
 import com.mvpframe.BuildConfig;
 import com.mvpframe.bridge.http.RetrofitHttp;
+import com.mvpframe.capabilities.http.download.HttpsUtils;
 import com.mvpframe.capabilities.http.interceptor.HttpLoggingInterceptor;
 import com.mvpframe.capabilities.http.utils.RequestUtils;
 import com.mvpframe.utils.LogUtils;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -79,6 +83,17 @@ public class RetrofitUtils {
         return retrofit.build();
     }
 
+    /**
+     * 获取下载时使用 OkHttpClient
+     *
+     * @param interceptorArray
+     * @return
+     */
+    public OkHttpClient getOkHttpClientDownload(Interceptor... interceptorArray) {
+        final long timeout = 60;//超时时长
+        final TimeUnit timeUnit = TimeUnit.SECONDS;//单位秒
+        return getOkHttpClient(true, timeout, timeUnit, interceptorArray);
+    }
 
     /**
      * 获取OkHttpClient
@@ -103,13 +118,13 @@ public class RetrofitUtils {
          * https设置
          * 备注:信任所有证书,不安全有风险
          */
-//        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory();
-//        okHttpClient.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory();
+        okHttpClient.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
         /**
          * 配置https的域名匹配规则，不需要就不要加入，使用不当会导致https握手失败
          * 备注:google平台不允许直接返回true
          */
-        //okHttpClient.hostnameVerifier(new HostnameVerifier() {        });
+//        okHttpClient.hostnameVerifier((hostname, session) -> false);
 
         //Interceptor设置
         if (interceptorArray != null) {
@@ -118,19 +133,6 @@ public class RetrofitUtils {
             }
         }
         return okHttpClient.build();
-    }
-
-
-    /**
-     * 获取下载时使用 OkHttpClient
-     *
-     * @param interceptorArray
-     * @return
-     */
-    public OkHttpClient getOkHttpClientDownload(Interceptor... interceptorArray) {
-        final long timeout = 60;//超时时长
-        final TimeUnit timeUnit = TimeUnit.SECONDS;//单位秒
-        return getOkHttpClient(true, timeout, timeUnit, interceptorArray);
     }
 
     /**
@@ -163,7 +165,6 @@ public class RetrofitUtils {
             try {
                 response = chain.proceed(request);
             } catch (final Exception e) {
-                //httpObserver.onCanceled();
                 LogUtils.w(e);
                 throw e;
             }
