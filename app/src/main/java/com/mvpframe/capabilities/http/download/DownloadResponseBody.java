@@ -12,11 +12,12 @@ import okio.ForwardingSource;
 import okio.Okio;
 import okio.Source;
 
-
 /**
  * 下载ResponseBody
+ * <p>
+ * Data：2019/07/08
  *
- * @author ZhongDaFeng
+ * @author yong
  */
 public class DownloadResponseBody extends ResponseBody {
 

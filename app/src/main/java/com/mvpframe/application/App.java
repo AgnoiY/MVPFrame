@@ -8,6 +8,7 @@ import android.support.multidex.MultiDex;
 
 import com.mvpframe.bridge.BridgeFactory;
 import com.mvpframe.bridge.BridgeLifeCycleSetKeeper;
+import com.mvpframe.capabilities.http.download.DBHelper;
 import com.mvpframe.utils.LogUtils;
 import com.mvpframe.utils.ToastUtils;
 

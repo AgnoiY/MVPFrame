@@ -2,8 +2,10 @@ package com.mvpframe.capabilities.http.download;
 
 /**
  * 下载回调
+ * <p>
+ * Data：2019/07/08
  *
- * @author ZhongDaFeng
+ * @author yong
  */
 public abstract class DownloadCallback<T extends Download> {
 

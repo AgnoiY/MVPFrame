@@ -5,11 +5,12 @@ import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Response;
 
-
 /**
  * 通过Interceptor回调监听Response进度
+ * <p>
+ * Data：2019/07/08
  *
- * @author ZhongDaFeng
+ * @author yong
  */
 public class DownloadInterceptor implements Interceptor {
 

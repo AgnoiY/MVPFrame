@@ -6,6 +6,7 @@ import com.mvpframe.bridge.http.RetrofitHttp;
 import com.mvpframe.bridge.localstorage.LocalFileStorageManager;
 import com.mvpframe.bridge.security.SecurityManager;
 import com.mvpframe.bridge.sharepref.SharedPrefManager;
+import com.mvpframe.capabilities.http.download.DBHelper;
 import com.mvpframe.constant.UrlConstans;
 
 import java.util.HashMap;

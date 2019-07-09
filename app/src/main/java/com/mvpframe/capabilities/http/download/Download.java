@@ -1,42 +1,41 @@
 package com.mvpframe.capabilities.http.download;
 
-import com.litesuits.orm.db.annotation.Column;
-import com.litesuits.orm.db.annotation.Ignore;
-import com.litesuits.orm.db.annotation.PrimaryKey;
-import com.litesuits.orm.db.annotation.Table;
-import com.litesuits.orm.db.enums.AssignType;
 import com.mvpframe.capabilities.http.api.Api;
-import com.r.http.cn.api.Api;
-import com.r.http.cn.load.download.DownloadCallback;
 
 import java.io.Serializable;
-
 
 /**
  * 下载实体类
  * 备注:用户使用下载类需要继承此类
+ * <p>
+ * Data：2019/07/08
  *
- * @author ZhongDaFeng
+ * @author yong
  */
 @Table("download")
 public class Download implements Serializable {
 
-    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    //    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    @PrimaryKey(" primary key autoincrement")
     @Column("_id")
-    private long id;
+    private Integer id;
 
+    @NotNull
     @Column("localUrl")
     private String localUrl;//本地存储地址
 
+    @NotNull
     @Column("serverUrl")
     private String serverUrl;//下载地址
 
+    @NotNull
     @Column("totalSize")
     private long totalSize;//文件大小
 
     @Column("currentSize")
     private long currentSize;//当前大小
 
+    @NotNull
     @Column("state")
     private State state = State.NONE;//下载状态
 
@@ -71,11 +70,11 @@ public class Download implements Serializable {
     }
 
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

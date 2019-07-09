@@ -23,12 +23,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
-
 /**
  * 下载管理类
  * 备注：单例模式 开始下载，暂停下载，暂停全部，移除下载，获取下载列表
+ * <p>
+ * Data：2019/07/08
  *
- * @author ZhongDaFeng
+ * @author yong
  */
 public class RDownLoad {
     /*单例模式*/

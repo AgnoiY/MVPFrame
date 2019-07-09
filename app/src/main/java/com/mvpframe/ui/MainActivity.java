@@ -8,6 +8,8 @@ import com.mvpframe.R;
 import com.mvpframe.bean.account.LoginModel;
 import com.mvpframe.bridge.sharepref.SharedPrefManager;
 import com.mvpframe.bridge.sharepref.SharedPrefUser;
+import com.mvpframe.capabilities.http.download.DBHelper;
+import com.mvpframe.capabilities.http.download.Download;
 import com.mvpframe.databinding.ActivityMainBinding;
 import com.mvpframe.presenter.account.LoginPresenter;
 import com.mvpframe.presenter.base.BasePresenter;
@@ -76,7 +78,9 @@ public class MainActivity extends BaseLoadActivity<Object, ActivityMainBinding>
     public void onClick(View v) {
         super.onClick(v);
         if (v.getId() == R.id.bt) {
-            startActivity(LoginActivity.class, null);
+            DBHelper dbHelper = DBHelper.get();
+            dbHelper.insertOrUpdate(new Download());
+//            startActivity(LoginActivity.class, null);
         }
         if (v.getId() == R.id.text) {
             CommonDialog builder = new CommonDialog<>(mContext);

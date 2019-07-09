@@ -26,7 +26,7 @@ public class LoginPresenter extends BasePresenter<IMvpView> {
 
         getRetrofitHttp().post().apiUrl(UrlConstans.LOGIN)
                 .addParameter(map).build()
-                .request(new BaseModelObserver<LoginModel>(this) {
+                .request(new BaseModelObserver<LoginModel>(this,true) {
                 });
     }
 

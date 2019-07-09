@@ -40,7 +40,14 @@ public class EntityMapUtils {
         return map;
     }
 
-    private static Object getValueByFieldName(String fieldName, Object object) {
+    /**
+     * 获取类的属性名称对应的值
+     *
+     * @param fieldName
+     * @param object
+     * @return
+     */
+    public static Object getValueByFieldName(String fieldName, Object object) {
         String firstLetter = fieldName.substring(0, 1).toUpperCase();
         String getter = "get" + firstLetter + fieldName.substring(1);
         try {

@@ -9,12 +9,13 @@ import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
-
 /**
  * 下载观察者(监听)
  * 备注:在此处监听: 开始下载 、下载错误 、下载完成  等状态
+ * <p>
+ * Data：2019/07/08
  *
- * @author ZhongDaFeng
+ * @author yong
  */
 public class DownloadObserver<T extends Download> implements DownloadProgressCallback, Observer<T> {
 

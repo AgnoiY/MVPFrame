@@ -13,8 +13,10 @@ import okhttp3.ResponseBody;
 
 /**
  * 响应工具类
+ * <p>
+ * Data：2019/07/08
  *
- * @author ZhongDaFeng
+ * @author yong
  */
 public class ResponseUtils {
 
