@@ -1,5 +1,6 @@
 package com.mvpframe.presenter.account;
 
+import com.mvpframe.bean.account.ListModel;
 import com.mvpframe.bean.account.LoginModel;
 import com.mvpframe.bridge.http.BaseModelObserver;
 import com.mvpframe.constant.UrlConstans;
@@ -37,12 +38,13 @@ public class LoginPresenter extends BasePresenter<IMvpView> {
     public void getSmsRecord(boolean isRefresh, int pageNum, int pageSize) {
 
         Map<String, Object> map = new HashMap<>();
-        map.put("pageNo", pageNum);
-        map.put("pageSize", pageSize);
+//        map.put("pageNo", pageNum);
+//        map.put("pageSize", pageSize);
+        map.put("userid", 12);
 
-        getRetrofitHttp().post().apiUrl(UrlConstans.LIST)
+        getRetrofitHttp().post().apiUrl(UrlConstans.LIST1)
                 .addParameter(map).build()
-                .request(new BaseModelObserver<LoginModel>(this, isRefresh) {
+                .request(new BaseModelObserver<ListModel>(this, isRefresh) {
                 });
 
     }
