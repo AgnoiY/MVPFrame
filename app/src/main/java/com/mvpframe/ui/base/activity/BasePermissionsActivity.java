@@ -16,7 +16,9 @@ import android.support.v4.content.ContextCompat;
 import com.mvpframe.R;
 import com.mvpframe.view.dialog.CommonDialog;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static com.mvpframe.constant.Constants.LOG_W;
 
@@ -147,7 +149,7 @@ public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> exte
             return Collections.emptyList().toArray(new String[]{});
         }
 
-        String[] pms = {};
+        List<String> list = new ArrayList<>();
         for (int i = 0; i < pi.requestedPermissions.length; i++) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && (pi.requestedPermissionsFlags[i] & PackageInfo.REQUESTED_PERMISSION_GRANTED) == 0) {
                 try {
@@ -158,9 +160,13 @@ public abstract class BasePermissionsActivity<T, B extends ViewDataBinding> exte
                 } catch (PackageManager.NameNotFoundException e) {
                     log(e, LOG_W);
                 }
-                pms[i] = pi.requestedPermissions[i];
+                list.add(pi.requestedPermissions[i]);
             }
 
+        }
+        String[] pms = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            pms[i] = list.get(i);
         }
         return pms;
     }
