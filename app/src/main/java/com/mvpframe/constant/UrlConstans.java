@@ -27,4 +27,5 @@ public class UrlConstans {
      */
     public static final String LOGIN = "user/loginByUserNamePassword";
     public static final String LIST = "messageCenter/listMessage";
+    public static final String LIST1 = "collect/exclrec";
 }
